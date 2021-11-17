@@ -1,42 +1,40 @@
 <template>
-	<div>
-		<form class="login-form">
-			<h1 class="login-form__title">로그인</h1>
-			<h2 class="login-form__desc">
-				오늘의 부동산 서비스 이용을 위해 로그인해주세요.
-			</h2>
-			<div class="login-form__input">
-				<label for="login-userEmail-input">아이디</label>
-				<input
-					type="text"
-					id="login-userEmail-input"
-					placeholder="이메일 주소 입력"
-				/>
+	<form class="login-form">
+		<h1 class="login-form__title">로그인</h1>
+		<h2 class="login-form__desc">
+			오늘의 부동산 서비스 이용을 위해 로그인해주세요.
+		</h2>
+		<div class="login-form__input">
+			<label for="login-userEmail-input">아이디</label>
+			<input
+				type="text"
+				id="login-userEmail-input"
+				placeholder="이메일 주소 입력"
+			/>
+		</div>
+		<div class="login-form__input">
+			<label for="login-password-input">비밀번호</label>
+			<input
+				type="text"
+				id="login-password-input"
+				placeholder="비밀번호 입력"
+			/>
+		</div>
+		<div class="login-form__btn-group">
+			<div class="btn-group__save-id">
+				<input type="checkbox" id="save-id-check" />
+				<label for="save-id-check">아이디 저장</label>
 			</div>
-			<div class="login-form__input">
-				<label for="login-password-input">비밀번호</label>
-				<input
-					type="text"
-					id="login-password-input"
-					placeholder="비밀번호 입력"
-				/>
+			<div class="btn-group__nav">
+				<RouterLink to="/signup">회원가입</RouterLink>
+				<span class="bar"></span>
+				<RouterLink to="#">아이디 찾기</RouterLink>
+				<span class="bar"></span>
+				<RouterLink to="#">비밀번호 재설정</RouterLink>
 			</div>
-			<div class="login-form__btn-group">
-				<div class="btn-group__save-id">
-					<input type="checkbox" id="save-id-check" />
-					<label for="save-id-check">아이디 저장</label>
-				</div>
-				<div class="btn-group__nav">
-					<RouterLink to="/signup">회원가입</RouterLink>
-					<span class="bar"></span>
-					<RouterLink to="#">아이디 찾기</RouterLink>
-					<span class="bar"></span>
-					<RouterLink to="#">비밀번호 재설정</RouterLink>
-				</div>
-			</div>
-			<button type="submit" class="login-form__submit-btn">로그인</button>
-		</form>
-	</div>
+		</div>
+		<button type="submit" class="login-form__submit-btn">로그인</button>
+	</form>
 </template>
 
 <script>
@@ -46,17 +44,18 @@ export default {};
 <style lang="scss" scoped>
 $light-dark: #3a3a3a;
 $light-grey: #979797;
+$blue: #326cf9;
 
 .login-form {
 	max-width: 590px;
 	margin: 0 auto;
 	padding: 64px;
-	border: 2px solid rgba(245, 245, 245);
+	border: 2px solid #f5f5f5;
 	border-radius: 3px;
 
 	.login-form__title {
 		padding-bottom: 24px;
-		border-bottom: 1.5px solid rgba(245, 245, 245);
+		border-bottom: 1.5px solid #f5f5f5;
 		font-size: 30px;
 		color: $light-dark;
 		line-height: 48px;
@@ -78,7 +77,7 @@ $light-grey: #979797;
 			color: $light-dark;
 		}
 		input {
-			width: 460px;
+			max-width: 460px;
 			height: 44px;
 			padding: 10px 16px;
 			border: 1px solid rgb(237, 237, 237);
@@ -89,6 +88,13 @@ $light-grey: #979797;
 			font-weight: 300;
 			line-height: 24px;
 			transition: all 150ms ease-out 0s;
+
+			&:hover {
+				outline: 1px solid rgba(50, 108, 249, 0.6);
+			}
+			&:focus {
+				outline: 1.5px solid rgba(50, 108, 249, 0.9);
+			}
 		}
 	}
 	.login-form__btn-group {
@@ -117,6 +123,11 @@ $light-grey: #979797;
 			align-items: center;
 			a {
 				color: $light-dark;
+				transition: all 100ms ease-out 0s;
+
+				&:hover {
+					color: #000;
+				}
 			}
 			.bar {
 				margin-left: 8px;
@@ -135,12 +146,17 @@ $light-grey: #979797;
 		height: 56px;
 		border: 1px solid rgb(50, 108, 249);
 		border-radius: 3px;
-		background-color: rgb(50, 108, 249);
+		background-color: rgba(50, 108, 249, 0.9);
 		font-size: 16px;
 		font-weight: 700;
 		color: rgb(255, 255, 255);
 		transition: all 150ms ease-out 0s;
 		cursor: pointer;
+
+		&:hover {
+			border: 1px solid rgb(50, 108, 249);
+			background-color: rgb(50, 108, 249);
+		}
 	}
 }
 </style>

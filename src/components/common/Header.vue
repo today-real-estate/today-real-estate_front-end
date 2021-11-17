@@ -4,7 +4,7 @@
 		<nav class="header__nav">
 			<RouterLink to="/" class="nav__link">지도</RouterLink>
 			<RouterLink to="/" class="nav__link">분양</RouterLink>
-			<RouterLink to="/" class="nav__link">방내놓기</RouterLink>
+			<RouterLink to="/" class="nav__link">분양 등록</RouterLink>
 			<RouterLink to="/" class="nav__link">관심목록</RouterLink>
 			<RouterLink to="/login" class="nav__link link--user">
 				로그인 <span class="nav__bar"></span> 회원가입
@@ -70,7 +70,7 @@ export default {};
 				font-weight: 700;
 				line-height: 24px;
 				color: #f3f3f3;
-				transition: all 0.3s;
+				transition: all 150ms ease-out 0s;
 
 				&:hover {
 					background-color: rgb(255, 255, 255, 0.2);

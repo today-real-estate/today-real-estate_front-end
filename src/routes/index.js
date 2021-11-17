@@ -22,5 +22,9 @@ export default new VueRouter({
 			path: '/service/inquiry',
 			component: () => import('@/views/ServiceInquiryPage.vue'),
 		},
+		{
+			path: '/account/inquiry-list',
+			component: () => import('@/views/AccountInquiryPage.vue'),
+		},
 	],
 });

@@ -4,21 +4,27 @@ import { loginUser } from '@/api/auth';
 import {
 	getAuthFromCookie,
 	getUserFromCookie,
+	getIdFromCookie,
 	saveAuthToCookie,
 	saveUserToCookie,
+	clearCookies,
+	saveIdToCookie,
 } from '@/utils/cookies';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		nickname: getUserFromCookie() || '',
 		token: getAuthFromCookie() || '',
-		id: getAuthFromCookie() || '',
+		id: getIdFromCookie() || '',
+		nickname: getUserFromCookie() || '',
 	},
 	getters: {
 		isLogin(state) {
 			return state.token !== '';
+		},
+		getNickname(state) {
+			return state.nickname;
 		},
 	},
 	mutations: {
@@ -40,6 +46,12 @@ export default new Vuex.Store({
 		CLEAR_NICKNAME(state) {
 			state.nickname = '';
 		},
+		CLEAR_ALL(state) {
+			state.token = '';
+			state.id = '';
+			state.nickname = '';
+			clearCookies();
+		},
 	},
 	actions: {
 		async LOGIN({ commit }, loginUserData) {
@@ -52,6 +64,7 @@ export default new Vuex.Store({
 			commit('SET_NICKNAME', data.nickname);
 
 			saveAuthToCookie(data.token);
+			saveIdToCookie(data.id);
 			saveUserToCookie(data.nickname);
 		},
 	},

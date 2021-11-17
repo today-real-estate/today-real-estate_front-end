@@ -6,7 +6,7 @@
 			<RouterLink to="/" class="nav__link">분양</RouterLink>
 			<RouterLink to="/" class="nav__link">방내놓기</RouterLink>
 			<RouterLink to="/" class="nav__link">관심목록</RouterLink>
-			<RouterLink to="/" class="nav__link link--user">
+			<RouterLink to="/login" class="nav__link link--user">
 				로그인 <span class="nav__bar"></span> 회원가입
 			</RouterLink>
 		</nav>
@@ -30,10 +30,16 @@ export default {};
 	height: 80px;
 	border-bottom: 1px solid transparent;
 	padding: 0 30px;
-	background-color: transparent;
+	// background-color: transparent;
+	background-image: linear-gradient(
+		134deg,
+		rgb(19, 183, 207) -5%,
+		rgb(54, 91, 180) 56%,
+		rgb(54, 91, 180) 56%
+	);
 
 	.header__title {
-		font-size: 32px;
+		font-size: 26px;
 		font-weight: 600;
 		color: #fff;
 	}

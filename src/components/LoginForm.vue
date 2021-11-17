@@ -1,5 +1,5 @@
 <template>
-	<form class="login-form">
+	<form class="login-form" @submit.prevent="submitLoginForm">
 		<h1 class="login-form__title">로그인</h1>
 		<h2 class="login-form__desc">
 			오늘의 부동산 서비스 이용을 위해 로그인해주세요.
@@ -10,6 +10,7 @@
 				type="text"
 				id="login-userEmail-input"
 				placeholder="이메일 주소 입력"
+				v-model="userEmail"
 			/>
 		</div>
 		<div class="login-form__input">
@@ -18,6 +19,7 @@
 				type="text"
 				id="login-password-input"
 				placeholder="비밀번호 입력"
+				v-model="password"
 			/>
 		</div>
 		<div class="login-form__btn-group">
@@ -38,7 +40,35 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {
+			userEmail: '',
+			password: '',
+		};
+	},
+	methods: {
+		async submitLoginForm() {
+			try {
+				const loginUserData = {
+					userEmail: this.userEmail,
+					password: this.password,
+				};
+
+				await this.$store.dispatch('LOGIN', loginUserData);
+				this.$router.push('/');
+			} catch (error) {
+				console.log(error);
+			} finally {
+				this.initForm();
+			}
+		},
+		initForm() {
+			this.userEmail = '';
+			this.password = '';
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>

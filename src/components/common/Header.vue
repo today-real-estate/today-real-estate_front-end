@@ -9,6 +9,7 @@
 			<RouterLink to="/login" class="nav__link link--user">
 				로그인 <span class="nav__bar"></span> 회원가입
 			</RouterLink>
+			<!-- <div></div> -->
 		</nav>
 	</header>
 </template>

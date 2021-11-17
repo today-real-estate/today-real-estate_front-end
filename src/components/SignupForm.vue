@@ -81,11 +81,19 @@ export default {
 				const response = await registerUser(signupUserData);
 
 				console.log('[회원가입 성공]', response);
-
 				this.$router.push('/login');
 			} catch (error) {
 				console.log('[회원가입 실패]', error);
+			} finally {
+				this.initForm();
 			}
+		},
+		initForm() {
+			this.userEmail = '';
+			this.userName = '';
+			this.nickname = '';
+			this.password = '';
+			this.passwordConfirm = '';
 		},
 	},
 };

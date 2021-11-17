@@ -4,4 +4,8 @@ function registerUser(userData) {
 	return instance.post('/users/signup', userData);
 }
 
-export { registerUser };
+function loginUser(userData) {
+	return instance.post('/users/login', userData);
+}
+
+export { registerUser, loginUser };

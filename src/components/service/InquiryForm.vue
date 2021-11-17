@@ -13,9 +13,9 @@
 					<div class="item__title">문의유형</div>
 					<select name="type" id="inquiry-type-select" v-model="inquiryType">
 						<option value="">선택</option>
-						<option value="useage">일반문의</option>
-						<option value="fakeRoom">허위매물 신고</option>
-						<option value="event">이벤트 문의</option>
+						<option value="일반문의">일반문의</option>
+						<option value="허위매물 신고">허위매물 신고</option>
+						<option value="이벤트 문의">이벤트 문의</option>
 					</select>
 				</li>
 				<li class="inquiry-form__item">
@@ -79,21 +79,22 @@ export default {
 		async submitInquiry() {
 			try {
 				const inquiryData = {
-					userEmail: '',
+					userId: this.$store.state.id,
 					inquiryType: this.inquiryType,
 					title: this.title,
 					content: this.content,
-					file: this.file,
 				};
 				const response = await registerInquiry(inquiryData);
-				console.log(response);
 
-				this.resetForm();
+				console.log('[게시물 등록 완료]', response);
+
+				this.initForm();
+				alert('게시물 등록 완료');
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		resetForm() {
+		initForm() {
 			this.inquiryType = '';
 			this.title = '';
 			this.content = '';
@@ -152,7 +153,6 @@ $blue-color: #326cf9;
 					color: rgb(76, 76, 76);
 					appearance: none;
 				}
-
 				.item__title {
 					width: 130px;
 					font-size: 15px;

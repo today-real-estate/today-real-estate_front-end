@@ -1,7 +1,7 @@
-import { instance } from '@/api/index';
+import { instanceWithAuth } from '@/api/index';
 
 function registerInquiry(inquiryData) {
-	return instance.post('/inquiry', inquiryData);
+	return instanceWithAuth.post('/inquiries/create', inquiryData);
 }
 
 export { registerInquiry };

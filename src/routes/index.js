@@ -18,5 +18,9 @@ export default new VueRouter({
 			path: '/signup',
 			component: () => import('@/views/SignupPage.vue'),
 		},
+		{
+			path: '/service/inquiry',
+			component: () => import('@/views/ServiceInquiryPage.vue'),
+		},
 	],
 });

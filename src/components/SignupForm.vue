@@ -17,6 +17,15 @@
 			</div>
 		</div>
 		<div class="signup-form__input">
+			<label for="signup-user-name-input">이름</label>
+			<input
+				type="text"
+				id="signup-user-name-input"
+				placeholder="이름 입력"
+				v-model="userName"
+			/>
+		</div>
+		<div class="signup-form__input">
 			<label for="signup-nickname-input">닉네임</label>
 			<div class="signup-form__input__main">
 				<input
@@ -54,6 +63,7 @@ export default {
 	data() {
 		return {
 			userEmail: '',
+			userName: '',
 			nickname: '',
 			password: '',
 			passwordConfirm: '',
@@ -64,16 +74,26 @@ export default {
 			try {
 				const signupUserData = {
 					userEmail: this.userEmail,
-					password: this.password,
+					userName: this.userName,
 					nickname: this.nickname,
+					password: this.password,
 				};
-				const { data } = await registerUser(signupUserData);
+				const response = await registerUser(signupUserData);
 
-				console.log('로그인 성공');
-				console.log(data);
+				console.log('[회원가입 성공]', response);
+				this.$router.push('/login');
 			} catch (error) {
-				console.log(error);
+				console.log('[회원가입 실패]', error);
+			} finally {
+				this.initForm();
 			}
+		},
+		initForm() {
+			this.userEmail = '';
+			this.userName = '';
+			this.nickname = '';
+			this.password = '';
+			this.passwordConfirm = '';
 		},
 	},
 };

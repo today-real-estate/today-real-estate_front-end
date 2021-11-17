@@ -6,15 +6,62 @@
 			<RouterLink to="/" class="nav__link">분양</RouterLink>
 			<RouterLink to="/" class="nav__link">분양 등록</RouterLink>
 			<RouterLink to="/" class="nav__link">관심목록</RouterLink>
-			<RouterLink to="/login" class="nav__link link--user">
-				로그인 <span class="nav__bar"></span> 회원가입
-			</RouterLink>
+			<template v-if="!isLogin">
+				<RouterLink to="/login" class="nav__link link--user">
+					로그인 <span class="nav__bar"></span> 회원가입
+				</RouterLink>
+			</template>
+			<template v-else>
+				<div class="header__user">
+					<a-dropdown-button style="font-size: 16px">
+						{{ getNickname }}
+						<a-menu slot="overlay">
+							<a-menu-item key="1">
+								<RouterLink to="/account/inquiry-lise" style="font-size: 16px">
+									내 정보
+								</RouterLink>
+							</a-menu-item>
+							<a-menu-item key="2">
+								<RouterLink to="/account/inquiry-lise" style="font-size: 16px">
+									1:1 문의 내역
+								</RouterLink>
+							</a-menu-item>
+							<a-menu-item key="3">
+								<button
+									@click="logout"
+									style="
+										border: none;
+										background-color: transparent;
+										font-size: 16px;
+										cursor: pointer;
+									"
+								>
+									로그아웃
+								</button>
+							</a-menu-item>
+						</a-menu>
+						<a-icon slot="icon" type="user" />
+					</a-dropdown-button>
+				</div>
+			</template>
 		</nav>
 	</header>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+
+export default {
+	computed: {
+		...mapGetters(['getNickname', 'isLogin']),
+	},
+	methods: {
+		logout() {
+			this.$router.go();
+			this.$store.commit('CLEAR_ALL');
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
@@ -87,6 +134,16 @@ export default {};
 					background-color: rgb(223, 223, 223);
 				}
 			}
+		}
+	}
+	.header__user {
+		display: flex;
+		margin-left: 40px;
+
+		.header__user__name {
+			color: #fff;
+			font-size: 16px;
+			margin-right: 10px;
 		}
 	}
 }

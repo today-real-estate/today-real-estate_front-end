@@ -89,6 +89,8 @@ export default {
 				console.log('[게시물 등록 완료]', response);
 
 				this.initForm();
+				this.$router.push('/account/inquiry-list');
+
 				alert('게시물 등록 완료');
 			} catch (error) {
 				console.log(error);

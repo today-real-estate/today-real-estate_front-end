@@ -26,14 +26,15 @@ export default {
 	methods: {
 		async getInquiries() {
 			try {
-				const page = 1;
-				const userId = this.$store.state.id;
-				console.log(page, userId);
-				const response = await getInquiryList(page, userId);
+				const userId = this.$store.getters['userStore/getId'];
+				const params = {
+					userId: userId,
+				};
+				const response = await getInquiryList(params);
+
+				console.log('[1대1 문의 리스트 조회]', response);
 
 				this.inquiryList = response.data;
-				console.log('[1대1 문의 리스트 조회]');
-				console.log(response);
 			} catch (error) {
 				console.log(error);
 			}

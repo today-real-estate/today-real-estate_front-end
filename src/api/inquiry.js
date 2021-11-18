@@ -4,8 +4,8 @@ function registerInquiry(inquiryData) {
 	return instanceWithAuth.post('/inquiries/create', inquiryData);
 }
 
-function getInquiryList(userId) {
-	return instanceWithAuth.get(`/inquiries`, userId);
+function getInquiryList(params) {
+	return instanceWithAuth.get('/inquiries', { params: params });
 }
 
 function getInquiryItemDetail(inquiryId) {
@@ -13,7 +13,7 @@ function getInquiryItemDetail(inquiryId) {
 }
 
 function deleteInquiry(inquiryId) {
-	return instanceWithAuth.delete(`/inquiries/delete`, inquiryId);
+	return instanceWithAuth.delete('/inquiries/delete', inquiryId);
 }
 
 export { registerInquiry, getInquiryList, getInquiryItemDetail, deleteInquiry };

@@ -5,7 +5,6 @@ import {
 	getIdFromCookie,
 	saveAuthToCookie,
 	saveUserToCookie,
-	clearCookies,
 	saveIdToCookie,
 } from '@/utils/cookies';
 
@@ -47,8 +46,6 @@ const userStore = {
 			state.token = '';
 			state.id = '';
 			state.nickname = '';
-
-			clearCookies();
 		},
 	},
 	actions: {
@@ -62,6 +59,9 @@ const userStore = {
 			saveAuthToCookie(data.token);
 			saveIdToCookie(data.id);
 			saveUserToCookie(data.nickname);
+		},
+		LOGOUT({ commit }) {
+			commit('CLEAR_ALL');
 		},
 	},
 };

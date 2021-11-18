@@ -6,6 +6,7 @@
 			<RouterLink to="/" class="nav__link">분양</RouterLink>
 			<RouterLink to="/" class="nav__link">분양 등록</RouterLink>
 			<RouterLink to="/" class="nav__link">관심목록</RouterLink>
+			<RouterLink to="/service/inquiry" class="nav__link">1:1 문의</RouterLink>
 			<template v-if="!isLogin">
 				<RouterLink to="/login" class="nav__link link--user">
 					로그인 <span class="nav__bar"></span> 회원가입
@@ -22,7 +23,10 @@
 								</RouterLink>
 							</a-menu-item>
 							<a-menu-item key="2">
-								<RouterLink to="/account/inquiry-lise" style="font-size: 16px">
+								<RouterLink
+									to="/account/inquiry-list?page=1"
+									style="font-size: 16px"
+								>
 									1:1 문의 내역
 								</RouterLink>
 							</a-menu-item>
@@ -53,12 +57,18 @@ import { mapGetters } from 'vuex';
 
 export default {
 	computed: {
-		...mapGetters(['getNickname', 'isLogin']),
+		...mapGetters('userStore', ['getNickname', 'isLogin']),
 	},
 	methods: {
 		logout() {
-			this.$router.go();
-			this.$store.commit('CLEAR_ALL');
+			this.$store.commit('userStore/CLEAR_ALL');
+			console.log(this.$router);
+
+			if (this.$router.history.current.fullPath === '/') {
+				this.$router.go();
+			} else {
+				this.$router.push('/');
+			}
 		},
 	},
 };

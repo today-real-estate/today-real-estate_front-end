@@ -8,28 +8,35 @@ export default new VueRouter({
 	routes: [
 		{
 			path: '/',
-			name: 'Main',
 			component: () => import('@/views/MainPage.vue'),
 		},
 		{
 			path: '/login',
-			name: 'Login',
 			component: () => import('@/views/LoginPage.vue'),
 		},
 		{
 			path: '/signup',
-			name: 'Signup',
 			component: () => import('@/views/SignupPage.vue'),
 		},
 		{
 			path: '/service/inquiry',
-			name: 'ServiceInquiry',
+			component: () => import('@/views/service/ServiceInquiryPage.vue'),
+		},
+		{
+			path: '/service/inquiry/:id',
 			component: () => import('@/views/service/ServiceInquiryPage.vue'),
 		},
 		{
 			path: '/account/inquiry-list',
-			name: 'AccountInquiryList',
 			component: () => import('@/views/account/AccountInquiryPage.vue'),
+		},
+		{
+			path: '/account/inquiry-list/detail/:id',
+			component: () => import('@/views/account/AccountInquiryDetailPage.vue'),
+		},
+		{
+			path: '/account/edit',
+			component: () => import('@/views/account/AccountEditPage.vue'),
 		},
 	],
 });

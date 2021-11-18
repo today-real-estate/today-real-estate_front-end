@@ -18,15 +18,12 @@
 						{{ getNickname }}
 						<AMenu slot="overlay">
 							<AMenu-item key="1">
-								<RouterLink to="/account/inquiry-lise" style="font-size: 16px">
+								<RouterLink to="/account/edit" style="font-size: 16px">
 									내 정보
 								</RouterLink>
 							</AMenu-item>
 							<AMenu-item key="2">
-								<RouterLink
-									to="/account/inquiry-list?page=1"
-									style="font-size: 16px"
-								>
+								<RouterLink to="/account/inquiry-list" style="font-size: 16px">
 									1:1 문의 내역
 								</RouterLink>
 							</AMenu-item>

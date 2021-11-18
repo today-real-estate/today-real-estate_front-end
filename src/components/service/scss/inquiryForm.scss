@@ -120,15 +120,45 @@ $blue-color: #326cf9;
 				font-weight: 400;
 				width: 216px;
 				height: 52px;
-				line-height: 52px;
 				border: 0px;
-				border-radius: 2px;
+				border-radius: 3px;
 				background-color: rgba(50, 108, 249, 0.9);
+				line-height: 52px;
 				transition: all 150ms ease-out 0s;
 				cursor: pointer;
 
 				&:hover {
 					background-color: rgb(50, 108, 249);
+				}
+			}
+
+			.inquiry-form__cancel-btn,
+			.inquiry-form__edit-btn {
+				color: rgb(255, 255, 255);
+				font-size: 15px;
+				font-weight: 400;
+				width: 160px;
+				height: 52px;
+				margin: 0 10px;
+				border: 0px;
+				border-radius: 3px;
+				line-height: 52px;
+				transition: all 150ms ease-out 0s;
+				cursor: pointer;
+			}
+
+			.inquiry-form__cancel-btn {
+				background-color: rgba(120, 120, 120, 0.9);
+
+				&:hover {
+					background-color: rgb(120, 120, 120);
+				}
+			}
+			.inquiry-form__edit-btn {
+				background-color: rgba(255, 162, 25, 0.9);
+
+				&:hover {
+					background-color: rgb(255, 162, 25);
 				}
 			}
 		}

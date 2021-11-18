@@ -1,6 +1,6 @@
 <template>
 	<div class="inquiry-container">
-		<form class="inquiry-form" @submit.prevent="submitInquiry">
+		<div class="inquiry-form">
 			<div class="inquiry-form__desc">
 				<p>오늘의 부동산에 궁금하신 점을 문의해주세요.</p>
 				<p>
@@ -11,7 +11,11 @@
 			<ul class="inquiry-form__list">
 				<li class="inquiry-form__item">
 					<div class="item__title">문의유형</div>
-					<select name="type" id="inquiry-type-select" v-model="inquiryType">
+					<select
+						name="type"
+						id="inquiry-type-select"
+						v-model="inquiry.inquiryType"
+					>
 						<option value="">선택</option>
 						<option value="일반문의">일반문의</option>
 						<option value="허위매물 신고">허위매물 신고</option>
@@ -20,7 +24,7 @@
 				</li>
 				<li class="inquiry-form__item">
 					<div class="item__title">제목</div>
-					<input type="text" class="item__input" v-model="title" />
+					<input type="text" class="item__input" v-model="inquiry.title" />
 				</li>
 				<li class="inquiry-form__item">
 					<div class="item__title">문의내용</div>
@@ -29,7 +33,7 @@
 						type="content"
 						class="item__textarea"
 						placeholder="내용을 입력하세요."
-						v-model="content"
+						v-model="inquiry.content"
 					></textarea>
 				</li>
 				<li class="inquiry-form__item">
@@ -40,7 +44,7 @@
 							<input
 								type="file"
 								accept="image/png, image/jpeg, image/jpg"
-								id="inquriy__file"
+								id="inquiry__file"
 								style="display: none"
 							/>
 						</div>
@@ -51,10 +55,36 @@
 					</div>
 				</li>
 			</ul>
-			<div class="inquiry-form__footer">
-				<button type="submit" class="inquiry-form__submit-btn">문의하기</button>
-			</div>
-		</form>
+			<template v-if="!onEdit">
+				<div class="inquiry-form__footer">
+					<button
+						type="submit"
+						class="inquiry-form__submit-btn"
+						@click.prevent="submitInquiry"
+					>
+						문의하기
+					</button>
+				</div>
+			</template>
+			<template v-else>
+				<div class="inquiry-form__footer">
+					<button
+						type="submit"
+						class="inquiry-form__cancel-btn"
+						@click="cancelEdit"
+					>
+						취소
+					</button>
+					<button
+						type="submit"
+						class="inquiry-form__edit-btn"
+						@click="updateInquiryItem"
+					>
+						수정하기
+					</button>
+				</div>
+			</template>
+		</div>
 
 		<div class="contact-info">
 			<p>고객센터 : <strong>02-1234-5678</strong></p>
@@ -64,41 +94,92 @@
 </template>
 
 <script>
-import { registerInquiry } from '@/api/inquiry';
+import {
+	registerInquiry,
+	getInquiryItemDetail,
+	updateInquiry,
+} from '@/api/inquiry';
 
 export default {
 	data() {
 		return {
-			inquiryType: '',
-			title: '',
-			content: '',
-			file: '',
+			inquiry: {
+				inquiryType: '',
+				title: '',
+				content: '',
+				file: '',
+			},
+			onEdit: false,
+			editInquiryId: '',
 		};
+	},
+	created() {
+		if (!isNaN(this.$route.params.id)) {
+			this.initEditForm();
+			this.onEdit = true;
+		}
 	},
 	methods: {
 		async submitInquiry() {
 			try {
 				const inquiryData = {
 					userId: this.$store.getters['userStore/getId'],
-					inquiryType: this.inquiryType,
-					title: this.title,
-					content: this.content,
+					inquiryType: this.inquiry.inquiryType,
+					title: this.inquiry.title,
+					content: this.inquiry.content,
 				};
 				const response = await registerInquiry(inquiryData);
 
 				console.log('[게시물 등록 완료]', response);
 
 				this.initForm();
-				alert('게시물 등록 완료');
+				this.$router.push('/account/inquiry-list');
+
+				alert('1대1 문의 등록 완료');
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async initEditForm() {
+			try {
+				this.editInquiryId = this.$route.params.id;
+				const { data } = await getInquiryItemDetail(this.editInquiryId);
+
+				this.inquiry = data;
 			} catch (error) {
 				console.log(error);
 			}
 		},
 		initForm() {
-			this.inquiryType = '';
-			this.title = '';
-			this.content = '';
-			this.file = '';
+			this.inquiry.inquiryType = '';
+			this.inquiry.title = '';
+			this.inquiry.content = '';
+			this.inquiry.file = '';
+		},
+		cancelEdit() {
+			this.$router.push('/account/inquiry-list');
+		},
+		async updateInquiryItem() {
+			try {
+				console.log('click');
+				const updatedInquiryData = {
+					id: this.editInquiryId,
+					userId: this.$store.getters['userStore/getId'],
+					inquiryType: this.inquiry.inquiryType,
+					title: this.inquiry.title,
+					content: this.inquiry.content,
+					file: this.inquiry.file,
+				};
+				const response = await updateInquiry(updatedInquiryData);
+				console.log(response);
+
+				this.initForm();
+				this.$router.push('/account/inquiry-list');
+
+				alert('1대1 문의 수정 완료');
+			} catch (error) {
+				console.log(error);
+			}
 		},
 	},
 };

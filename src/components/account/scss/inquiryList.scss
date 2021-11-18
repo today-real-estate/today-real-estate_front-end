@@ -55,7 +55,7 @@
 			height: 60px;
 			border-top: 1px solid rgb(34, 34, 34);
 			border-bottom: 1px solid rgb(204, 204, 204);
-			font-size: 18px;
+			font-size: 15px;
 
 			.header__type {
 				width: 150px;
@@ -80,7 +80,9 @@
 			width: 100%;
 			height: 60px;
 			border-bottom: 1px solid rgb(238, 238, 238);
-			font-size: 18px;
+			font-size: 15px;
+			font-weight: 300;
+			color: #656565;
 			cursor: pointer;
 
 			.item__type {
@@ -99,11 +101,7 @@
 				width: 200px;
 				margin-left: 72px;
 			}
-		}
-		.inquiry-list__item-detail {
-			padding: 40px 50px;
-			border-bottom: 1px solid rgb(238, 238, 238);
-			background-color: rgb(250, 250, 250);
+
 		}
 	}
 }

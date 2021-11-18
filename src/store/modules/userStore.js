@@ -19,6 +19,12 @@ const userStore = {
 		isLogin(state) {
 			return state.token !== '';
 		},
+		getToken(state) {
+			return state.token;
+		},
+		getId(state) {
+			return state.id;
+		},
 		getNickname(state) {
 			return state.nickname;
 		},

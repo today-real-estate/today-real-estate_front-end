@@ -3,7 +3,8 @@ import store from '@/store/index';
 export function setInterseptors(instance) {
 	instance.interceptors.request.use(
 		function (config) {
-			config.headers.Authorization = `Bearer ${store.state.token}`;
+			const token = store.getters['userStore/getToken'];
+			config.headers.Authorization = `Bearer ${token}`;
 			return config;
 		},
 		function (error) {

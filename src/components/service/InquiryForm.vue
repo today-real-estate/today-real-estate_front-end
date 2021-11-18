@@ -79,7 +79,7 @@ export default {
 		async submitInquiry() {
 			try {
 				const inquiryData = {
-					userId: this.$store.state.id,
+					userId: this.$store.getters['userStore/getId'],
 					inquiryType: this.inquiryType,
 					title: this.title,
 					content: this.content,

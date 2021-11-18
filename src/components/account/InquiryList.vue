@@ -1,14 +1,26 @@
 <template>
 	<div class="inquiry-list">
-		<ul class="inquiry-list__inner">
-			<li class="inquiry-list__header">
+		<div class="inquiry-list__info">
+			<ul class="info__desc">
+				<li>최근 6개월 이내의 문의 내역을 확인하실 수 있습니다.</li>
+				<li>
+					문의하신 내용에 대한 수정 및 삭제는 답변 등록 이전에 가능합니다.
+				</li>
+				<li>
+					고객센터 답변 가능 시간 : 평일 10:00~18:30 (토, 일요일, 공휴일 휴무)
+				</li>
+			</ul>
+			<RouterLink to="/service/inquiry">1:1 문의하기</RouterLink>
+		</div>
+		<ul class="inquiry-list__table">
+			<li class="table-header">
 				<div class="header__type">문의유형</div>
 				<div class="header__title">제목</div>
 				<div class="header__date">등록일</div>
 				<div class="header__answer">답변상태</div>
 			</li>
 			<li
-				class="inquiry-list__item"
+				class="table__item"
 				v-for="inquiry in inquiries"
 				:key="inquiry.id"
 				@click="showDetail(inquiry.id, inquiry.content)"

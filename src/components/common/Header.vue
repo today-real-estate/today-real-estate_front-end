@@ -18,7 +18,7 @@
 						{{ getNickname }}
 						<AMenu slot="overlay">
 							<AMenu-item key="1">
-								<RouterLink to="/account/inquiry-lise" style="font-size: 16px">
+								<RouterLink to="/account/edit" style="font-size: 16px">
 									내 정보
 								</RouterLink>
 							</AMenu-item>

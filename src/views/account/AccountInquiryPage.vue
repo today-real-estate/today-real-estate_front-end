@@ -44,7 +44,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.account-container {
-	margin-top: 180px;
-}
+@import './scss/account.scss';
 </style>

@@ -12,8 +12,18 @@ function getInquiryItemDetail(inquiryId) {
 	return instanceWithAuth.get(`/inquiries/detail/${inquiryId}`);
 }
 
-function deleteInquiry(inquiryId) {
-	return instanceWithAuth.delete('/inquiries/delete', inquiryId);
+function updateInquiry(updatedInquiryData) {
+	return instanceWithAuth.put('/inquiries/update', updatedInquiryData);
 }
 
-export { registerInquiry, getInquiryList, getInquiryItemDetail, deleteInquiry };
+function deleteInquiry(inquiryId) {
+	return instanceWithAuth.delete(`/inquiries/delete/${inquiryId}`);
+}
+
+export {
+	registerInquiry,
+	getInquiryList,
+	getInquiryItemDetail,
+	updateInquiry,
+	deleteInquiry,
+};

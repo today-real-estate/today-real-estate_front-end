@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import TermsForm from '@/components/TermsForm.vue';
-import SignupForm from '@/components/SignupForm.vue';
+import TermsForm from '@/components/user/TermsForm.vue';
+import SignupForm from '@/components/user/SignupForm.vue';
 
 export default {
 	components: {

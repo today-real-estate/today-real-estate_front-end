@@ -73,5 +73,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './css/header.scss';
+@import './scss/header.scss';
 </style>

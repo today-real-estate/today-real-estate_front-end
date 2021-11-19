@@ -6,20 +6,65 @@
 			</div>
 			<div class="edit-form__input">
 				<label for="edit-form__email-input">아이디</label>
-				<input type="text" id="edit-form__email-input" placeholder="이메일" />
+				<AInput
+					type="text"
+					id="edit-form__email-input"
+					disabled
+					v-model="user.userEmail"
+				/>
 			</div>
 			<div class="edit-form__input">
-				<label for="edit-form__email-input">이름</label>
+				<label for="edit-form__name-input">이름</label>
 				<div class="edit-form__input__main">
-					<input type="text" id="edit-form__email-input" placeholder="이름" />
-					<button class="user-email-auth-btn">수정</button>
+					<AInput
+						type="text"
+						id="edit-form__name-input"
+						v-model="user.userName"
+						:disabled="!userNameEditStatus"
+					/>
+					<button
+						class="edit-form__edit-btn"
+						v-if="!userNameEditStatus"
+						key="userNameEditStatus"
+						@click="onUserNameEditStatus"
+					>
+						수정
+					</button>
+					<button
+						class="edit-form__confirm-btn"
+						v-else
+						key="userNameEditStatus"
+						@click="confirmNewUserName"
+					>
+						확인
+					</button>
 				</div>
 			</div>
 			<div class="edit-form__input">
-				<label for="edit-form__email-input">닉네임</label>
+				<label for="edit-form__nickname-input">닉네임</label>
 				<div class="edit-form__input__main">
-					<input type="text" id="edit-form__email-input" placeholder="닉네임" />
-					<button class="user-email-auth-btn">수정</button>
+					<AInput
+						type="text"
+						id="edit-form__nickname-input"
+						v-model="user.nickname"
+						:disabled="!nicknameEditStatus"
+					/>
+					<button
+						class="edit-form__edit-btn"
+						v-if="!nicknameEditStatus"
+						key="nicknameEditStatus"
+						@click="onNickNameEditStatus"
+					>
+						수정
+					</button>
+					<button
+						class="edit-form__confirm-btn"
+						v-else
+						key="nicknameEditStatus"
+						@click="confirmNewNickname"
+					>
+						확인
+					</button>
 				</div>
 			</div>
 		</div>
@@ -27,89 +72,105 @@
 </template>
 
 <script>
-export default {};
+import {
+	fetchUserData,
+	updateUserName,
+	updateNickname,
+} from '@/api/account/accountEdit';
+import Swal from 'sweetalert2';
+
+export default {
+	data() {
+		return {
+			user: {
+				userEmail: '',
+				userName: '',
+				nickname: '',
+				profileImage: '',
+			},
+			beforeUserData: {
+				userName: '',
+				nickname: '',
+			},
+			userNameEditStatus: false,
+			nicknameEditStatus: false,
+		};
+	},
+	created() {
+		this.getUserData();
+	},
+	methods: {
+		async getUserData() {
+			try {
+				const { data } = await fetchUserData(
+					this.$store.getters['userStore/getId'],
+				);
+
+				this.user.userEmail = data.userEmail;
+				this.user.userName = data.userName;
+				this.user.nickname = data.nickname;
+				this.user.profileImage = data.profileImage;
+				this.beforeUserData.userName = data.userName;
+				this.beforeUserData.nickname = data.nickname;
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async confirmNewUserName() {
+			if (this.user.userName !== this.beforeUserData.userName) {
+				const userData = {
+					userId: this.$store.getters['userStore/getId'],
+					userName: this.user.userName,
+				};
+
+				await updateUserName(userData);
+				this.beforeUserData.userName = userData.userName;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">수정이 완료되었습니다.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			}
+
+			this.userNameEditStatus = false;
+		},
+		async confirmNewNickname() {
+			if (this.user.nickname !== this.beforeUserData.nickname) {
+				const userData = {
+					userId: this.$store.getters['userStore/getId'],
+					nickname: this.user.nickname,
+				};
+
+				await updateNickname(userData);
+				this.beforeUserData.nickname = userData.nickname;
+				this.$store.commit('userStore/SET_NICKNAME', userData.nickname);
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">수정이 완료되었습니다.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			}
+
+			this.nicknameEditStatus = false;
+		},
+		onUserNameEditStatus() {
+			this.userNameEditStatus = true;
+		},
+		onNickNameEditStatus() {
+			this.nicknameEditStatus = true;
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
-$light-dark: #3a3a3a;
-$light-grey: #979797;
-$blue: #326cf9;
-
-.edit-form {
-	display: flex;
-	flex-direction: column;
-	max-width: 608px;
-	margin: 80px auto 0;
-	padding: 64px;
-	border: 2px solid #f5f5f5;
-
-	.edit-form__item {
-		display: flex;
-		flex-direction: column;
-
-		&.item--profile-image {
-			margin: 0 auto 64px;
-		}
-	}
-
-	.edit-form__input {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 24px;
-
-		label {
-			margin-bottom: 8px;
-			font-size: 16px;
-			color: $light-dark;
-		}
-		input {
-			max-width: 460px;
-			height: 44px;
-			padding: 10px 16px;
-			border: 1px solid rgb(237, 237, 237);
-			border-radius: 3px;
-			background-color: rgb(255, 255, 255);
-			color: rgb(34, 34, 34);
-			font-size: 16px;
-			font-weight: 300;
-			line-height: 24px;
-			transition: all 150ms ease-out 0s;
-
-			&:hover {
-				outline: 1px solid rgba(50, 108, 249, 0.6);
-			}
-			&:focus {
-				outline: 1.5px solid rgba(50, 108, 249, 0.9);
-			}
-		}
-
-		.edit-form__input__main {
-			display: flex;
-			justify-content: space-between;
-
-			#edit-form__email-input {
-				width: 100%;
-			}
-
-			.user-email-auth-btn,
-			.duplication-check-btn {
-				background-color: #f3f3f3;
-				border: 1.5px solid #ededed;
-				border-radius: 3px;
-				color: $light-dark;
-				cursor: pointer;
-			}
-			.user-email-auth-btn {
-				width: 65px;
-			}
-			.duplication-check-btn {
-				width: 100px;
-			}
-		}
-
-		#signup-password-input {
-			margin-bottom: 10px;
-		}
-	}
-}
+@import './scss/accountEditForm.scss';
 </style>

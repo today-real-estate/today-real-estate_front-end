@@ -81,7 +81,6 @@ export default {
 				const Swal = require('sweetalert2');
 
 				await registerUser(signupUserData);
-				this.$router.push('/login');
 				Swal.fire({
 					position: 'center',
 					icon: 'success',
@@ -90,6 +89,7 @@ export default {
 					showConfirmButton: false,
 					timer: 1500,
 				});
+				this.$router.push('/login');
 			} catch (error) {
 				console.log('[회원가입 실패]', error);
 			} finally {

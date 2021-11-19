@@ -24,7 +24,7 @@
 		</div>
 		<div class="login-form__btn-group">
 			<div class="btn-group__save-id">
-				<input type="checkbox" id="save-id-check" />
+				<input type="checkbox" id="save-id-check" v-model="saveIdStatus" />
 				<label for="save-id-check">아이디 저장</label>
 			</div>
 			<div class="btn-group__nav">
@@ -41,12 +41,18 @@
 
 <script>
 const Swal = require('sweetalert2');
+import {
+	saveUserEmailToCookie,
+	getUserEmailFromCookie,
+	deleteCookie,
+} from '@/utils/cookies';
 
 export default {
 	data() {
 		return {
-			userEmail: '',
+			userEmail: getUserEmailFromCookie() || '',
 			password: '',
+			saveIdStatus: getUserEmailFromCookie() && true,
 		};
 	},
 	methods: {
@@ -57,16 +63,21 @@ export default {
 					password: this.password,
 				};
 
+				this.saveIdStatus
+					? saveUserEmailToCookie(this.userEmail)
+					: deleteCookie('userEmail');
 				await this.$store.dispatch('userStore/LOGIN', loginUserData);
-				this.$router.push('/');
+
 				Swal.fire({
 					position: 'center',
 					icon: 'success',
 					width: 350,
 					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">로그인 되었습니다.<div>`,
 					showConfirmButton: false,
-					timer: 2000,
+					timer: 1500,
 				});
+
+				this.$router.push('/');
 			} catch (error) {
 				console.log(error);
 			} finally {

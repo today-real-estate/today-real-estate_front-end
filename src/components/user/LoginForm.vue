@@ -40,6 +40,8 @@
 </template>
 
 <script>
+const Swal = require('sweetalert2');
+
 export default {
 	data() {
 		return {
@@ -57,6 +59,14 @@ export default {
 
 				await this.$store.dispatch('userStore/LOGIN', loginUserData);
 				this.$router.push('/');
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">로그인 되었습니다.<div>`,
+					showConfirmButton: false,
+					timer: 2000,
+				});
 			} catch (error) {
 				console.log(error);
 			} finally {

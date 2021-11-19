@@ -72,7 +72,7 @@ export default {
 					position: 'center',
 					icon: 'success',
 					width: 350,
-					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">로그인 되었습니다.<div>`,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">로그인 완료<div>`,
 					showConfirmButton: false,
 					timer: 1500,
 				});

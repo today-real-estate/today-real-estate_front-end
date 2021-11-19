@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style>
-@import './css/reset.css';
-@import './css/common.css';
+@import './scss/reset.scss';
+@import './scss/common.scss';
+@import './scss/antDesign.scss';
 </style>

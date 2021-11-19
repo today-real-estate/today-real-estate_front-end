@@ -33,7 +33,7 @@
 					<AIcon type="edit" /> 수정
 				</RouterLink>
 				<span class="bar"></span>
-				<button class="table-footer__delete-btn" @click="clickDeleteBtn">
+				<button class="table-footer__delete-btn" @click="showConfirm">
 					<AIcon type="delete" /> 삭제
 				</button>
 			</li>
@@ -43,6 +43,13 @@
 				목록
 			</RouterLink>
 		</div>
+		<a-alert
+			v-if="errorMsg"
+			message="서버 에러"
+			:description="errorMsg"
+			type="error"
+			show-icon
+		/>
 	</div>
 </template>
 
@@ -53,31 +60,47 @@ export default {
 	data() {
 		return {
 			inquiry: {},
+			errorMsg: '',
 		};
 	},
 	created() {
 		this.getInquiryDetail();
 	},
 	methods: {
+		showConfirm() {
+			const inquiryDetailTable = this;
+
+			this.$confirm({
+				title: () => (
+					<h1 style="font-size: 18px; font-weight: 200; font-family: 'Spoqa Han Sans Neo', 'sans-serif'; color: #000;">
+						정말 삭제하시겠습니까?
+					</h1>
+				),
+				okText: '확인',
+				cancelText: '취소',
+				onOk() {
+					inquiryDetailTable.deleteItem();
+				},
+				onCancel() {},
+				class: 'test',
+			});
+		},
 		async getInquiryDetail() {
 			try {
 				const inquiryId = this.$route.params.id;
 				const { data } = await getInquiryItemDetail(inquiryId);
 
 				this.inquiry = data;
-				console.log('[1대1 문의 상세 정보 조회]');
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		async clickDeleteBtn() {
+		async deleteItem() {
 			try {
-				if (confirm('삭제하시겠습니까?')) {
-					await deleteInquiry(this.inquiry.id);
-					this.$router.push('/account/inquiry-list');
-				}
+				await deleteInquiry(this.inquiry.id);
+				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				console.log(error);
+				this.errorMsg = error.meesage;
 			}
 		},
 	},

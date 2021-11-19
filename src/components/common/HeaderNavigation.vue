@@ -17,7 +17,11 @@
 					<AMenu slot="overlay" style="padding: 0; border-radius: 3px">
 						<AMenu-item
 							key="1"
-							style="padding: 16px 25px; border-radius: 3px 3px 0 0"
+							style="
+								padding: 16px 25px;
+								border-bottom: 1px solid #e9e9e9;
+								border-radius: 3px 3px 0 0;
+							"
 						>
 							<RouterLink
 								to="/account/edit"
@@ -30,7 +34,10 @@
 								내 정보
 							</RouterLink>
 						</AMenu-item>
-						<AMenu-item key="2" style="padding: 16px 25px">
+						<AMenu-item
+							key="2"
+							style="padding: 16px 25px; border-bottom: 1px solid #e9e9e9"
+						>
 							<RouterLink
 								to="/account/inquiry-list"
 								style="
@@ -44,7 +51,11 @@
 						</AMenu-item>
 						<AMenu-item
 							key="3"
-							style="padding: 16px 10px; border-radius: 0 0 3px 3px"
+							style="
+								padding: 16px 10px;
+								border: none;
+								border-radius: 0 0 3px 3px;
+							"
 						>
 							<AButton
 								@click="showConfirm"

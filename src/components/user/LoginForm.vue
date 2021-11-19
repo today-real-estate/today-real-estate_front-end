@@ -16,7 +16,7 @@
 		<div class="login-form__input">
 			<label for="login-password-input">비밀번호</label>
 			<input
-				type="text"
+				type="password"
 				id="login-password-input"
 				placeholder="비밀번호 입력"
 				v-model="password"

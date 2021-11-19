@@ -27,7 +27,11 @@
 					</RouterLink>
 				</div>
 				<div class="item__date">
-					{{ new Date(inquiry.createdDate).toLocaleDateString() }}
+					{{
+						inquiry.createdDate
+							? new Date(inquiry.createdDate).toLocaleDateString()
+							: new Date(inquiry.modifiedDate).toLocaleDateString()
+					}}
 				</div>
 				<div class="item__answer">
 					{{ inquiry.complete ? '답변완료' : '답변예정' }}

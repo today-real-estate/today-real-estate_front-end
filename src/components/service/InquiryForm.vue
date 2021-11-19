@@ -85,7 +85,6 @@
 				</div>
 			</template>
 		</div>
-
 		<div class="contact-info">
 			<p>고객센터 : <strong>02-1234-5678</strong></p>
 			<p>평일 10:00 ~ 18:30 (토, 일요일, 공휴일 휴무)</p>
@@ -99,6 +98,7 @@ import {
 	getInquiryItemDetail,
 	updateInquiry,
 } from '@/api/inquiry';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -128,14 +128,20 @@ export default {
 					title: this.inquiry.title,
 					content: this.inquiry.content,
 				};
-				const response = await registerInquiry(inquiryData);
 
-				console.log('[게시물 등록 완료]', response);
-
+				await registerInquiry(inquiryData);
 				this.initForm();
-				this.$router.push('/account/inquiry-list');
 
-				alert('1대1 문의 등록 완료');
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">1대1 문의 등록 완료<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				this.$router.push('/account/inquiry-list');
 			} catch (error) {
 				console.log(error);
 			}
@@ -144,7 +150,6 @@ export default {
 			try {
 				this.editInquiryId = this.$route.params.id;
 				const { data } = await getInquiryItemDetail(this.editInquiryId);
-
 				this.inquiry = data;
 			} catch (error) {
 				console.log(error);
@@ -161,7 +166,6 @@ export default {
 		},
 		async updateInquiryItem() {
 			try {
-				console.log('click');
 				const updatedInquiryData = {
 					id: this.editInquiryId,
 					userId: this.$store.getters['userStore/getId'],
@@ -170,13 +174,20 @@ export default {
 					content: this.inquiry.content,
 					file: this.inquiry.file,
 				};
-				const response = await updateInquiry(updatedInquiryData);
-				console.log(response);
 
+				await updateInquiry(updatedInquiryData);
 				this.initForm();
-				this.$router.push('/account/inquiry-list');
 
-				alert('1대1 문의 수정 완료');
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">1대1 문의 수정 완료<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				this.$router.push('/account/inquiry-list');
 			} catch (error) {
 				console.log(error);
 			}

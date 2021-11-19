@@ -83,23 +83,34 @@
 			font-size: 15px;
 			font-weight: 300;
 			color: #656565;
-			cursor: pointer;
 
 			.item__type {
 				width: 150px;
 				margin-left: 72px;
+				color: #656565;
 			}
 			.item__title {
 				width: 500px;
 				margin-left: 72px;
+
+				a {
+					color: #222222;
+					transition: all 0.2s;
+
+					&:hover {
+						text-decoration: underline #222222;
+					}
+				}
 			}
 			.item__date {
 				width: 200px;
 				margin-left: 10px;
+				color: #656565;
 			}
 			.item__answer {
 				width: 200px;
 				margin-left: 72px;
+				color: #aeaeae;
 			}
 
 		}

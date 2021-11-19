@@ -40,13 +40,13 @@
 		<div class="signup-form__input">
 			<label for="signup-password-input">비밀번호</label>
 			<input
-				type="text"
+				type="password"
 				id="signup-password-input"
 				placeholder="8자리 이상 영문, 숫자, 특수문자 포함"
 				v-model="password"
 			/>
 			<input
-				type="text"
+				type="password"
 				id="signup-password-input--check"
 				placeholder="비밀번호 확인"
 				v-model="passwordConfirm"
@@ -58,6 +58,7 @@
 
 <script>
 import { registerUser } from '@/api/auth';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -78,9 +79,16 @@ export default {
 					nickname: this.nickname,
 					password: this.password,
 				};
-				const response = await registerUser(signupUserData);
 
-				console.log('[회원가입 성공]', response);
+				await registerUser(signupUserData);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">회원가입 완료<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 				this.$router.push('/login');
 			} catch (error) {
 				console.log('[회원가입 실패]', error);

@@ -2,7 +2,7 @@
 	<div class="terms-form">
 		<h1 class="terms-form__title">회원가입</h1>
 		<h2 class="terms-form__desc">
-			환영합니다! 다방 서비스 이용약관에 동의해주세요.
+			환영합니다! 오늘의 부동산 서비스 이용약관에 동의해주세요.
 		</h2>
 		<div class="terms-form__all-check-btn">
 			<input

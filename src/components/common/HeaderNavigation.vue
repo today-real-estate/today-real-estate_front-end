@@ -72,8 +72,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import { clearAllCookies } from '@/utils/cookies';
-import store from '@/store/index';
-import router from '@/routes/index';
 
 export default {
 	computed: {
@@ -88,6 +86,8 @@ export default {
 				: this.$router.push('/');
 		},
 		showConfirm() {
+			const headerNavigation = this;
+
 			this.$confirm({
 				title: () => (
 					<h1 style="font-size: 18px; font-weight: 200; font-family: 'Spoqa Han Sans Neo', 'sans-serif'; color: #000;">
@@ -97,15 +97,18 @@ export default {
 				okText: '확인',
 				cancelText: '취소',
 				onOk() {
-					store.dispatch('userStore/LOGOUT');
-					clearAllCookies();
-					router.history.current.fullPath === '/'
-						? router.go()
-						: router.push('/');
+					headerNavigation.userLogout();
 				},
 				onCancel() {},
 				class: 'test',
 			});
+		},
+		userLogout() {
+			this.$store.dispatch('userStore/LOGOUT');
+			clearAllCookies();
+			this.$router.history.current.fullPath === '/'
+				? this.$router.go()
+				: this.$router.push('/');
 		},
 	},
 };

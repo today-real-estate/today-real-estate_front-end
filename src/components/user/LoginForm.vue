@@ -40,12 +40,12 @@
 </template>
 
 <script>
-const Swal = require('sweetalert2');
 import {
 	saveUserEmailToCookie,
 	getUserEmailFromCookie,
 	deleteCookie,
 } from '@/utils/cookies';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {

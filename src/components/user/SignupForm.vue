@@ -58,6 +58,7 @@
 
 <script>
 import { registerUser } from '@/api/auth';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -78,7 +79,6 @@ export default {
 					nickname: this.nickname,
 					password: this.password,
 				};
-				const Swal = require('sweetalert2');
 
 				await registerUser(signupUserData);
 				Swal.fire({

@@ -93,5 +93,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './scss/LoginForm.scss';
+@import './scss/loginForm.scss';
 </style>

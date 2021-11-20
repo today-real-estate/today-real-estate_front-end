@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import './scss/reset.scss';
 @import './scss/common.scss';
 @import './scss/antDesign.scss';

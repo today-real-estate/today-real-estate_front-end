@@ -38,5 +38,9 @@ export default new VueRouter({
 			path: '/account/edit',
 			component: () => import('@/views/account/AccountEditPage.vue'),
 		},
+		{
+			path: '/search',
+			component: () => import('@/views/SearchPage.vue'),
+		},
 	],
 });

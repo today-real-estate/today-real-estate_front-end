@@ -1,6 +1,6 @@
 <template>
 	<nav class="header__nav">
-		<RouterLink to="/" class="nav__link">지도</RouterLink>
+		<RouterLink to="/search" class="nav__link">지도</RouterLink>
 		<RouterLink to="/" class="nav__link">분양</RouterLink>
 		<RouterLink to="/" class="nav__link">분양 등록</RouterLink>
 		<RouterLink to="/" class="nav__link">관심목록</RouterLink>

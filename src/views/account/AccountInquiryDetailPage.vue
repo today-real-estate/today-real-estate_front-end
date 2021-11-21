@@ -4,6 +4,7 @@
 		<InquiryDetailTable />
 	</div>
 </template>
+
 <script>
 import AccountHeader from '@/components/account/AccountHeader.vue';
 import InquiryDetailTable from '@/components/account/InquiryDetailTable.vue';
@@ -15,6 +16,7 @@ export default {
 	},
 };
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 @import './scss/account.scss';
 </style>

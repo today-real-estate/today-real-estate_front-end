@@ -25,5 +25,6 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+@import '@/scss/reset.scss';
 @import './scss/mainPage.scss';
 </style>

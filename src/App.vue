@@ -19,7 +19,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import './scss/antDesign.scss';
 @import './scss/reset.scss';
 @import './scss/common.scss';
-@import './scss/antDesign.scss';
 </style>

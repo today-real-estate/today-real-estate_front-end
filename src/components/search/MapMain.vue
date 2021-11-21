@@ -9,7 +9,11 @@
 			</div>
 			<div class="side-bar__content">
 				<div v-if="!isSelected">
-					<ul class="content__list" v-if="getAptList.length !== 0">
+					<ul
+						class="content__list"
+						v-if="getAptList.length !== 0"
+						key="app-list"
+					>
 						<li
 							class="list__item"
 							v-for="apt in getAptList"
@@ -56,6 +60,10 @@
 							</div>
 						</li>
 					</ul>
+					<div v-else key="app-list" class="content_no-list">
+						<AIcon type="home" />
+						<h1>검색된 결과가 없습니다.</h1>
+					</div>
 				</div>
 				<div class="content__detail" v-else>
 					<div class="detail__image">

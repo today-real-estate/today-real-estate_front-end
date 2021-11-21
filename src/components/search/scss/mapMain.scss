@@ -3,6 +3,7 @@ $light-blue-color: #adc4fc;
 $orange-color: #ff9800;
 $light-orange-color: #ffd599;
 $light-dark-color: #3a3a3a;
+$light-grey-color: #979797;
 
 .map__main {
   display: flex;
@@ -54,6 +55,29 @@ $light-dark-color: #3a3a3a;
     .side-bar__content {
       display: flex;
       flex-direction: column;
+
+      .content_no-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 77vh;
+
+        i {
+          display: block;
+          margin: 0 auto 20px;
+          font-size: 50px;
+          color: $light-grey-color;
+        }
+
+        h1 {
+          font-size: 26px;
+          font-weight: 400;
+          color: $light-grey-color;
+          text-align: center;
+          margin-bottom: 0;
+        }
+      }
 
       .content__list {
         flex-grow: 1;

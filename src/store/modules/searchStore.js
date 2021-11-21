@@ -52,6 +52,16 @@ const searchStore = {
 		CLEAR_DONG_LIST(state) {
 			state.dongList = [{ code: 0, dongName: '선택하세요' }];
 		},
+		CLEAR_APT_LIST(state) {
+			state.aptList = [];
+		},
+		CLEAR_SEARCH_DATA(state) {
+			// state.mutations.CLEAR_SIDO_LIST();
+			// state.mutations.CLEAR_GUGUN_LIST();
+			// state.mutations.CLEAR_DONG_LIST();
+			// state.mutations.CLEAR_APT_LIST();
+			state.aptList = [];
+		},
 	},
 	actions: {
 		async GET_SIDO_LIST({ commit }) {

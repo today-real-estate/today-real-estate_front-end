@@ -57,7 +57,7 @@
 				<button>
 					<a-icon type="control" />
 				</button>
-				<button>
+				<button class="btns__clear-btn" @click="clearSearch">
 					<a-icon type="sync" />
 				</button>
 			</div>
@@ -90,6 +90,7 @@ export default {
 			'CLEAR_SIDO_LIST',
 			'CLEAR_GUGUN_LIST',
 			'CLEAR_DONG_LIST',
+			'CLEAR_APT_LIST',
 		]),
 		async getSidoList() {
 			try {
@@ -153,6 +154,12 @@ export default {
 			if (!isNaN(this.selectedDongCode)) {
 				this.getAptList(this.selectedDongCode);
 			}
+		},
+		clearSearch() {
+			this.CLEAR_APT_LIST();
+			this.selectedSidoCode = '선택하세요';
+			this.selectedGugunCode = '선택하세요';
+			this.selectedDongCode = '선택하세요';
 		},
 	},
 	created() {

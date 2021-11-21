@@ -143,7 +143,16 @@ export default {
 
 				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async initEditForm() {
@@ -152,7 +161,16 @@ export default {
 				const { data } = await getInquiryItemDetail(this.editInquiryId);
 				this.inquiry = data;
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		initForm() {
@@ -189,7 +207,16 @@ export default {
 
 				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

@@ -16,6 +16,6 @@ export default {
 
 <style lang="scss" scoped>
 .login-container {
-	margin-top: 200px;
+	margin-top: 100px;
 }
 </style>

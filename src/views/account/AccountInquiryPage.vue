@@ -9,6 +9,7 @@
 import AccountHeader from '@/components/account/AccountHeader.vue';
 import InquiryList from '@/components/account/InquiryList.vue';
 import { getInquiryList } from '@/api/inquiry';
+import Swal from 'sweetalert2';
 
 export default {
 	components: {
@@ -36,7 +37,16 @@ export default {
 
 				this.inquiryList = response.data;
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

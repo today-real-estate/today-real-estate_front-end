@@ -19,6 +19,6 @@ export default {
 
 <style lang="scss" scoped>
 .service-container {
-	margin-top: 180px;
+	margin-top: 100px;
 }
 </style>

@@ -1,7 +1,5 @@
 <template>
-	<div>
-		<div id="map"></div>
-	</div>
+	<div id="map"></div>
 </template>
 
 <script>
@@ -36,7 +34,7 @@ export default {
 			/* global kakao */
 			script.onload = () => kakao.maps.load(this.initMap);
 			script.src =
-				'//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0';
+				'//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=0f4c22d8cdfcb5038140db4f10d9fdcd';
 			document.head.appendChild(script);
 		}
 	},

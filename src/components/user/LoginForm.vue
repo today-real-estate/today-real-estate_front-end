@@ -79,7 +79,16 @@ export default {
 
 				this.$router.push('/');
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			} finally {
 				this.initForm();
 			}

@@ -55,6 +55,7 @@
 
 <script>
 import { getInquiryItemDetail, deleteInquiry } from '@/api/inquiry';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -92,7 +93,16 @@ export default {
 
 				this.inquiry = data;
 			} catch (error) {
-				console.log(error);
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async deleteItem() {
@@ -100,7 +110,16 @@ export default {
 				await deleteInquiry(this.inquiry.id);
 				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				this.errorMsg = error.meesage;
+				const errorMessage = error.data;
+
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

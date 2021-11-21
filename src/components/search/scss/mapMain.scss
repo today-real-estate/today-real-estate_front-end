@@ -3,7 +3,7 @@
   flex-grow: 1;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 84.5vh;
 
   .main__side-bar {
     flex: 0 0 auto;
@@ -66,21 +66,21 @@
               display: flex;
               flex-direction: column;
               width: 0px;
-              height: 100%;
+              height: 140px;
               padding-left: 20px;
 
-              .desc__title {
-                color: rgb(34, 34, 34);
-                font-size: 18px;
-                font-weight: 700;
+              .desc__price {
                 height: 27px;
                 margin-bottom: 4px;
+                font-size: 20px;
+                font-weight: 600;
+                color: rgb(34, 34, 34);
                 line-height: 27px;
               }
-              .desc__type {
+              .desc__title {
                 overflow: hidden;
                 margin-bottom: 8px;
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: 400;
                 line-height: 19px;
                 color: rgb(34, 34, 34);
@@ -89,13 +89,29 @@
               }
               .desc__sub-desc {
                 overflow: hidden;
-                width: 212px;
+                margin-bottom: 0;
                 font-size: 14px;
-                font-weight: 300;
+                font-weight: 200;
                 line-height: 20px;
                 color: rgb(34, 34, 34);
                 text-overflow: ellipsis;
                 white-space: nowrap;
+              }
+              .desc__status {
+                width: 100px;
+                height: 20px;
+                margin-top: auto;
+                margin-bottom: 0;
+                padding: 0px 5px;
+                border: 1px solid rgb(255, 202, 199);
+                border-radius: 3px;
+                background-color: rgb(255, 255, 255);
+                font-size: 11px;
+                font-weight: 300;
+                line-height: 18px;
+                color: rgb(244, 98, 91);
+                text-align: center;
+                letter-spacing: -0.2px;
               }
             }
           }

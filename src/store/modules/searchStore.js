@@ -13,6 +13,11 @@ const searchStore = {
 		dongList: [{ code: 0, dongName: '선택하세요' }],
 		aptList: [],
 	},
+	getters: {
+		getAptList(state) {
+			return state.aptList;
+		},
+	},
 	mutations: {
 		SET_SIDO_LIST(state, sidoListData) {
 			sidoListData.forEach((sido) => {

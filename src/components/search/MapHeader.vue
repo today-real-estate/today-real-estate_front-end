@@ -7,8 +7,34 @@
 		</div>
 		<div class="map__filters">
 			<div class="filters__select">
-				<select name="" id=""></select>
-				<select name="" id=""></select>
+				<!-- <select name="" id=""></select>
+				<select name="" id=""></select> -->
+				<ASelect
+					style="
+						position: relative;
+						z-index: 30;
+						width: 220px;
+						height: 34px;
+						margin-right: 8px;
+					"
+				>
+					<!-- <a-select-option v-for="province in provinceData" :key="province">
+						{{ province }}
+					</a-select-option> -->
+				</ASelect>
+				<ASelect
+					style="
+						position: relative;
+						z-index: 30;
+						width: 220px;
+						height: 34px;
+						margin-right: 8px;
+					"
+				>
+					<!-- <a-select-option v-for="city in cities" :key="city">
+						{{ city }}
+					</a-select-option> -->
+				</ASelect>
 			</div>
 			<div class="filters__btns">
 				<button>

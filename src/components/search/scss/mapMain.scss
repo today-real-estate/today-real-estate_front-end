@@ -1,3 +1,8 @@
+$blue-color: #326cf9;
+$light-blue-color: #adc4fc;
+$orange-color: #ff9800;
+$light-orange-color: #ffd599;
+
 .map__main {
   display: flex;
   flex-grow: 1;
@@ -97,21 +102,49 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
               }
-              .desc__status {
-                width: 100px;
-                height: 20px;
+              .desc__badges {
+                flex: 0 0 auto;
+                display: flex;
+                align-items: center;
                 margin-top: auto;
-                margin-bottom: 0;
-                padding: 0px 5px;
-                border: 1px solid rgb(255, 202, 199);
-                border-radius: 3px;
-                background-color: rgb(255, 255, 255);
-                font-size: 11px;
-                font-weight: 300;
-                line-height: 18px;
-                color: rgb(244, 98, 91);
-                text-align: center;
-                letter-spacing: -0.2px;
+
+                .badges__confirm-status {
+                  width: 100px;
+                  height: 20px;
+                  margin-right: 5px;
+                  margin-bottom: 0;
+                  padding: 0px 5px;
+                  border: 1px solid $light-orange-color;
+                  border-radius: 3px;
+                  background-color: rgb(255, 255, 255);
+                  font-size: 11px;
+                  font-weight: 300;
+                  line-height: 18px;
+                  color: $orange-color;
+                  text-align: center;
+                  letter-spacing: -0.2px;
+                }
+                .badges__lowest-price, 
+                .badges__highest-price {
+                  height: 20px;
+                  margin-bottom: 0;
+                  padding: 0px 5px;
+                  border-radius: 2px;
+                  background-color: rgb(255, 255, 255);
+                  font-size: 11px;
+                  font-weight: 400;
+                  line-height: 18px;
+                  text-align: center;
+                  letter-spacing: -0.2px;
+                }
+                .badges__lowest-price {
+                  border: 1px solid $light-blue-color;
+                  color: $blue-color;
+                }
+                .badges__highest-price  {
+                  border: 1px solid rgb(255, 202, 199);
+                  color: rgb(244, 98, 91);
+                }
               }
             }
           }

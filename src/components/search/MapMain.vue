@@ -22,7 +22,27 @@
 								<p class="desc__sub-desc">
 									{{ apt.gugunName }} {{ apt.dongName }}
 								</p>
-								<p class="desc__status">확인매물 21.11.09.</p>
+								<div class="desc__badges">
+									<p class="badges__confirm-status">확인매물 21.11.09.</p>
+									<p
+										class="badges__lowest-price"
+										v-if="
+											getLowestPrice !== getHighestPrice &&
+											apt.recentPrice === getLowestPrice
+										"
+									>
+										최저가 검색 매물
+									</p>
+									<p
+										class="badges__highest-price"
+										v-if="
+											getLowestPrice !== getHighestPrice &&
+											apt.recentPrice === getHighestPrice
+										"
+									>
+										최고가 검색 매물
+									</p>
+								</div>
 							</div>
 						</div>
 					</li>
@@ -44,7 +64,11 @@ export default {
 		KakaoMap,
 	},
 	computed: {
-		...mapGetters('searchStore', ['getAptList']),
+		...mapGetters('searchStore', [
+			'getAptList',
+			'getLowestPrice',
+			'getHighestPrice',
+		]),
 	},
 	filters: {
 		convertAptPrice(price) {

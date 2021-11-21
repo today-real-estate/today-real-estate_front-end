@@ -17,6 +17,28 @@ const searchStore = {
 		getAptList(state) {
 			return state.aptList;
 		},
+		getLowestPrice(state) {
+			const priceList = state.aptList.map((apt) => apt.recentPrice);
+
+			priceList.sort(
+				(a, b) => parseInt(a.replace(',', '')) - parseInt(b.replace(',', '')),
+			);
+
+			const lowestPrice = priceList[0];
+
+			return lowestPrice;
+		},
+		getHighestPrice(state) {
+			const priceList = state.aptList.map((apt) => apt.recentPrice);
+
+			priceList.sort((a, b) =>
+				parseInt(b.replace(',', '') - parseInt(a.replace(',', ''))),
+			);
+
+			const highestPrice = priceList[0];
+
+			return highestPrice;
+		},
 	},
 	mutations: {
 		SET_SIDO_LIST(state, sidoListData) {
@@ -56,10 +78,6 @@ const searchStore = {
 			state.aptList = [];
 		},
 		CLEAR_SEARCH_DATA(state) {
-			// state.mutations.CLEAR_SIDO_LIST();
-			// state.mutations.CLEAR_GUGUN_LIST();
-			// state.mutations.CLEAR_DONG_LIST();
-			// state.mutations.CLEAR_APT_LIST();
 			state.aptList = [];
 		},
 	},

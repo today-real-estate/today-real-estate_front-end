@@ -1,1 +1,3 @@
-import { instance } from '@/api/index';
+// import { instance } from '@/api/index';
+
+// function fetch

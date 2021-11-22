@@ -163,6 +163,7 @@ $light-grey-color: #979797;
                   line-height: 18px;
                   color: $orange-color;
                   text-align: center;
+                  letter-spacing: -0.2px;
                 }
                 .badges__lowest-price, 
                 .badges__highest-price {
@@ -175,6 +176,7 @@ $light-grey-color: #979797;
                   font-weight: 400;
                   line-height: 18px;
                   text-align: center;
+                  letter-spacing: -0.2px;
                 }
                 .badges__lowest-price {
                   border: 1px solid $light-blue-color;

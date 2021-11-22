@@ -21,11 +21,7 @@
 							@click="selectItem(apt)"
 						>
 							<div class="item__info">
-								<img
-									src="@/assets/sample-apt.jpg"
-									alt="sample"
-									class="info__image"
-								/>
+								<img :src="apt.img" :alt="apt.aptName" class="info__image" />
 								<div class="info__desc">
 									<p class="desc__price">
 										매매 {{ apt.recentPrice | convertAptPrice }}
@@ -67,7 +63,7 @@
 				</div>
 				<div class="content__detail" v-else>
 					<div class="detail__image">
-						<img src="@/assets/sample-apt.jpg" alt="" />
+						<img :src="selectedItem.img" :alt="selectedItem.aptName" />
 					</div>
 					<div class="detail__header">
 						<h1 class="header__apt-name">{{ selectedItem.aptName }}</h1>
@@ -121,10 +117,20 @@ export default {
 	},
 	filters: {
 		convertAptPrice(price) {
-			const hundredMillion = price.substring(0, price.length - 5);
-			const thousand = price.substring(price.length - 5).replace(',', '');
+			const _price = price.trim();
+
+			if (_price.length <= 5) {
+				const thousand = price.replace(',', '');
+
+				return thousand;
+			}
+
+			const hundredMillion = _price.substring(0, _price.length - 5);
+			const thousand = parseInt(
+				_price.substring(_price.length - 5).replace(',', ''),
+			);
 			const convertedPrice =
-				thousand === '0000'
+				thousand === 0
 					? `${hundredMillion}억`
 					: `${hundredMillion}억 ${thousand}`;
 

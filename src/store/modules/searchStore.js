@@ -3,6 +3,7 @@ import {
 	fetchGugunList,
 	fetchDongList,
 	fetchAptList,
+	fetchAptListBySearch,
 } from '@/api/search';
 
 const searchStore = {
@@ -96,6 +97,10 @@ const searchStore = {
 		},
 		async GET_APT_LIST({ commit }, dongData) {
 			const { data } = await fetchAptList(dongData);
+			commit('SET_APT_LIST', data);
+		},
+		async GET_APT_LIST_BY_SEARCH({ commit }, searchData) {
+			const { data } = await fetchAptListBySearch(searchData);
 			commit('SET_APT_LIST', data);
 		},
 	},

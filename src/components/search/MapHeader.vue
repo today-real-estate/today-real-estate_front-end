@@ -1,9 +1,14 @@
 <template>
 	<div class="map__header">
 		<div class="map__search">
-			<form class="search__form">
-				<input type="text" placeholder="검색하세요" />
-			</form>
+			<div class="search__form">
+				<input
+					type="text"
+					v-model="searchDongName"
+					@keyup.enter.prevent="searchAptListByDong"
+					placeholder="동 이름을 검색하세요."
+				/>
+			</div>
 		</div>
 		<div class="map__filters">
 			<div class="filters__select">
@@ -71,26 +76,28 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	data() {
 		return {
-			selectedSidoCode: '선택하세요',
-			selectedGugunCode: '선택하세요',
-			selectedDongCode: '선택하세요',
+			searchDongName: '',
+			selectedSidoCode: '시를 선택하세요',
+			selectedGugunCode: '동을 선택하세요',
+			selectedDongCode: '구를 선택하세요',
 		};
 	},
 	computed: {
 		...mapState('searchStore', ['sidoList', 'gugunList', 'dongList']),
 	},
 	methods: {
-		...mapActions('searchStore', [
-			'GET_SIDO_LIST',
-			'GET_GUGUN_LIST',
-			'GET_DONG_LIST',
-			'GET_APT_LIST',
-		]),
 		...mapMutations('searchStore', [
 			'CLEAR_SIDO_LIST',
 			'CLEAR_GUGUN_LIST',
 			'CLEAR_DONG_LIST',
 			'CLEAR_APT_LIST',
+		]),
+		...mapActions('searchStore', [
+			'GET_SIDO_LIST',
+			'GET_GUGUN_LIST',
+			'GET_DONG_LIST',
+			'GET_APT_LIST',
+			'GET_APT_LIST_BY_SEARCH',
 		]),
 		async getSidoList() {
 			try {
@@ -132,11 +139,22 @@ export default {
 				console.log(error);
 			}
 		},
+		async searchAptListByDong() {
+			const searchData = {
+				dongName: this.searchDongName,
+			};
+
+			try {
+				await this.GET_APT_LIST_BY_SEARCH(searchData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
 		selectSido() {
 			this.CLEAR_GUGUN_LIST();
 			this.CLEAR_DONG_LIST();
-			this.selectedGugunCode = '선택하세요';
-			this.selectedDongCode = '선택하세요';
+			this.selectedGugunCode = '구를 선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 
 			if (!isNaN(this.selectedSidoCode)) {
 				this.getGugunList(this.selectedSidoCode);
@@ -144,7 +162,7 @@ export default {
 		},
 		selectGugun() {
 			this.CLEAR_DONG_LIST();
-			this.selectedDongCode = '선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 
 			if (!isNaN(this.selectedGugunCode)) {
 				this.getDongList(this.selectedGugunCode);
@@ -157,9 +175,9 @@ export default {
 		},
 		clearSearch() {
 			this.CLEAR_APT_LIST();
-			this.selectedSidoCode = '선택하세요';
-			this.selectedGugunCode = '선택하세요';
-			this.selectedDongCode = '선택하세요';
+			this.selectedSidoCode = '시를 선택하세요';
+			this.selectedGugunCode = '구를 선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 		},
 	},
 	created() {

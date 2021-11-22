@@ -114,14 +114,16 @@ $light-grey-color: #979797;
               width: 0px;
               height: 140px;
               padding-left: 20px;
+              text-overflow: ellipsis;
 
               .desc__price {
                 height: 27px;
                 margin-bottom: 4px;
                 font-size: 20px;
                 font-weight: 600;
-                color: rgb(34, 34, 34);
                 line-height: 27px;
+                color: rgb(34, 34, 34);
+                text-overflow: ellipsis;
               }
               .desc__title {
                 overflow: hidden;

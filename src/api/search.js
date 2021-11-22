@@ -16,4 +16,14 @@ function fetchAptList(dongData) {
 	return instance.get('/map/apt', { params: dongData });
 }
 
-export { fetchSidoList, fetchGugunList, fetchDongList, fetchAptList };
+function fetchAptListBySearch(searchDate) {
+	return instance.get('/map/dong-search', { params: searchDate });
+}
+
+export {
+	fetchSidoList,
+	fetchGugunList,
+	fetchDongList,
+	fetchAptList,
+	fetchAptListBySearch,
+};

@@ -21,116 +21,28 @@ $light-yellow-color: #ffd24a;
 	border: 1px solid #919191;
 	border-radius: 5px;
 }
-.custom_typecontrol {
-	display: flex;
-	overflow: hidden;
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	z-index: 1;
-	width: 130px;
-	height: 30px;
-	margin: 0;
-	padding: 0;
-	font-size: 12px;
 
-	span {
-		display: block;
-		float: left;
-		width: 65px;
-		height: 30px;
-		text-align: center;
-		line-height: 30px;
-		cursor: pointer;
-	}
-
-	.btn {
-		background: #fff;
-		background: linear-gradient(#fff, #e6e6e6);
-
-		&:hover {
-			background: #f5f5f5;
-			background: linear-gradient(#f5f5f5, #e3e3e3);
-		}
-		&:active {
-			background: #e6e6e6;
-			background: linear-gradient(#e6e6e6, #fff);
-		}
-	}
-	.selected_btn {
-		background: #425470;
-		background: linear-gradient(#425470, #5b6d8a);
-		color: #fff;
-
-		&:hover {
-			color: #fff;
-		}
-	}
-}
-
-.custom_zoomcontrol {
-	overflow: hidden;
-	position: absolute;
-	top: 50px;
-	right: 10px;
-	z-index: 1;
-	width: 38px;
-	height: 80px;
-	background-color: #f5f5f5;
-
-	span:first-child {
-		border-bottom: 1px solid #bfbfbf;
-	}
-
-	.zoomcontrol__btn {
-		display: block;
-		width: 36px;
-		height: 40px;
-		margin: 0;
-		text-align: center;
-		cursor: pointer;
-		transition: all 100ms ease-out 0s;
-
-		&.zoomcontrol__btn--zoom-in {
-			background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png)
-				no-repeat;
-			background-position: center;
-			background-size: 40%;
-
-			&:hover {
-				background-size: 50%;
-			}
-		}
-		&.zoomcontrol__btn--zoom-out {
-			background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png)
-				no-repeat;
-			background-position: center;
-			background-size: 40%;
-
-			&:hover {
-				background-size: 50%;
-			}
-		}
-	}
-}
 
 #category {
 	position: absolute;
 	top: 10px;
 	left: 10px;
 	border-radius: 5px;
-	border: 1px solid #909090;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+	border: none;
+	box-shadow: rgb(0 0 0 / 15%) 0px 2px 2px 0px;
 	background: #fff;
 	overflow: hidden;
 	z-index: 2;
 }
 #category li {
 	float: left;
-	list-style: none;
 	width: 50px;
-	border-right: 1px solid #acacac;
 	padding: 6px 0;
+	border-right: 1px solid rgb(226, 226, 226);
+	font-size: 13px; 
+	font-weight: 300;
+	color: #000;
+	list-style: none;
 	text-align: center;
 	transition: all 150ms ease-out 0s;
 	cursor: pointer;
@@ -149,7 +61,7 @@ $light-yellow-color: #ffd24a;
 }
 #category li span {
 	display: block;
-	margin: 0 auto 3px;
+	margin: 0 auto 5px;
 	width: 27px;
 	height: 28px;
 }

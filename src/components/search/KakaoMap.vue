@@ -34,23 +34,6 @@
 				편의점
 			</li>
 		</ul>
-		<div class="custom_typecontrol radius_border">
-			<span id="btnRoadmap" class="selected_btn" @click="setMapType('roadmap')">
-				지도
-			</span>
-			<span id="btnSkyview" class="btn" @click="setMapType('skyview')">
-				스카이뷰
-			</span>
-		</div>
-		<div class="custom_zoomcontrol radius_border">
-			<span @click="zoomIn" class="zoomcontrol__btn zoomcontrol__btn--zoom-in">
-			</span>
-			<span
-				@click="zoomOut"
-				class="zoomcontrol__btn zoomcontrol__btn--zoom-out"
-			>
-			</span>
-		</div>
 	</div>
 </template>
 
@@ -74,6 +57,8 @@ export default {
 				[37.49754540521486, 127.02546694890695],
 				[37.49646391248451, 127.02675574250912],
 			],
+			mapTypeControl: null,
+			zoomControl: null,
 			placeOverlay: null,
 			contentNode: null,
 			markers: [],
@@ -121,9 +106,19 @@ export default {
 
 			this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
 			this.map = new kakao.maps.Map(mapContainer, mapOptions);
+			// option
+			this.mapTypeControl = new kakao.maps.MapTypeControl();
+			this.zoomControl = new kakao.maps.ZoomControl();
 			this.ps = new kakao.maps.services.Places(this.map);
 			this.contentNode = document.createElement('div');
 			kakao.maps.event.addListener(this.map, 'idle', this.searchPlaces);
+
+			this.map.addControl(
+				this.mapTypeControl,
+				kakao.maps.ControlPosition.TOPRIGHT,
+			);
+			this.map.addControl(this.zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 			this.contentNode.className = 'placeinfo_wrap';
 			this.addEventHandle(
 				this.contentNode,
@@ -136,26 +131,6 @@ export default {
 				kakao.maps.event.preventMap,
 			);
 			this.placeOverlay.setContent(this.contentNode);
-		},
-		setMapType(maptype) {
-			const roadmapControl = document.getElementById('btnRoadmap');
-			const skyviewControl = document.getElementById('btnSkyview');
-
-			if (maptype === 'roadmap') {
-				this.map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-				roadmapControl.className = 'selected_btn';
-				skyviewControl.className = 'btn';
-			} else {
-				this.map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
-				skyviewControl.className = 'selected_btn';
-				roadmapControl.className = 'btn';
-			}
-		},
-		zoomIn() {
-			this.map.setLevel(this.map.getLevel() - 1);
-		},
-		zoomOut() {
-			this.map.setLevel(this.map.getLevel() + 1);
 		},
 		changeSize(size) {
 			const container = document.getElementById('map');

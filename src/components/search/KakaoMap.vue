@@ -1,5 +1,27 @@
 <template>
-	<div id="map"></div>
+	<div class="map_wrap">
+		<div
+			id="map"
+			style="width: 100%; height: 100%; position: relative; overflow: hidden"
+		></div>
+		<div class="custom_typecontrol radius_border">
+			<span id="btnRoadmap" class="selected_btn" @click="setMapType('roadmap')">
+				지도
+			</span>
+			<span id="btnSkyview" class="btn" @click="setMapType('skyview')">
+				스카이뷰
+			</span>
+		</div>
+		<div class="custom_zoomcontrol radius_border">
+			<span @click="zoomIn" class="zoomcontrol__btn zoomcontrol__btn--zoom-in">
+			</span>
+			<span
+				@click="zoomOut"
+				class="zoomcontrol__btn zoomcontrol__btn--zoom-out"
+			>
+			</span>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -47,6 +69,26 @@ export default {
 				level: 7,
 			};
 			this.map = new kakao.maps.Map(mapContainer, mapOptions);
+		},
+		setMapType(maptype) {
+			const roadmapControl = document.getElementById('btnRoadmap');
+			const skyviewControl = document.getElementById('btnSkyview');
+
+			if (maptype === 'roadmap') {
+				this.map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+				roadmapControl.className = 'selected_btn';
+				skyviewControl.className = 'btn';
+			} else {
+				this.map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+				skyviewControl.className = 'selected_btn';
+				roadmapControl.className = 'btn';
+			}
+		},
+		zoomIn() {
+			this.map.setLevel(this.map.getLevel() - 1);
+		},
+		zoomOut() {
+			this.map.setLevel(this.map.getLevel() + 1);
 		},
 		changeSize(size) {
 			const container = document.getElementById('map');
@@ -105,18 +147,114 @@ export default {
 
 <style lang="scss" scoped>
 #map {
+	overflow: hidden;
+	position: absolute;
 	width: 100%;
 	height: 100%;
-	position: absolute;
-	overflow: hidden;
 	box-sizing: border-box;
 }
 
-/* .button-group {
-	margin: 10px 0px;
+.map_wrap {
+	overflow: hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+.radius_border {
+	border: 1px solid #919191;
+	border-radius: 5px;
+}
+.custom_typecontrol {
+	display: flex;
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;
+	width: 130px;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+
+	span {
+		display: block;
+		float: left;
+		width: 65px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		cursor: pointer;
+	}
+
+	.btn {
+		background: #fff;
+		background: linear-gradient(#fff, #e6e6e6);
+
+		&:hover {
+			background: #f5f5f5;
+			background: linear-gradient(#f5f5f5, #e3e3e3);
+		}
+		&:active {
+			background: #e6e6e6;
+			background: linear-gradient(#e6e6e6, #fff);
+		}
+	}
+	.selected_btn {
+		background: #425470;
+		background: linear-gradient(#425470, #5b6d8a);
+		color: #fff;
+
+		&:hover {
+			color: #fff;
+		}
+	}
 }
 
-button {
-	margin: 0 3px;
-} */
+.custom_zoomcontrol {
+	overflow: hidden;
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	z-index: 1;
+	width: 38px;
+	height: 80px;
+	background-color: #f5f5f5;
+
+	span:first-child {
+		border-bottom: 1px solid #bfbfbf;
+	}
+
+	.zoomcontrol__btn {
+		display: block;
+		width: 36px;
+		height: 40px;
+		margin: 0;
+		text-align: center;
+		cursor: pointer;
+		transition: all 100ms ease-out 0s;
+
+		&.zoomcontrol__btn--zoom-in {
+			background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png)
+				no-repeat;
+			background-position: center;
+			background-size: 40%;
+
+			&:hover {
+				background-size: 50%;
+			}
+		}
+		&.zoomcontrol__btn--zoom-out {
+			background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png)
+				no-repeat;
+			background-position: center;
+			background-size: 40%;
+
+			&:hover {
+				background-size: 50%;
+			}
+		}
+	}
+}
 </style>

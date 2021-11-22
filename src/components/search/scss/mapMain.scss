@@ -196,11 +196,48 @@ $light-grey-color: #979797;
 
       .content__detail {
         .detail__image {
-          height: 250px;
+          height: 300px;
           overflow: hidden;
 
           img {
             width: 100%;
+            height: 250px;
+          }
+
+          #roadview {
+            width: 100%;
+            height: 250px;
+            position: relative;
+          }
+
+          .image__road-view-btn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color:#fff;
+            cursor: pointer;
+            transition: all 150ms ease-out 0s;
+
+            &.image__road-view-btn--on {
+              background-color: #ffd24a;
+              
+              &:hover {
+                background-color: #ffcd36;
+              }
+            }
+            &.image__road-view-btn--off {
+              background-color: #616161;
+
+              &:hover {
+                background-color: #4d4d4d;
+              }
+            }
+
+            i {
+              font-size: 18px;
+            }
           }
         }
         .detail__header {
@@ -247,4 +284,7 @@ $light-grey-color: #979797;
     position: relative;
     z-index: 10;
   }
+
+
 }
+

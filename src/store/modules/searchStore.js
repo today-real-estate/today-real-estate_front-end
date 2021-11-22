@@ -13,6 +13,9 @@ const searchStore = {
 		gugunList: [{ code: 0, gugunName: '선택하세요' }],
 		dongList: [{ code: 0, dongName: '선택하세요' }],
 		aptList: [],
+		selectedItem: {},
+		isSelected: false,
+		roadViewStatus: false,
 	},
 	getters: {
 		getAptList(state) {
@@ -39,6 +42,9 @@ const searchStore = {
 			const highestPrice = priceList[0];
 
 			return highestPrice;
+		},
+		getSelectedItem(state) {
+			return state.selectedItem;
 		},
 	},
 	mutations: {
@@ -80,6 +86,21 @@ const searchStore = {
 		},
 		CLEAR_SEARCH_DATA(state) {
 			state.aptList = [];
+		},
+		SELECT_ITEM(state, itemObject) {
+			state.isSelected = true;
+			state.selectedItem = itemObject;
+		},
+		BACK_TO_ITEM_LIST(state) {
+			state.isSelected = false;
+			state.selectedItem = {};
+			state.roadViewStatus = false;
+		},
+		ON_ROAD_VIEW(state) {
+			state.roadViewStatus = true;
+		},
+		OFF_ROAD_VIEW(state) {
+			state.roadViewStatus = false;
 		},
 	},
 	actions: {

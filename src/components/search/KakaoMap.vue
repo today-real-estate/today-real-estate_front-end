@@ -28,24 +28,25 @@ export default {
 	},
 	mounted() {
 		if (window.kakao && window.kakao.maps) {
-			this.initMap();
+			this.initKakaoMap();
 		} else {
 			const script = document.createElement('script');
+
 			/* global kakao */
-			script.onload = () => kakao.maps.load(this.initMap);
+			script.onload = () => kakao.maps.load(this.initKakaoMap);
 			script.src =
 				'//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=0f4c22d8cdfcb5038140db4f10d9fdcd';
 			document.head.appendChild(script);
 		}
 	},
 	methods: {
-		initMap() {
-			const container = document.getElementById('map');
-			const options = {
+		initKakaoMap() {
+			const mapContainer = document.getElementById('map');
+			const mapOptions = {
 				center: new kakao.maps.LatLng(37.5403169, 126.99526),
 				level: 7,
 			};
-			this.map = new kakao.maps.Map(container, options);
+			this.map = new kakao.maps.Map(mapContainer, mapOptions);
 		},
 		changeSize(size) {
 			const container = document.getElementById('map');

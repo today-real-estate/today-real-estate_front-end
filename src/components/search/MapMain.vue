@@ -3,7 +3,7 @@
 		<div class="main__side-bar">
 			<div class="side-bar__header">
 				<span v-if="!isSelected">검색된 아파트 {{ getAptList.length }}개</span>
-				<button v-else @click="backToItemList" class="header__back-btn">
+				<button v-else @click="BACK_TO_ITEM_LIST" class="header__back-btn">
 					<AIcon type="arrow-left" />
 				</button>
 			</div>
@@ -18,7 +18,7 @@
 							class="list__item"
 							v-for="apt in getAptList"
 							:key="apt.aptCode"
-							@click="selectItem(apt)"
+							@click="SELECT_ITEM(apt)"
 						>
 							<div class="item__info">
 								<img :src="apt.img" :alt="apt.aptName" class="info__image" />
@@ -61,23 +61,42 @@
 						<h1>검색된 결과가 없습니다.</h1>
 					</div>
 				</div>
-				<div class="content__detail" v-else>
+				<div v-else class="content__detail">
 					<div class="detail__image">
-						<img :src="selectedItem.img" :alt="selectedItem.aptName" />
+						<img
+							v-show="!roadViewStatus"
+							:src="getSelectedItem.img"
+							:alt="getSelectedItem.aptName"
+						/>
+						<div v-show="roadViewStatus" id="roadview"></div>
+						<button
+							v-if="!roadViewStatus"
+							class="image__road-view-btn image__road-view-btn--on"
+							@click="OnRoadView(getSelectedItem.lat, getSelectedItem.lng)"
+						>
+							<a-icon type="environment" /> 로드뷰 보기
+						</button>
+						<button
+							v-else
+							class="image__road-view-btn image__road-view-btn--off"
+							@click="OffRoadView"
+						>
+							<AIcon type="undo" /> 사진으로 되돌아가기
+						</button>
 					</div>
 					<div class="detail__header">
-						<h1 class="header__apt-name">{{ selectedItem.aptName }}</h1>
+						<h1 class="header__apt-name">{{ getSelectedItem.aptName }}</h1>
 						<p class="header__buildYear">
-							건축연도: {{ selectedItem.buildYear }}년
+							건축연도: {{ getSelectedItem.buildYear }}년
 						</p>
 					</div>
 					<div class="detail__main">
 						<p class="main__price">
-							매매 {{ selectedItem.recentPrice | convertAptPrice }}
+							매매 {{ getSelectedItem.recentPrice | convertAptPrice }}
 						</p>
 						<p class="main__address">
-							{{ selectedItem.sidoName }} {{ selectedItem.gugunName }}
-							{{ selectedItem.dongName }} {{ selectedItem.jibun }}
+							{{ getSelectedItem.sidoName }} {{ getSelectedItem.gugunName }}
+							{{ getSelectedItem.dongName }} {{ getSelectedItem.jibun }}
 						</p>
 					</div>
 					<div class="detail__ad">
@@ -93,7 +112,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import KakaoMap from '@/components/search/KakaoMap.vue';
 import Advertisement from '@/components/search/Advertisement.vue';
 
@@ -102,17 +121,13 @@ export default {
 		KakaoMap,
 		Advertisement,
 	},
-	data() {
-		return {
-			selectedItem: {},
-			isSelected: false,
-		};
-	},
 	computed: {
+		...mapState('searchStore', ['isSelected', 'roadViewStatus']),
 		...mapGetters('searchStore', [
 			'getAptList',
 			'getLowestPrice',
 			'getHighestPrice',
+			'getSelectedItem',
 		]),
 	},
 	filters: {
@@ -138,13 +153,39 @@ export default {
 		},
 	},
 	methods: {
-		selectItem(itemObject) {
-			this.isSelected = true;
-			this.selectedItem = itemObject;
+		...mapMutations('searchStore', [
+			'SELECT_ITEM',
+			'BACK_TO_ITEM_LIST',
+			'ON_ROAD_VIEW',
+			'OFF_ROAD_VIEW',
+		]),
+		initKakaoRoadview(latitude, longitude) {
+			const roadviewContainer = document.getElementById('roadview');
+			const roadview = new kakao.maps.Roadview(roadviewContainer);
+			const roadviewClient = new kakao.maps.RoadviewClient();
+			const position = new kakao.maps.LatLng(latitude, longitude);
+
+			roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+				roadview.setPanoId(panoId, position);
+			});
 		},
-		backToItemList() {
-			this.isSelected = false;
-			this.selectedItem = {};
+		OnRoadView(latitude, longitude) {
+			if (window.kakao && window.kakao.maps) {
+				this.initKakaoRoadview(latitude, longitude);
+			} else {
+				const script = document.createElement('script');
+
+				/* global kakao */
+				script.onload = () => kakao.maps.load(this.initKakaoRoadview);
+				script.src =
+					'//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=0f4c22d8cdfcb5038140db4f10d9fdcd';
+				document.head.appendChild(script);
+			}
+
+			this.ON_ROAD_VIEW();
+		},
+		OffRoadView() {
+			this.OFF_ROAD_VIEW();
 		},
 	},
 };

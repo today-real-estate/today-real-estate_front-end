@@ -9,6 +9,7 @@ import {
 const searchStore = {
 	namespaced: true,
 	state: {
+		searchDongName: '',
 		sidoList: [{ code: 0, sidoName: '선택하세요' }],
 		gugunList: [{ code: 0, gugunName: '선택하세요' }],
 		dongList: [{ code: 0, dongName: '선택하세요' }],
@@ -48,6 +49,9 @@ const searchStore = {
 		},
 	},
 	mutations: {
+		SET_SEARCH_DONG_NAME(state, searchDongName) {
+			state.searchDongName = searchDongName;
+		},
 		SET_SIDO_LIST(state, sidoListData) {
 			sidoListData.forEach((sido) => {
 				state.sidoList.push({ code: sido.sidoCode, sidoName: sido.sidoName });
@@ -83,6 +87,9 @@ const searchStore = {
 		},
 		CLEAR_APT_LIST(state) {
 			state.aptList = [];
+			state.selectedItem = {};
+			state.isSelected = false;
+			state.roadViewStatus = false;
 		},
 		CLEAR_SEARCH_DATA(state) {
 			state.aptList = [];
@@ -92,8 +99,8 @@ const searchStore = {
 			state.selectedItem = itemObject;
 		},
 		BACK_TO_ITEM_LIST(state) {
-			state.isSelected = false;
 			state.selectedItem = {};
+			state.isSelected = false;
 			state.roadViewStatus = false;
 		},
 		ON_ROAD_VIEW(state) {
@@ -123,6 +130,7 @@ const searchStore = {
 		async GET_APT_LIST_BY_SEARCH({ commit }, searchData) {
 			const { data } = await fetchAptListBySearch(searchData);
 			commit('SET_APT_LIST', data);
+			commit('SET_SEARCH_DONG_NAME', searchData.dongName);
 		},
 	},
 };

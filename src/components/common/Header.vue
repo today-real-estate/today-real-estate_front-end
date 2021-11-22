@@ -1,6 +1,6 @@
 <template>
 	<header id="header">
-		<a href="/" class="header__title">오늘의 부동산</a>
+		<RouterLink to="/" class="header__title">오늘의 부동산</RouterLink>
 		<HeaderNavigation />
 	</header>
 </template>

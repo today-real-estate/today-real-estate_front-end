@@ -4,7 +4,7 @@
 			<div class="search__form">
 				<input
 					type="text"
-					v-model="searchDongName"
+					v-model="searchDong"
 					@keyup.enter.prevent="searchAptListByDong"
 					placeholder="동 이름을 검색하세요."
 				/>
@@ -76,14 +76,19 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	data() {
 		return {
-			searchDongName: '',
+			searchDong: this.searchDongName,
 			selectedSidoCode: '시를 선택하세요',
-			selectedGugunCode: '동을 선택하세요',
-			selectedDongCode: '구를 선택하세요',
+			selectedGugunCode: '구를 선택하세요',
+			selectedDongCode: '동을 선택하세요',
 		};
 	},
 	computed: {
-		...mapState('searchStore', ['sidoList', 'gugunList', 'dongList']),
+		...mapState('searchStore', [
+			'searchDongName',
+			'sidoList',
+			'gugunList',
+			'dongList',
+		]),
 	},
 	methods: {
 		...mapMutations('searchStore', [
@@ -91,6 +96,8 @@ export default {
 			'CLEAR_GUGUN_LIST',
 			'CLEAR_DONG_LIST',
 			'CLEAR_APT_LIST',
+			'BACK_TO_ITEM_LIST',
+			'OFF_ROAD_VIEW',
 		]),
 		...mapActions('searchStore', [
 			'GET_SIDO_LIST',
@@ -134,6 +141,7 @@ export default {
 			};
 
 			try {
+				this.BACK_TO_ITEM_LIST();
 				await this.GET_APT_LIST(dongData);
 			} catch (error) {
 				console.log(error);
@@ -141,11 +149,12 @@ export default {
 		},
 		async searchAptListByDong() {
 			const searchData = {
-				dongName: this.searchDongName,
+				dongName: this.searchDong,
 			};
 
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				this.BACK_TO_ITEM_LIST();
 			} catch (error) {
 				console.log(error);
 			}

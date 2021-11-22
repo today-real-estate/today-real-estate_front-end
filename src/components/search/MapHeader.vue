@@ -103,7 +103,8 @@ export default {
 			'GET_SIDO_LIST',
 			'GET_GUGUN_LIST',
 			'GET_DONG_LIST',
-			'GET_APT_LIST',
+			'GET_APT_LIST_BY_GUGUN',
+			'GET_APT_LIST_BY_DONG',
 			'GET_APT_LIST_BY_SEARCH',
 		]),
 		async getSidoList() {
@@ -135,14 +136,26 @@ export default {
 				console.log(error);
 			}
 		},
-		async getAptList(dongCode) {
+		async getAptListByGugun(gugunCode) {
+			const gugunData = {
+				gugun: gugunCode,
+			};
+
+			try {
+				this.BACK_TO_ITEM_LIST();
+				await this.GET_APT_LIST_BY_GUGUN(gugunData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async getAptListByDong(dongCode) {
 			const dongData = {
 				dong: dongCode,
 			};
 
 			try {
 				this.BACK_TO_ITEM_LIST();
-				await this.GET_APT_LIST(dongData);
+				await this.GET_APT_LIST_BY_DONG(dongData);
 			} catch (error) {
 				console.log(error);
 			}
@@ -175,11 +188,12 @@ export default {
 
 			if (!isNaN(this.selectedGugunCode)) {
 				this.getDongList(this.selectedGugunCode);
+				this.getAptListByGugun(this.selectedGugunCode);
 			}
 		},
 		selectDong() {
 			if (!isNaN(this.selectedDongCode)) {
-				this.getAptList(this.selectedDongCode);
+				this.getAptListByDong(this.selectedDongCode);
 			}
 		},
 		clearSearch() {

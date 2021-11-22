@@ -2,7 +2,8 @@ import {
 	fetchSidoList,
 	fetchGugunList,
 	fetchDongList,
-	fetchAptList,
+	fetchAptListByGugun,
+	fetchAptListByDong,
 	fetchAptListBySearch,
 } from '@/api/search';
 
@@ -123,8 +124,12 @@ const searchStore = {
 			const { data } = await fetchDongList(gugunData);
 			commit('SET_DONG_LIST', data);
 		},
-		async GET_APT_LIST({ commit }, dongData) {
-			const { data } = await fetchAptList(dongData);
+		async GET_APT_LIST_BY_GUGUN({ commit }, dongData) {
+			const { data } = await fetchAptListByGugun(dongData);
+			commit('SET_APT_LIST', data);
+		},
+		async GET_APT_LIST_BY_DONG({ commit }, dongData) {
+			const { data } = await fetchAptListByDong(dongData);
 			commit('SET_APT_LIST', data);
 		},
 		async GET_APT_LIST_BY_SEARCH({ commit }, searchData) {

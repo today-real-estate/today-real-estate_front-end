@@ -72,6 +72,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import EventBus from '@/utils/eventBus';
 
 export default {
 	data() {
@@ -167,6 +168,7 @@ export default {
 
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				EventBus.$emit('displayKakaoMapMarker');
 				this.BACK_TO_ITEM_LIST();
 			} catch (error) {
 				console.log(error);
@@ -182,18 +184,19 @@ export default {
 				this.getGugunList(this.selectedSidoCode);
 			}
 		},
-		selectGugun() {
+		async selectGugun() {
 			this.CLEAR_DONG_LIST();
 			this.selectedDongCode = '동을 선택하세요';
 
 			if (!isNaN(this.selectedGugunCode)) {
 				this.getDongList(this.selectedGugunCode);
-				this.getAptListByGugun(this.selectedGugunCode);
+				await this.getAptListByGugun(this.selectedGugunCode);
 			}
 		},
-		selectDong() {
+		async selectDong() {
 			if (!isNaN(this.selectedDongCode)) {
-				this.getAptListByDong(this.selectedDongCode);
+				await this.getAptListByDong(this.selectedDongCode);
+				EventBus.$emit('displayKakaoMapMarker');
 			}
 		},
 		clearSearch() {

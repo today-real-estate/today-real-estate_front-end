@@ -48,6 +48,9 @@ const searchStore = {
 		getSelectedItem(state) {
 			return state.selectedItem;
 		},
+		getAptListPositions(state) {
+			return state.aptList.map((apt) => [apt.lat, apt.lng]);
+		},
 	},
 	mutations: {
 		SET_SEARCH_DONG_NAME(state, searchDongName) {

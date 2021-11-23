@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		<div class="main__map">
-			<KakaoMap />
+			<KakaoMap ref="kakaoMap" />
 		</div>
 	</div>
 </template>

@@ -1,3 +1,4 @@
+d
 <template>
 	<div class="map_wrap">
 		<div
@@ -38,6 +39,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import EventBus from '@/utils/eventBus';
+
 export default {
 	name: 'KakaoMap',
 	data() {
@@ -62,9 +66,11 @@ export default {
 			placeOverlay: null,
 			contentNode: null,
 			markers: [],
+			aptMarkers: [],
 			currCategory: '',
 			infowindow: null,
 			ps: null,
+			overlay: null,
 			categories: [
 				'bank',
 				'mart',
@@ -82,6 +88,14 @@ export default {
 				convenienceStore: 'off',
 			},
 		};
+	},
+	computed: {
+		...mapGetters('searchStore', ['getAptListPositions', 'getAptList']),
+	},
+	created() {
+		EventBus.$on('displayKakaoMapMarker', () => {
+			this.displayMarker(this.getAptListPositions);
+		});
 	},
 	mounted() {
 		if (window.kakao && window.kakao.maps) {
@@ -106,13 +120,11 @@ export default {
 
 			this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
 			this.map = new kakao.maps.Map(mapContainer, mapOptions);
-			// option
 			this.mapTypeControl = new kakao.maps.MapTypeControl();
 			this.zoomControl = new kakao.maps.ZoomControl();
 			this.ps = new kakao.maps.services.Places(this.map);
 			this.contentNode = document.createElement('div');
 			kakao.maps.event.addListener(this.map, 'idle', this.searchPlaces);
-
 			this.map.addControl(
 				this.mapTypeControl,
 				kakao.maps.ControlPosition.TOPRIGHT,
@@ -131,13 +143,7 @@ export default {
 				kakao.maps.event.preventMap,
 			);
 			this.placeOverlay.setContent(this.contentNode);
-		},
-		changeSize(size) {
-			const container = document.getElementById('map');
-
-			container.style.width = `${size}px`;
-			container.style.height = `${size}px`;
-			this.map.relayout();
+			this.displayMarker(this.getAptListPositions);
 		},
 		addEventHandle(target, type, callback) {
 			if (target.addEventListener) {
@@ -283,51 +289,120 @@ export default {
 				this.categoryStatus[category] = 'off';
 			});
 		},
-		// displayMarker(markerPositions) {
-		// 	if (this.markers.length > 0) {
-		// 		this.markers.forEach((marker) => marker.setMap(null));
-		// 	}
+		displayMarker(markerPositions) {
+			if (this.aptMarkers.length > 0) {
+				this.aptMarkers.forEach((marker) => marker.setMap(null));
+			}
 
-		// 	const positions = markerPositions.map(
-		// 		(position) => new kakao.maps.LatLng(...position),
-		// 	);
+			const positions = markerPositions.map(
+				(position) => new kakao.maps.LatLng(...position),
+			);
 
-		// 	if (positions.length > 0) {
-		// 		this.markers = positions.map(
-		// 			(position) =>
-		// 				new kakao.maps.Marker({
-		// 					map: this.map,
-		// 					position,
-		// 				}),
-		// 		);
+			if (positions.length > 0) {
+				this.aptMarkers = positions.map(
+					(position) =>
+						new kakao.maps.Marker({
+							map: this.map,
+							position,
+						}),
+				);
 
-		// 		const bounds = positions.reduce(
-		// 			(bounds, latlng) => bounds.extend(latlng),
-		// 			new kakao.maps.LatLngBounds(),
-		// 		);
+				this.aptMarkers.forEach((marker, index) => {
+					const convertedAptPrice = this.convertAptPrice(
+						this.getAptList[index].recentPrice,
+					);
 
-		// 		this.map.setBounds(bounds);
-		// 	}
-		// },
-		// displayInfoWindow() {
-		// 	if (this.infowindow && this.infowindow.getMap()) {
-		// 		this.map.setCenter(this.infowindow.getPosition());
-		// 		return;
-		// 	}
+					const content = `
+						<div class="wrap">
+							<div class="info">
+								<div class="title">
+										${this.getAptList[index].aptName}
+									<div class="close" title="닫기">
+								</div>
+								</div>
+								<div class="body">
+									<div class="img">
+										<img src="${this.getAptList[index].img}" width="73" height="70">
+									</div>
+									<div class="desc">
+										<div class="price">
+										${convertedAptPrice}
+										</div>
+										<div class="address">
+											<span class="address__info">
+												${this.getAptList[index].sidoName} ${this.getAptList[index].gugunName} ${this.getAptList[index].dongName}
+											</span>
+											<span class="address__jibun">
+												(지번) ${this.getAptList[index].jibun}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					`;
 
-		// 	const iwContent = '<div style="padding:5px;">Hello World!</div>',
-		// 		iwPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-		// 		iwRemoveable = true;
+					const overlay = new kakao.maps.CustomOverlay({
+						content: content,
+						map: this.map,
+						position: marker.getPosition(),
+					});
 
-		// 	this.infowindow = new kakao.maps.InfoWindow({
-		// 		map: this.map,
-		// 		position: iwPosition,
-		// 		content: iwContent,
-		// 		removable: iwRemoveable,
-		// 	});
+					kakao.maps.event.addListener(marker, 'click', function () {
+						overlay.setMap(this.map);
+					});
+				});
 
-		// 	this.map.setCenter(iwPosition);
-		// },
+				const bounds = positions.reduce(
+					(bounds, latlng) => bounds.extend(latlng),
+					new kakao.maps.LatLngBounds(),
+				);
+
+				this.map.setBounds(bounds);
+			}
+		},
+		closeOverlay(that) {
+			that.overlay.setMap(null);
+		},
+		displayInfoWindow() {
+			if (this.infowindow && this.infowindow.getMap()) {
+				this.map.setCenter(this.infowindow.getPosition());
+				return;
+			}
+
+			const iwContent = '<div style="padding:5px;">Hello World!</div>',
+				iwPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+				iwRemoveable = true;
+
+			this.infowindow = new kakao.maps.InfoWindow({
+				map: this.map,
+				position: iwPosition,
+				content: iwContent,
+				removable: iwRemoveable,
+			});
+
+			this.map.setCenter(iwPosition);
+		},
+		convertAptPrice(price) {
+			const _price = price.trim();
+
+			if (_price.length <= 5) {
+				const thousand = price.replace(',', '');
+
+				return thousand;
+			}
+
+			const hundredMillion = _price.substring(0, _price.length - 5);
+			const thousand = parseInt(
+				_price.substring(_price.length - 5).replace(',', ''),
+			);
+			const convertedPrice =
+				thousand === 0
+					? `${hundredMillion}억`
+					: `${hundredMillion}억 ${thousand}`;
+
+			return convertedPrice;
+		},
 	},
 };
 </script>

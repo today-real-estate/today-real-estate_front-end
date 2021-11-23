@@ -1,9 +1,14 @@
 <template>
 	<div class="map__header">
 		<div class="map__search">
-			<form class="search__form">
-				<input type="text" placeholder="검색하세요" />
-			</form>
+			<div class="search__form">
+				<input
+					type="text"
+					v-model="searchDong"
+					@keyup.enter.prevent="searchAptListByDong"
+					placeholder="동 이름을 검색하세요."
+				/>
+			</div>
 		</div>
 		<div class="map__filters">
 			<div class="filters__select">
@@ -67,30 +72,41 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import EventBus from '@/utils/eventBus';
 
 export default {
 	data() {
 		return {
-			selectedSidoCode: '선택하세요',
-			selectedGugunCode: '선택하세요',
-			selectedDongCode: '선택하세요',
+			searchDong: this.searchDongName,
+			selectedSidoCode: '시를 선택하세요',
+			selectedGugunCode: '구를 선택하세요',
+			selectedDongCode: '동을 선택하세요',
 		};
 	},
 	computed: {
-		...mapState('searchStore', ['sidoList', 'gugunList', 'dongList']),
+		...mapState('searchStore', [
+			'searchDongName',
+			'sidoList',
+			'gugunList',
+			'dongList',
+		]),
 	},
 	methods: {
-		...mapActions('searchStore', [
-			'GET_SIDO_LIST',
-			'GET_GUGUN_LIST',
-			'GET_DONG_LIST',
-			'GET_APT_LIST',
-		]),
 		...mapMutations('searchStore', [
 			'CLEAR_SIDO_LIST',
 			'CLEAR_GUGUN_LIST',
 			'CLEAR_DONG_LIST',
 			'CLEAR_APT_LIST',
+			'BACK_TO_ITEM_LIST',
+			'OFF_ROAD_VIEW',
+		]),
+		...mapActions('searchStore', [
+			'GET_SIDO_LIST',
+			'GET_GUGUN_LIST',
+			'GET_DONG_LIST',
+			'GET_APT_LIST_BY_GUGUN',
+			'GET_APT_LIST_BY_DONG',
+			'GET_APT_LIST_BY_SEARCH',
 		]),
 		async getSidoList() {
 			try {
@@ -121,13 +137,39 @@ export default {
 				console.log(error);
 			}
 		},
-		async getAptList(dongCode) {
+		async getAptListByGugun(gugunCode) {
+			const gugunData = {
+				gugun: gugunCode,
+			};
+
+			try {
+				this.BACK_TO_ITEM_LIST();
+				await this.GET_APT_LIST_BY_GUGUN(gugunData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async getAptListByDong(dongCode) {
 			const dongData = {
 				dong: dongCode,
 			};
 
 			try {
-				await this.GET_APT_LIST(dongData);
+				this.BACK_TO_ITEM_LIST();
+				await this.GET_APT_LIST_BY_DONG(dongData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async searchAptListByDong() {
+			const searchData = {
+				dongName: this.searchDong,
+			};
+
+			try {
+				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				EventBus.$emit('displayKakaoMapMarker');
+				this.BACK_TO_ITEM_LIST();
 			} catch (error) {
 				console.log(error);
 			}
@@ -135,31 +177,33 @@ export default {
 		selectSido() {
 			this.CLEAR_GUGUN_LIST();
 			this.CLEAR_DONG_LIST();
-			this.selectedGugunCode = '선택하세요';
-			this.selectedDongCode = '선택하세요';
+			this.selectedGugunCode = '구를 선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 
 			if (!isNaN(this.selectedSidoCode)) {
 				this.getGugunList(this.selectedSidoCode);
 			}
 		},
-		selectGugun() {
+		async selectGugun() {
 			this.CLEAR_DONG_LIST();
-			this.selectedDongCode = '선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 
 			if (!isNaN(this.selectedGugunCode)) {
 				this.getDongList(this.selectedGugunCode);
+				await this.getAptListByGugun(this.selectedGugunCode);
 			}
 		},
-		selectDong() {
+		async selectDong() {
 			if (!isNaN(this.selectedDongCode)) {
-				this.getAptList(this.selectedDongCode);
+				await this.getAptListByDong(this.selectedDongCode);
+				EventBus.$emit('displayKakaoMapMarker');
 			}
 		},
 		clearSearch() {
 			this.CLEAR_APT_LIST();
-			this.selectedSidoCode = '선택하세요';
-			this.selectedGugunCode = '선택하세요';
-			this.selectedDongCode = '선택하세요';
+			this.selectedSidoCode = '시를 선택하세요';
+			this.selectedGugunCode = '구를 선택하세요';
+			this.selectedDongCode = '동을 선택하세요';
 		},
 	},
 	created() {

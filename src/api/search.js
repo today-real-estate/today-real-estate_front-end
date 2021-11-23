@@ -12,8 +12,23 @@ function fetchDongList(gugunData) {
 	return instance.get('/map/dong', { params: gugunData });
 }
 
-function fetchAptList(dongData) {
+function fetchAptListByGugun(gugunData) {
+	return instance.get('/map/gu/apt', { params: gugunData });
+}
+
+function fetchAptListByDong(dongData) {
 	return instance.get('/map/apt', { params: dongData });
 }
 
-export { fetchSidoList, fetchGugunList, fetchDongList, fetchAptList };
+function fetchAptListBySearch(searchDate) {
+	return instance.get('/map/dong-search', { params: searchDate });
+}
+
+export {
+	fetchSidoList,
+	fetchGugunList,
+	fetchDongList,
+	fetchAptListByGugun,
+	fetchAptListByDong,
+	fetchAptListBySearch,
+};

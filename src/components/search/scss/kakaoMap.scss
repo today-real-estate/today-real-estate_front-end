@@ -1,0 +1,273 @@
+$blue-color: #326cf9;
+$light-blue-color: #6b94fa;
+$light-yellow-color: #ffd24a;
+$light-dark-color: #3a3a3a;
+$light-grey-color: #979797;
+
+#map {
+	overflow: hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.map_wrap {
+	overflow: hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+.radius_border {
+	border: 1px solid #919191;
+	border-radius: 5px;
+}
+
+
+#category {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	border-radius: 5px;
+	border: none;
+	box-shadow: rgb(0 0 0 / 15%) 0px 2px 2px 0px;
+	background: #fff;
+	overflow: hidden;
+	z-index: 2;
+}
+#category li {
+	float: left;
+	width: 50px;
+	padding: 6px 0;
+	border-right: 1px solid rgb(226, 226, 226);
+	font-size: 13px; 
+	font-weight: 300;
+	color: #000;
+	list-style: none;
+	text-align: center;
+	transition: all 150ms ease-out 0s;
+	cursor: pointer;
+}
+#category li.on {
+	background: #eee;
+}
+#category li:hover {
+	border-left: 1px solid #acacac;
+	background-color: $light-yellow-color;
+	color: #fff;
+}
+#category li:last-child {
+	margin-right: 0;
+	border-right: 0;
+}
+#category li span {
+	display: block;
+	margin: 0 auto 5px;
+	width: 27px;
+	height: 28px;
+}
+#category li .category_bg {
+	background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
+		no-repeat;
+}
+#category li .bank {
+	background-position: -8px 0;
+}
+#category li .mart {
+	background-position: -8px -36px;
+}
+#category li .pharmacy {
+	background-position: -8px -72px;
+}
+#category li .oil {
+	background-position: -8px -108px;
+}
+#category li .cafe {
+	background-position: -8px -144px;
+}
+#category li .store {
+	background-position: -8px -180px;
+}
+#category li .hospital {
+	background-position: -8px -72px;
+}
+#category li.on .category_bg {
+	background-position-x: -46px;
+}
+
+.placeinfo_wrap {
+	position: absolute;
+	bottom: 28px;
+	left: -150px;
+	width: 300px;
+}
+.placeinfo {
+	position: relative;
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	background: #fff;
+}
+.placeinfo:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+.placeinfo_wrap .after {
+	content: '';
+	position: relative;
+	margin-left: -12px;
+	left: 50%;
+	width: 22px;
+	height: 12px;
+	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+}
+.placeinfo a,
+.placeinfo a:hover,
+.placeinfo a:active {
+	color: #fff;
+	text-decoration: none;
+}
+.placeinfo a,
+.placeinfo span {
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.placeinfo span {
+	cursor: default;
+	font-size: 13px;
+	padding: 10px 20px 0 20px;
+}
+.placeinfo .title {
+	font-weight: bold;
+	font-size: 14px;
+	border-radius: 5px 5px 0 0;
+	margin: -1px -1px 0 -1px;
+	padding: 10px 15px;
+	color: #fff;
+	background: $blue-color
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+		no-repeat right 14px center;
+}
+.placeinfo .tel {
+	color: $light-blue-color;
+	padding-bottom: 10px;
+}
+.placeinfo .jibun {
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 11px;
+	color: #999;
+}
+
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	// height: 132px;
+	margin-left: -144px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 1.5;
+	z-index: 50;
+}
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+.wrap .info {
+	width: 286px;
+	// height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+.info .title {
+	padding: 10px 15px;
+	border-bottom: 1px solid #ddd;
+	background-color: $light-yellow-color;
+	font-size: 14px;
+	font-weight: 500;
+	color: #fff;
+}
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+}
+.info .close:hover {
+	cursor: pointer;
+}
+.info .body {
+	position: relative;
+	overflow: hidden;
+	padding: 10px 20px;
+	display: flex;
+}
+.info .desc {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+	// margin: 13px 0 0 90px;
+	// height: 75px;
+}
+.desc .price {
+	font-size: 20px;
+	color: $light-yellow-color;
+	font-weight: 500;
+}
+.desc .address {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+	.address__info {
+		color: $light-dark-color;
+	}
+	.address__jibun {
+		color: $light-grey-color
+	}
+}
+.info .img {
+	overflow: hidden;
+	width: 75px;
+	height: 75px;
+	margin-right: 15px;
+	border: none;
+	border-radius: 3px;
+	
+	img {
+		width: 75px;
+		height: 75px;
+		border-radius: 3px;
+	}
+}
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+

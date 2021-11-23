@@ -4,7 +4,7 @@
 			<div class="recommendation__header">
 				<div class="header__title">
 					<h1><strong>용산역</strong> 추천매물</h1>
-					<span>최근 검색조건으로 추초니된 매물입니다.</span>
+					<span>최근 검색조건으로 추천된 매물입니다.</span>
 				</div>
 				<RouterLink to="#" class="header__more-btn">
 					더 많은 방 보기<AIcon type="right" />

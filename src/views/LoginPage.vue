@@ -15,7 +15,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-	margin-top: 100px;
-}
+@import './scss/loginPage.scss';
 </style>

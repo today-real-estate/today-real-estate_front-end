@@ -1,8 +1,9 @@
 $light-dark: #3a3a3a;
 
 .account-header {
-	width: 1100px;
+	max-width: 1100px;
 	margin: 0 auto;
+	padding: 0 20px;
 
 	.account-header__title {
 		padding: 10px 0;

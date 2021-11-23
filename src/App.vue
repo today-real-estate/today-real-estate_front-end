@@ -4,7 +4,7 @@
 		<div class="app__contents">
 			<RouterView />
 		</div>
-		<Footer />
+		<Footer v-if="exceptFooter" />
 	</div>
 </template>
 
@@ -17,6 +17,16 @@ export default {
 	components: {
 		Header,
 		Footer,
+	},
+	data() {
+		return {
+			exceptFooter: false,
+		};
+	},
+	created() {
+		if (document.location.pathname === '/search') {
+			this.exceptFooter = true;
+		}
 	},
 };
 </script>

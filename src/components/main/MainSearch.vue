@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { putRecentSearch } from '@/api/user';
 
 export default {
 	data() {
@@ -31,7 +32,11 @@ export default {
 			searchDongName: '',
 		};
 	},
+	computed: {
+		...mapGetters('userStore', ['isLogin', 'getId']),
+	},
 	methods: {
+		...mapMutations('userStore', ['SET_RECENT_SEARCH']),
 		...mapActions('searchStore', ['GET_APT_LIST_BY_SEARCH']),
 		async searchAptListByDong() {
 			const searchData = {
@@ -41,6 +46,16 @@ export default {
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(searchData);
 				this.$router.push('/search');
+
+				if (this.isLogin) {
+					const recentSearchData = {
+						id: this.getId,
+						dongName: this.searchDongName,
+					};
+
+					putRecentSearch(recentSearchData);
+					this.SET_RECENT_SEARCH(this.searchDongName);
+				}
 			} catch (error) {
 				console.log(error);
 			}

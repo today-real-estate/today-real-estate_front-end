@@ -292,6 +292,7 @@ export default {
 		displayMarker(markerPositions) {
 			if (this.aptMarkers.length > 0) {
 				this.aptMarkers.forEach((marker) => marker.setMap(null));
+				console.log('remove', this.aptMarkers);
 			}
 
 			const positions = markerPositions.map(

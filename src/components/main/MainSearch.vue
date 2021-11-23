@@ -51,5 +51,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/scss/reset.scss';
-@import './scss/mainPage.scss';
+@import './scss/mainSearch.scss';
 </style>

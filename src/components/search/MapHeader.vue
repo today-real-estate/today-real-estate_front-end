@@ -168,6 +168,11 @@ export default {
 
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				this.CLEAR_GUGUN_LIST();
+				this.CLEAR_DONG_LIST();
+				this.selectedSidoCode = '시를 선택하세요';
+				this.selectedGugunCode = '구를 선택하세요';
+				this.selectedDongCode = '동을 선택하세요';
 				EventBus.$emit('displayKakaoMapMarker');
 				this.BACK_TO_ITEM_LIST();
 			} catch (error) {

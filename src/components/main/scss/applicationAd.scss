@@ -1,0 +1,54 @@
+$blue-color: #326cf9;
+
+.application-ad-container {
+	display: flex;
+	justify-content: center;
+	background-color: #f8f8f8;
+
+	.application-ad-container__inner {
+		display: flex;
+		max-width: 1100px;
+		min-width: 900px;
+		margin: 0 auto;
+
+		.application-ad-container__image {
+			overflow: hidden;
+			padding-left: 60px;
+			margin-right: 60px;
+
+			img {
+				width: calc(480px * 0.7);
+				height: calc(560px * 0.7);
+			}
+		}
+		.application-ad-container__links {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.links__title {
+				font-size: 20px;
+				font-weight: 500;
+				margin-bottom: 40px;
+				margin-left: 4px;
+
+				strong {
+					color: $blue-color;
+				}
+			}
+			.links__links-group {
+				display: flex;
+				.links-group__link-btn {
+					img {
+						width: 190px;
+						height: 52px;
+					}
+
+					&:nth-child(1) {
+						margin-right: 20px;
+					}
+				}
+			}
+		}
+	}
+}

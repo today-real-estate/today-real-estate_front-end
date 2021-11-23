@@ -4,7 +4,7 @@
 		<div class="app__contents">
 			<RouterView />
 		</div>
-		<Footer />
+		<Footer v-if="$route.fullPath !== '/search'" />
 	</div>
 </template>
 

@@ -28,7 +28,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.signup-container {
-	margin-top: 100px;
-}
+@import './scss/signupPage.scss';
 </style>

@@ -18,7 +18,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.service-container {
-	margin-top: 100px;
-}
+@import './scss/serviceInquiryPage.scss';
 </style>

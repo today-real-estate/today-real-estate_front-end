@@ -1,7 +1,9 @@
 .search-container {
-	width: 100%;
+	max-width: 100%;
+	min-width: 900px;
 	height: 580px;
 	margin-top: -80px;
+	padding: 0 20px;
 	background-image: linear-gradient(
 		134deg,
 		rgb(19, 183, 207) -5%,

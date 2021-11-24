@@ -17,13 +17,13 @@
 						<li class="list__item" v-for="apt in getAptList" :key="apt.aptCode">
 							<div class="item__info">
 								<div class="info__image">
-									<!-- <AIcon v-if="" type="heart" @click="addLiked" />
+									<!-- <AIcon v-if="" type="heart" @click="addLiked" /> -->
 									<AIcon
 										type="heart"
 										@click="addLikedItem(apt.aptCode)"
 										theme="filled"
 										style="color: #f44336"
-									/> -->
+									/>
 									<img :src="apt.img" :alt="apt.aptName" />
 								</div>
 								<div class="info__desc" @click="SELECT_ITEM(apt)">

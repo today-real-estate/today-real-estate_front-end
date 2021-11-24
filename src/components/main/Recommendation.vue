@@ -25,15 +25,16 @@
 					</button>
 				</div>
 			</template>
-
 			<div class="recommendation__list" v-if="recommendations.length !== 0">
-				<RouterLink
-					to="#"
+				<div
 					class="list__apt"
 					v-for="apt in recommendations"
 					:key="apt.aptCode"
+					@click="linkSearchPageWithData(apt)"
 				>
-					<img :src="apt.img" :alt="apt.aptName" class="apt__images" />
+					<div class="apt__images">
+						<img :src="apt.img" :alt="apt.aptName" />
+					</div>
 					<div class="apt__apt-info">
 						<h2 class="apt-info__name">{{ apt.aptName }}</h2>
 						<h1 class="apt-info__price">
@@ -45,7 +46,7 @@
 							{{ apt.jibun }}
 						</p>
 					</div>
-				</RouterLink>
+				</div>
 			</div>
 			<div v-else class="recommendation__no-list">
 				<AIcon type="home" />
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { fetchRecommendations } from '@/api/search';
 
 export default {
@@ -94,6 +95,7 @@ export default {
 		this.getRecommendations();
 	},
 	methods: {
+		...mapMutations('searchStore', ['SELECT_ITEM']),
 		...mapActions('searchStore', ['GET_APT_LIST_BY_SEARCH']),
 		async getRecommendations() {
 			const recentSearchData = {
@@ -113,6 +115,19 @@ export default {
 
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(recentSearchData);
+				this.$router.push('/search');
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async linkSearchPageWithData(apt) {
+			const searchData = {
+				dongName: apt.dongName,
+			};
+
+			try {
+				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				this.SELECT_ITEM(apt);
 				this.$router.push('/search');
 			} catch (error) {
 				console.log(error);

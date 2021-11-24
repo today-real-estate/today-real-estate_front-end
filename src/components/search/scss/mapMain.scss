@@ -97,13 +97,50 @@ $light-grey-color: #979797;
             padding: 16px 15px;
             background-color: rgb(255, 255, 255);
             user-select: none;
+            transition: all 150ms ease-out 0s;
+
+            &:hover {
+              background-color: #fff8e6;
+
+              .info__image {
+
+                img {
+                  transform: scale(1.15);
+                }
+              }
+            }
 
             .info__image {
+              overflow: hidden;
               flex: 0 0 auto;
+              position: relative;
               width: 140px;
               height: 140px;
               min-height: 140px;
-              position: relative;
+              border-radius: 3px;
+
+              i {
+                position: absolute;
+                margin: 8px;
+                right: 0;
+                z-index: 10;
+                font-size: 26px;
+                color: #fff;
+                transition: all 0.15s;
+
+                &:hover {
+                  color: #f44336;
+                }
+              }
+              img {
+                width: 140px;
+                height: 140px;
+                min-height: 140px;
+                border-radius: 3px;
+                transition: all 150ms ease-out 0s;
+              }
+
+
             }
 
             .info__desc {

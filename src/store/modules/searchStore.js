@@ -5,6 +5,7 @@ import {
 	fetchAptListByGugun,
 	fetchAptListByDong,
 	fetchAptListBySearch,
+	fetchLikedAptCodes,
 } from '@/api/search';
 
 const searchStore = {
@@ -16,6 +17,7 @@ const searchStore = {
 		dongList: [{ code: 0, dongName: '선택하세요' }],
 		aptList: [],
 		selectedItem: {},
+		likedAptCodes: [],
 		isSelected: false,
 		roadViewStatus: false,
 	},
@@ -81,6 +83,9 @@ const searchStore = {
 		SET_APT_LIST(state, aptListData) {
 			state.aptList = aptListData;
 		},
+		SET_LIKED_APT_CODES(state, likedAptCodes) {
+			state.likedAptCodes = likedAptCodes;
+		},
 		CLEAR_SIDO_LIST(state) {
 			state.sidoList = [{ code: 0, sidoName: '선택하세요' }];
 		},
@@ -98,6 +103,9 @@ const searchStore = {
 		},
 		CLEAR_SEARCH_DATA(state) {
 			state.aptList = [];
+		},
+		CLEAR_LIKED_APT_CODES(state) {
+			state.likedAptCodes = [];
 		},
 		SELECT_ITEM(state, itemObject) {
 			state.isSelected = true;
@@ -140,6 +148,11 @@ const searchStore = {
 			const { data } = await fetchAptListBySearch(searchData);
 			commit('SET_APT_LIST', data);
 			commit('SET_SEARCH_DONG_NAME', searchData.dongName);
+		},
+		async GET_LIKED_APT_CODES({ commit }, userData) {
+			const { data } = await fetchLikedAptCodes(userData);
+			const likedAptCodes = data.likedAptCodes.map((item) => item.aptCode);
+			commit('SET_LIKED_APT_CODES', likedAptCodes);
 		},
 	},
 };

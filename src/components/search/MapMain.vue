@@ -21,7 +21,16 @@
 							@click="SELECT_ITEM(apt)"
 						>
 							<div class="item__info">
-								<img :src="apt.img" :alt="apt.aptName" class="info__image" />
+								<div class="info__image">
+									<!-- <AIcon v-if=" " type="heart" @click="addLiked" />
+									<AIcon
+										type="heart"
+										@click="addLiked"
+										theme="filled"
+										style="color: #f44336"
+									/> -->
+									<img :src="apt.img" :alt="apt.aptName" />
+								</div>
 								<div class="info__desc">
 									<p class="desc__price">
 										매매 {{ apt.recentPrice | convertAptPrice }}
@@ -121,6 +130,11 @@ export default {
 		KakaoMap,
 		Advertisement,
 	},
+	data() {
+		return {
+			filled: false,
+		};
+	},
 	computed: {
 		...mapState('searchStore', ['isSelected', 'roadViewStatus']),
 		...mapGetters('searchStore', [
@@ -152,6 +166,11 @@ export default {
 			return convertedPrice;
 		},
 	},
+	// beforeRouteLeave(to, from, next) {
+	// 	next((vm) => {
+	// 		vm.BACK_TO_ITEM_LIST();
+	// 	});
+	// },
 	methods: {
 		...mapMutations('searchStore', [
 			'SELECT_ITEM',
@@ -187,6 +206,7 @@ export default {
 		OffRoadView() {
 			this.OFF_ROAD_VIEW();
 		},
+		addLiked() {},
 	},
 };
 </script>

@@ -58,11 +58,29 @@ $light-grey-color: #979797;
 			.list__apt {
 				width: 260px;
 				overflow: hidden;
+				
+				cursor: pointer;
+
+				&:hover {
+					.apt__images {
+						img {
+							transform: scale(1.15);
+						}
+					}
+				}
 
 				.apt__images {
 					width: 260px;
 					height: 180px;
 					border-radius: 3px;
+					overflow: hidden;
+					
+					img {
+						width: 260px;
+						height: 180px;
+						border-radius: 3px;
+						transition: all 150ms ease-out 0s;
+					}
 				}
 
 				.apt__apt-info {

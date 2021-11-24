@@ -50,13 +50,19 @@ const userStore = {
 		SET_RECENT_SEARCH(state, recentSearch) {
 			state.recentSearch = recentSearch;
 		},
-		SET_LIKED_APT_CODES(state, action, aptCode) {
+		SET_LIKED_APT_CODES(state, likedAptCodes) {
+			state.likedAptCodes = likedAptCodes;
+		},
+		UPDATE_LIKED_APT_CODES(state, action, aptCode) {
 			if (action === 'add') {
-				state.likedAptCodes = [...state.likedAptCodes, ...aptCode];
+				state.likedAptCodes.push(aptCode);
 			} else {
-				state.likedAptCodes = state.likedAptCodes.filter(
-					(likedAptCode) => likedAptCode !== aptCode,
-				);
+				for (let i = 0; i < state.likedAptCode.length; i++) {
+					if (state.likedAptCodes[i] === aptCode) {
+						state.likedAptCodes.splice(i, 1);
+						break;
+					}
+				}
 			}
 		},
 		CLEAR_TOKEN(state) {
@@ -100,17 +106,17 @@ const userStore = {
 			const { data } = await fetchLikedAptCodes(userData);
 
 			if (data) {
-				const likedAptCodes = data.likedAptCodes.map((item) => item.aptCode);
+				const likedAptCodes = data.map((item) => item.aptCode);
 				commit('SET_LIKED_APT_CODES', likedAptCodes);
 			}
 		},
 		async ADD_LIKED_APT_CODES({ commit }, aptData) {
 			await postLikedItem(aptData);
-			commit('SET_LIKED_APT_CODES', 'add', aptData.aptCode);
+			commit('UPDATE_LIKED_APT_CODES', 'add', aptData.aptCode);
 		},
 		async REMOVE_LIKED_APT_CODES({ commit }, aptData) {
 			await deleteLikedItem(aptData);
-			commit('SET_LIKED_APT_CODES', 'remove', aptData.aptCode);
+			commit('UPDATE_LIKED_APT_CODES', 'remove', aptData.aptCode);
 		},
 		LOGOUT({ commit }) {
 			commit('CLEAR_ALL');

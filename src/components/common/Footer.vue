@@ -41,7 +41,7 @@
 							고객센터 : 02-1234-5678 (평일 10:00 ~ 18:30 토·일요일, 공휴일
 							휴무)
 						</li>
-						<li>팩스 : 02-123-4567 허위매물 신고 : clean@dabangapp.com</li>
+						<li>팩스 : 02-123-4567 허위매물 신고 : jeonghwan.dev@gmail.com</li>
 					</ul>
 					<div class="content__btn-group">
 						<RouterLink to="/service/qna">자주묻는 질문</RouterLink>

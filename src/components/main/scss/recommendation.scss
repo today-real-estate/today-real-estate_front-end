@@ -51,6 +51,54 @@ $light-grey-color: #979797;
 			}
 		}
 
+		.skeletons {
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+
+			.recommendation__loading-spin {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				width: 62.13px;
+				height: 58px;
+
+			}
+			
+			.skeletons__item {
+				.skeletons__images {
+					width: 260px;
+					height: 180px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__name {
+					width: 180px;
+					height: 19px;
+					margin-top: 20px;
+					margin-bottom: 4px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__price {
+					width: 240px;
+					height: 29px;
+					margin-bottom: 4px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__desc {
+					width: 240px;
+					height: 14px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+			}
+		}
+
 		.recommendation__list {
 			display: flex;
 			justify-content: space-between;
@@ -147,6 +195,13 @@ $light-grey-color: #979797;
 					}
 				}
 			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
+						width: 240px;
+					}
+				}
+			}
 		}
 	}
 }
@@ -162,6 +217,13 @@ $light-grey-color: #979797;
 					}
 				}
 			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
+						width: 220px;
+					}
+				}
+			}
 		}
 	}
 }
@@ -173,6 +235,13 @@ $light-grey-color: #979797;
 					width: 200px;
 
 					.apt__images {
+						width: 200px;
+					}
+				}
+			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
 						width: 200px;
 					}
 				}

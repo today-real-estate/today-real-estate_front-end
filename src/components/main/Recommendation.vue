@@ -25,39 +25,72 @@
 					</button>
 				</div>
 			</template>
-			<div class="recommendation__list" v-if="recommendations.length !== 0">
-				<div
-					class="list__apt"
-					v-for="apt in recommendations"
-					:key="apt.aptCode"
-					@click="linkSearchPageWithData(apt)"
-				>
-					<div class="apt__images">
-						<img :src="apt.img" :alt="apt.aptName" />
+			<template v-if="loading">
+				<div class="skeletons">
+					<div class="recommendation__loading-spin">
+						<ASpin size="large" tip="Loading..." />
 					</div>
-					<div class="apt__apt-info">
-						<h2 class="apt-info__name">{{ apt.aptName }}</h2>
-						<h1 class="apt-info__price">
-							{{ apt.recentPrice | convertAptPrice }}
-						</h1>
-						<p class="apt-info__build-year">건축연도: {{ apt.buildYear }}</p>
-						<p class="apt-info__address">
-							{{ apt.sidoName }} {{ apt.gugunName }} {{ apt.dongName }}
-							{{ apt.jibun }}
-						</p>
+					<div class="skeletons__item">
+						<div class="skeletons__images"></div>
+						<div class="skeletons__name"></div>
+						<div class="skeletons__price"></div>
+						<div class="skeletons__desc"></div>
+					</div>
+					<div class="skeletons__item">
+						<div class="skeletons__images"></div>
+						<div class="skeletons__name"></div>
+						<div class="skeletons__price"></div>
+						<div class="skeletons__desc"></div>
+					</div>
+					<div class="skeletons__item">
+						<div class="skeletons__images"></div>
+						<div class="skeletons__name"></div>
+						<div class="skeletons__price"></div>
+						<div class="skeletons__desc"></div>
+					</div>
+					<div class="skeletons__item">
+						<div class="skeletons__images"></div>
+						<div class="skeletons__name"></div>
+						<div class="skeletons__price"></div>
+						<div class="skeletons__desc"></div>
 					</div>
 				</div>
-			</div>
-			<div v-else class="recommendation__no-list">
-				<AIcon type="home" />
-				<h1>추천 매물이 없습니다.</h1>
-			</div>
+			</template>
+			<template v-else>
+				<div class="recommendation__list" v-if="recommendations.length !== 0">
+					<div
+						class="list__apt"
+						v-for="apt in recommendations"
+						:key="apt.aptCode"
+						@click="linkSearchPageWithData(apt)"
+					>
+						<div class="apt__images">
+							<img :src="apt.img" :alt="apt.aptName" />
+						</div>
+						<div class="apt__apt-info">
+							<h2 class="apt-info__name">{{ apt.aptName }}</h2>
+							<h1 class="apt-info__price">
+								{{ apt.recentPrice | convertAptPrice }}
+							</h1>
+							<p class="apt-info__build-year">건축연도: {{ apt.buildYear }}</p>
+							<p class="apt-info__address">
+								{{ apt.sidoName }} {{ apt.gugunName }} {{ apt.dongName }}
+								{{ apt.jibun }}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div v-else class="recommendation__no-list">
+					<AIcon type="home" />
+					<h1>추천 매물이 없습니다.</h1>
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import { fetchRecommendations } from '@/api/search';
 
 export default {
@@ -67,6 +100,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapState('searchStore', ['loading']),
 		...mapGetters('userStore', ['isLogin', 'getRecentSearch']),
 	},
 	filters: {
@@ -95,15 +129,21 @@ export default {
 		this.getRecommendations();
 	},
 	methods: {
-		...mapMutations('searchStore', ['SELECT_ITEM']),
+		...mapMutations('searchStore', [
+			'SELECT_ITEM',
+			'ON_LOADING',
+			'OFF_LOADING',
+		]),
 		...mapActions('searchStore', ['GET_APT_LIST_BY_SEARCH']),
 		async getRecommendations() {
+			this.ON_LOADING();
 			const recentSearchData = {
 				dongName: this.getRecentSearch,
 			};
 			const { data } = await fetchRecommendations(recentSearchData);
 
 			this.recommendations = data;
+			this.OFF_LOADING();
 		},
 		moveSearchPage() {
 			this.$router.push('/search');

@@ -57,6 +57,7 @@ const searchStore = {
 			state.searchDongName = searchDongName;
 		},
 		SET_SIDO_LIST(state, sidoListData) {
+			state.sidoList = [{ code: 0, sidoName: '선택하세요' }];
 			sidoListData.forEach((sido) => {
 				state.sidoList.push({ code: sido.sidoCode, sidoName: sido.sidoName });
 			});

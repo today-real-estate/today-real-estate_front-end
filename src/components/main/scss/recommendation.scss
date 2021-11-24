@@ -1,3 +1,5 @@
+$light-grey-color: #979797;
+
 .recommendation-container {
 	margin: 100px 0;
 
@@ -39,6 +41,8 @@
 				display: flex;
 				align-items: center;
 				margin-left: auto;
+				background-color: transparent;
+				border: none;
 				font-size: 15px;
 				font-weight: 300;
 				line-height: 22px;
@@ -54,11 +58,29 @@
 			.list__apt {
 				width: 260px;
 				overflow: hidden;
+				
+				cursor: pointer;
+
+				&:hover {
+					.apt__images {
+						img {
+							transform: scale(1.15);
+						}
+					}
+				}
 
 				.apt__images {
 					width: 260px;
 					height: 180px;
 					border-radius: 3px;
+					overflow: hidden;
+					
+					img {
+						width: 260px;
+						height: 180px;
+						border-radius: 3px;
+						transition: all 150ms ease-out 0s;
+					}
 				}
 
 				.apt__apt-info {
@@ -91,6 +113,23 @@
 						white-space: nowrap;
 					}
 				}
+			}
+		}
+		.recommendation__no-list {
+			padding: 80px 0;
+
+			i {
+				display: block;
+				margin: 0 auto 20px;
+				font-size: 50px;
+				color: $light-grey-color;
+			}
+			h1 {
+				margin-bottom: 0;
+				font-size: 26px;
+				font-weight: 400;
+				color: $light-grey-color;
+				text-align: center;
 			}
 		}
 	}

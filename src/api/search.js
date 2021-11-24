@@ -1,4 +1,5 @@
 import { instance } from '@/api/index';
+import { instanceWithAuth } from '@/api/index';
 
 function fetchSidoList() {
 	return instance.get('/map/sido');
@@ -24,6 +25,10 @@ function fetchAptListBySearch(searchDate) {
 	return instance.get('/map/dong-search', { params: searchDate });
 }
 
+function fetchRecommendations(recentSearchData) {
+	return instanceWithAuth.get('/map/recommend', { params: recentSearchData });
+}
+
 export {
 	fetchSidoList,
 	fetchGugunList,
@@ -31,4 +36,5 @@ export {
 	fetchAptListByGugun,
 	fetchAptListByDong,
 	fetchAptListBySearch,
+	fetchRecommendations,
 };

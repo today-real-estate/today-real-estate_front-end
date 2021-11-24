@@ -71,7 +71,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { putRecentSearch } from '@/api/user';
 import EventBus from '@/utils/eventBus';
 
 export default {
@@ -90,8 +91,10 @@ export default {
 			'gugunList',
 			'dongList',
 		]),
+		...mapGetters('userStore', ['isLogin', 'getId']),
 	},
 	methods: {
+		...mapMutations('userStore', ['SET_RECENT_SEARCH']),
 		...mapMutations('searchStore', [
 			'CLEAR_SIDO_LIST',
 			'CLEAR_GUGUN_LIST',
@@ -168,6 +171,7 @@ export default {
 
 			try {
 				await this.GET_APT_LIST_BY_SEARCH(searchData);
+
 				this.CLEAR_GUGUN_LIST();
 				this.CLEAR_DONG_LIST();
 				this.selectedSidoCode = '시를 선택하세요';
@@ -175,6 +179,16 @@ export default {
 				this.selectedDongCode = '동을 선택하세요';
 				EventBus.$emit('displayKakaoMapMarker');
 				this.BACK_TO_ITEM_LIST();
+
+				if (this.isLogin) {
+					const recentSearchData = {
+						id: this.getId,
+						dongName: this.searchDongName,
+					};
+
+					putRecentSearch(recentSearchData);
+					this.SET_RECENT_SEARCH(this.searchDongName);
+				}
 			} catch (error) {
 				console.log(error);
 			}

@@ -1,4 +1,3 @@
-d
 <template>
 	<div class="map_wrap">
 		<div
@@ -47,20 +46,6 @@ export default {
 	data() {
 		return {
 			map: null,
-			markerPositions1: [
-				[33.452278, 126.567803],
-				[33.452671, 126.574792],
-				[33.451744, 126.572441],
-			],
-			markerPositions2: [
-				[37.499590490909185, 127.0263723554437],
-				[37.499427948430814, 127.02794423197847],
-				[37.498553760499505, 127.02882598822454],
-				[37.497625593121384, 127.02935713582038],
-				[37.49629291770947, 127.02587362608637],
-				[37.49754540521486, 127.02546694890695],
-				[37.49646391248451, 127.02675574250912],
-			],
 			mapTypeControl: null,
 			zoomControl: null,
 			placeOverlay: null,
@@ -109,6 +94,9 @@ export default {
 				'//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=0f4c22d8cdfcb5038140db4f10d9fdcd&libraries=services';
 			document.head.appendChild(script);
 		}
+	},
+	beforeDestory() {
+		EventBus.$off('displayKakaoMapMarker');
 	},
 	methods: {
 		initKakaoMap() {
@@ -292,6 +280,8 @@ export default {
 		displayMarker(markerPositions) {
 			if (this.aptMarkers.length > 0) {
 				this.aptMarkers.forEach((marker) => marker.setMap(null));
+				this.aptMarkers = [];
+				console.log('remove', this.aptMarkers);
 			}
 
 			const positions = markerPositions.map(
@@ -316,9 +306,7 @@ export default {
 						<div class="wrap">
 							<div class="info">
 								<div class="title">
-										${this.getAptList[index].aptName}
-									<div class="close" title="닫기">
-								</div>
+									${this.getAptList[index].aptName}
 								</div>
 								<div class="body">
 									<div class="img">
@@ -360,28 +348,6 @@ export default {
 
 				this.map.setBounds(bounds);
 			}
-		},
-		closeOverlay(that) {
-			that.overlay.setMap(null);
-		},
-		displayInfoWindow() {
-			if (this.infowindow && this.infowindow.getMap()) {
-				this.map.setCenter(this.infowindow.getPosition());
-				return;
-			}
-
-			const iwContent = '<div style="padding:5px;">Hello World!</div>',
-				iwPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-				iwRemoveable = true;
-
-			this.infowindow = new kakao.maps.InfoWindow({
-				map: this.map,
-				position: iwPosition,
-				content: iwContent,
-				removable: iwRemoveable,
-			});
-
-			this.map.setCenter(iwPosition);
 		},
 		convertAptPrice(price) {
 			const _price = price.trim();

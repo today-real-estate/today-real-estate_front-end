@@ -2,8 +2,7 @@
 	<nav class="header__nav">
 		<RouterLink to="/search" class="nav__link">지도</RouterLink>
 		<RouterLink to="/" class="nav__link">분양</RouterLink>
-		<RouterLink to="/" class="nav__link">분양 등록</RouterLink>
-		<RouterLink to="/" class="nav__link">관심목록</RouterLink>
+		<RouterLink to="/account/liked" class="nav__link">관심목록</RouterLink>
 		<RouterLink to="/service/inquiry" class="nav__link">1:1 문의</RouterLink>
 		<template v-if="!isLogin">
 			<RouterLink to="/login" class="nav__link link--user">

@@ -2,8 +2,8 @@
 	<div class="account-header">
 		<h1 class="account-header__title">마이페이지</h1>
 		<ul class="account-header__nav">
-			<li class="nav__link" :class="{ active: interestListStatus }">
-				<RouterLink to="/account/interest-list">관심목록</RouterLink>
+			<li class="nav__link" :class="{ active: likedStatus }">
+				<RouterLink to="/account/liked">관심목록</RouterLink>
 			</li>
 			<li class="nav__link" :class="{ active: inquiryListStatus }">
 				<RouterLink to="/account/inquiry-list">1:1 문의 내역</RouterLink>
@@ -19,14 +19,14 @@
 export default {
 	data() {
 		return {
-			interestListStatus: false,
+			likedStatus: false,
 			inquiryListStatus: false,
 			editStatus: false,
 		};
 	},
 	created() {
 		switch (this.$route.fullPath) {
-			case '/account/interest-list':
+			case '/account/liked':
 				this.likedStatus = true;
 				break;
 			case '/account/inquiry-list':

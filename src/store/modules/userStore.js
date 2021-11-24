@@ -1,4 +1,5 @@
 import { loginUser } from '@/api/auth';
+import { postLikedItem, fetchLikedAptCodes, deleteLikedItem } from '@/api/user';
 import {
 	getAuthFromCookie,
 	getUserFromCookie,
@@ -17,6 +18,7 @@ const userStore = {
 		id: getIdFromCookie() || '',
 		nickname: getUserFromCookie() || '',
 		recentSearch: getRecentSearchCookie() || '',
+		likedAptCodes: [],
 	},
 	getters: {
 		isLogin(state) {
@@ -48,6 +50,15 @@ const userStore = {
 		SET_RECENT_SEARCH(state, recentSearch) {
 			state.recentSearch = recentSearch;
 		},
+		SET_LIKED_APT_CODES(state, action, aptCode) {
+			if (action === 'add') {
+				state.likedAptCodes = [...state.likedAptCodes, ...aptCode];
+			} else {
+				state.likedAptCodes = state.likedAptCodes.filter(
+					(likedAptCode) => likedAptCode !== aptCode,
+				);
+			}
+		},
 		CLEAR_TOKEN(state) {
 			state.token = '';
 		},
@@ -60,11 +71,15 @@ const userStore = {
 		CLEAR_RECENT_SEARCH(state) {
 			state.recentSearch = '';
 		},
+		CLEAR_LIKED_APT_CODES(state) {
+			state.likedAptCodes = [];
+		},
 		CLEAR_ALL(state) {
 			state.token = '';
 			state.id = '';
 			state.nickname = '';
 			state.recentSearch = '';
+			state.likedAptCodes = [];
 		},
 	},
 	actions: {
@@ -80,6 +95,22 @@ const userStore = {
 			saveIdToCookie(data.id);
 			saveUserToCookie(data.nickname);
 			saveRecentSearchToCookie(data.recentSearch);
+		},
+		async GET_LIKED_APT_CODES({ commit }, userData) {
+			const { data } = await fetchLikedAptCodes(userData);
+
+			if (data) {
+				const likedAptCodes = data.likedAptCodes.map((item) => item.aptCode);
+				commit('SET_LIKED_APT_CODES', likedAptCodes);
+			}
+		},
+		async ADD_LIKED_APT_CODES({ commit }, aptData) {
+			await postLikedItem(aptData);
+			commit('SET_LIKED_APT_CODES', 'add', aptData.aptCode);
+		},
+		async REMOVE_LIKED_APT_CODES({ commit }, aptData) {
+			await deleteLikedItem(aptData);
+			commit('SET_LIKED_APT_CODES', 'remove', aptData.aptCode);
 		},
 		LOGOUT({ commit }) {
 			commit('CLEAR_ALL');

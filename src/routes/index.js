@@ -19,12 +19,20 @@ export default new VueRouter({
 			component: () => import('@/views/SignupPage.vue'),
 		},
 		{
+			path: '/search',
+			component: () => import('@/views/SearchPage.vue'),
+		},
+		{
 			path: '/service/inquiry',
 			component: () => import('@/views/service/ServiceInquiryPage.vue'),
 		},
 		{
 			path: '/service/inquiry/:id',
 			component: () => import('@/views/service/ServiceInquiryPage.vue'),
+		},
+		{
+			path: '/account/liked',
+			component: () => import('@/views/account/AccountLikedPage.vue'),
 		},
 		{
 			path: '/account/inquiry-list',
@@ -37,10 +45,6 @@ export default new VueRouter({
 		{
 			path: '/account/edit',
 			component: () => import('@/views/account/AccountEditPage.vue'),
-		},
-		{
-			path: '/search',
-			component: () => import('@/views/SearchPage.vue'),
 		},
 	],
 });

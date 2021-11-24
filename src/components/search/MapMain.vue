@@ -14,24 +14,19 @@
 						v-if="getAptList.length !== 0"
 						key="app-list"
 					>
-						<li
-							class="list__item"
-							v-for="apt in getAptList"
-							:key="apt.aptCode"
-							@click="SELECT_ITEM(apt)"
-						>
+						<li class="list__item" v-for="apt in getAptList" :key="apt.aptCode">
 							<div class="item__info">
 								<div class="info__image">
-									<!-- <AIcon v-if=" " type="heart" @click="addLiked" />
+									<!-- <AIcon v-if="" type="heart" @click="addLiked" /> -->
 									<AIcon
 										type="heart"
-										@click="addLiked"
+										@click="addLikedItem(apt.aptCode)"
 										theme="filled"
 										style="color: #f44336"
-									/> -->
+									/>
 									<img :src="apt.img" :alt="apt.aptName" />
 								</div>
-								<div class="info__desc">
+								<div class="info__desc" @click="SELECT_ITEM(apt)">
 									<p class="desc__price">
 										매매 {{ apt.recentPrice | convertAptPrice }}
 									</p>
@@ -121,7 +116,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import KakaoMap from '@/components/search/KakaoMap.vue';
 import Advertisement from '@/components/search/Advertisement.vue';
 
@@ -143,6 +138,7 @@ export default {
 			'getHighestPrice',
 			'getSelectedItem',
 		]),
+		...mapGetters('userStore', ['getId']),
 	},
 	filters: {
 		convertAptPrice(price) {
@@ -171,6 +167,12 @@ export default {
 	// 		vm.BACK_TO_ITEM_LIST();
 	// 	});
 	// },
+	created() {
+		const userData = {
+			userId: this.getId,
+		};
+		this.GET_LIKED_APT_CODES(userData);
+	},
 	methods: {
 		...mapMutations('searchStore', [
 			'SELECT_ITEM',
@@ -178,6 +180,7 @@ export default {
 			'ON_ROAD_VIEW',
 			'OFF_ROAD_VIEW',
 		]),
+		...mapActions('userStore', ['GET_LIKED_APT_CODES', 'ADD_LIKED_APT_CODES']),
 		initKakaoRoadview(latitude, longitude) {
 			const roadviewContainer = document.getElementById('roadview');
 			const roadview = new kakao.maps.Roadview(roadviewContainer);
@@ -206,7 +209,17 @@ export default {
 		OffRoadView() {
 			this.OFF_ROAD_VIEW();
 		},
-		addLiked() {},
+		addLikedItem(aptCode) {
+			try {
+				const aptData = {
+					id: this.getId,
+					aptCode,
+				};
+				this.ADD_LIKED_APT_CODES(aptData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 };
 </script>

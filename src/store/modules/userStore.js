@@ -49,6 +49,7 @@ const userStore = {
 		},
 		SET_RECENT_SEARCH(state, recentSearch) {
 			state.recentSearch = recentSearch;
+			saveRecentSearchToCookie(recentSearch);
 		},
 		SET_LIKED_APT_CODES(state, likedAptCodes) {
 			state.likedAptCodes = likedAptCodes;

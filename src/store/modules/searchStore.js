@@ -18,6 +18,7 @@ const searchStore = {
 		selectedItem: {},
 		isSelected: false,
 		roadViewStatus: false,
+		loading: false,
 	},
 	getters: {
 		getAptList(state) {
@@ -95,6 +96,7 @@ const searchStore = {
 			state.selectedItem = {};
 			state.isSelected = false;
 			state.roadViewStatus = false;
+			state.loading = false;
 		},
 		CLEAR_SEARCH_DATA(state) {
 			state.aptList = [];
@@ -114,6 +116,12 @@ const searchStore = {
 		OFF_ROAD_VIEW(state) {
 			state.roadViewStatus = false;
 		},
+		ON_LOADING(state) {
+			state.loading = true;
+		},
+		OFF_LOADING(state) {
+			state.loading = false;
+		},
 	},
 	actions: {
 		async GET_SIDO_LIST({ commit }) {
@@ -129,17 +137,23 @@ const searchStore = {
 			commit('SET_DONG_LIST', data);
 		},
 		async GET_APT_LIST_BY_GUGUN({ commit }, dongData) {
+			commit('ON_LOADING');
 			const { data } = await fetchAptListByGugun(dongData);
 			commit('SET_APT_LIST', data);
+			commit('OFF_LOADING');
 		},
 		async GET_APT_LIST_BY_DONG({ commit }, dongData) {
+			commit('ON_LOADING');
 			const { data } = await fetchAptListByDong(dongData);
 			commit('SET_APT_LIST', data);
+			commit('OFF_LOADING');
 		},
 		async GET_APT_LIST_BY_SEARCH({ commit }, searchData) {
+			commit('ON_LOADING');
 			const { data } = await fetchAptListBySearch(searchData);
 			commit('SET_APT_LIST', data);
 			commit('SET_SEARCH_DONG_NAME', searchData.dongName);
+			commit('OFF_LOADING');
 		},
 	},
 };

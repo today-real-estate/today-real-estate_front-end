@@ -8,105 +8,119 @@
 				</button>
 			</div>
 			<div class="side-bar__content">
-				<div v-if="!isSelected">
-					<ul
-						class="content__list"
-						v-if="getAptList.length !== 0"
-						key="app-list"
-					>
-						<li class="list__item" v-for="apt in getAptList" :key="apt.aptCode">
-							<div class="item__info">
-								<div class="info__image">
-									<!-- <AIcon v-if="" type="heart" @click="addLiked" /> -->
-									<AIcon
-										type="heart"
-										@click="addLikedItem(apt.aptCode)"
-										theme="filled"
-										style="color: #f44336"
-									/>
-									<img :src="apt.img" :alt="apt.aptName" />
-								</div>
-								<div class="info__desc" @click="SELECT_ITEM(apt)">
-									<p class="desc__price">
-										매매 {{ apt.recentPrice | convertAptPrice }}
-									</p>
-									<h1 class="desc__title">아파트 · {{ apt.aptName }}</h1>
-									<p class="desc__sub-desc">건축연도: {{ apt.buildYear }}년</p>
-									<p class="desc__sub-desc">
-										{{ apt.gugunName }} {{ apt.dongName }}
-									</p>
-									<div class="desc__badges">
-										<p class="badges__confirm-status">확인매물 21.11.09.</p>
-										<p
-											class="badges__lowest-price"
-											v-if="
-												getLowestPrice !== getHighestPrice &&
-												apt.recentPrice === getLowestPrice
-											"
-										>
-											최저가 검색 매물
+				<template v-if="loading">
+					<div class="side-bar__loading-spin">
+						<ASpin size="large" tip="Loading..." />
+					</div>
+				</template>
+				<template v-else>
+					<div v-if="!isSelected">
+						<ul
+							class="content__list"
+							v-if="getAptList.length !== 0"
+							key="app-list"
+						>
+							<li
+								class="list__item"
+								v-for="apt in getAptList"
+								:key="apt.aptCode"
+							>
+								<div class="item__info">
+									<div class="info__image">
+										<!-- <AIcon v-if="" type="heart" @click="addLiked" /> -->
+										<AIcon
+											type="heart"
+											@click="addLikedItem(apt.aptCode)"
+											theme="filled"
+											style="color: #f44336"
+										/>
+										<img :src="apt.img" :alt="apt.aptName" />
+									</div>
+									<div class="info__desc" @click="SELECT_ITEM(apt)">
+										<p class="desc__price">
+											매매 {{ apt.recentPrice | convertAptPrice }}
 										</p>
-										<p
-											class="badges__highest-price"
-											v-if="
-												getLowestPrice !== getHighestPrice &&
-												apt.recentPrice === getHighestPrice
-											"
-										>
-											최고가 검색 매물
+										<h1 class="desc__title">아파트 · {{ apt.aptName }}</h1>
+										<p class="desc__sub-desc">
+											건축연도: {{ apt.buildYear }}년
 										</p>
+										<p class="desc__sub-desc">
+											{{ apt.gugunName }} {{ apt.dongName }}
+										</p>
+										<div class="desc__badges">
+											<p class="badges__confirm-status">확인매물 21.11.09.</p>
+											<p
+												class="badges__lowest-price"
+												v-if="
+													getLowestPrice !== getHighestPrice &&
+													apt.recentPrice === getLowestPrice
+												"
+											>
+												최저가 검색 매물
+											</p>
+											<p
+												class="badges__highest-price"
+												v-if="
+													getLowestPrice !== getHighestPrice &&
+													apt.recentPrice === getHighestPrice
+												"
+											>
+												최고가 검색 매물
+											</p>
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>
-					</ul>
-					<div v-else key="app-list" class="content_no-list">
-						<AIcon type="home" />
-						<h1>검색된 결과가 없습니다.</h1>
+							</li>
+						</ul>
+						<div v-else key="app-list" class="content_no-list">
+							<AIcon type="home" />
+							<h1>검색된 결과가 없습니다.</h1>
+						</div>
 					</div>
-				</div>
-				<div v-else class="content__detail">
-					<div class="detail__image">
-						<img
-							v-show="!roadViewStatus"
-							:src="getSelectedItem.img"
-							:alt="getSelectedItem.aptName"
-						/>
-						<div v-show="roadViewStatus" id="roadview"></div>
-						<button
-							v-if="!roadViewStatus"
-							class="image__road-view-btn image__road-view-btn--on"
-							@click="OnRoadView(getSelectedItem.lat, getSelectedItem.lng)"
-						>
-							<a-icon type="environment" /> 로드뷰 보기
-						</button>
-						<button
-							v-else
-							class="image__road-view-btn image__road-view-btn--off"
-							@click="OffRoadView"
-						>
-							<AIcon type="undo" /> 사진으로 되돌아가기
-						</button>
+
+					<div v-else class="content__detail">
+						<div class="detail__image">
+							<img
+								v-show="!roadViewStatus"
+								:src="getSelectedItem.img"
+								:alt="getSelectedItem.aptName"
+							/>
+							<div v-show="roadViewStatus" id="roadview"></div>
+							<button
+								v-if="!roadViewStatus"
+								class="image__road-view-btn image__road-view-btn--on"
+								@click="OnRoadView(getSelectedItem.lat, getSelectedItem.lng)"
+							>
+								<a-icon type="environment" /> 로드뷰 보기
+							</button>
+							<button
+								v-else
+								class="image__road-view-btn image__road-view-btn--off"
+								@click="OffRoadView"
+							>
+								<AIcon type="undo" /> 사진으로 되돌아가기
+							</button>
+						</div>
+						<div class="detail__header">
+							<h1 class="header__apt-name">{{ getSelectedItem.aptName }}</h1>
+							<p class="header__buildYear">
+								건축연도: {{ getSelectedItem.buildYear }}년
+							</p>
+						</div>
+						<div class="detail__main">
+							<p class="main__price">
+								매매 {{ getSelectedItem.recentPrice | convertAptPrice }}
+							</p>
+							<p class="main__address">
+								{{ getSelectedItem.sidoName }} {{ getSelectedItem.gugunName }}
+								{{ getSelectedItem.dongName }} {{ getSelectedItem.jibun }}
+							</p>
+						</div>
+						<div class="detail__ad">
+							<Advertisement />
+						</div>
 					</div>
-					<div class="detail__header">
-						<h1 class="header__apt-name">{{ getSelectedItem.aptName }}</h1>
-						<p class="header__buildYear">
-							건축연도: {{ getSelectedItem.buildYear }}년
-						</p>
-					</div>
-					<div class="detail__main">
-						<p class="main__price">
-							매매 {{ getSelectedItem.recentPrice | convertAptPrice }}
-						</p>
-						<p class="main__address">
-							{{ getSelectedItem.sidoName }} {{ getSelectedItem.gugunName }}
-							{{ getSelectedItem.dongName }} {{ getSelectedItem.jibun }}
-						</p>
-					</div>
-					<div class="detail__ad">
-						<Advertisement />
-					</div>
-				</div>
+				</template>
 			</div>
 		</div>
 		<div class="main__map">
@@ -131,7 +145,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('searchStore', ['isSelected', 'roadViewStatus']),
+		...mapState('searchStore', ['isSelected', 'roadViewStatus', 'loading']),
 		...mapGetters('searchStore', [
 			'getAptList',
 			'getLowestPrice',

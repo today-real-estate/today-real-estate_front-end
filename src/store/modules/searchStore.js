@@ -5,6 +5,9 @@ import {
 	fetchAptListByGugun,
 	fetchAptListByDong,
 	fetchAptListBySearch,
+	fetchAptListByGugunWithAuth,
+	fetchAptListByDongWithAuth,
+	fetchAptListBySearchWithAuth,
 } from '@/api/search';
 
 const searchStore = {
@@ -130,6 +133,12 @@ const searchStore = {
 				state.likedStatus[aptCode] = false;
 			});
 		},
+		ON_LIKED(state, index) {
+			state.aptList[index].likedStatus = true;
+		},
+		OFF_LIKED(state, index) {
+			state.aptList[index].likedStatus = false;
+		},
 	},
 	actions: {
 		async GET_SIDO_LIST({ commit }) {
@@ -159,6 +168,25 @@ const searchStore = {
 		async GET_APT_LIST_BY_SEARCH({ commit }, searchData) {
 			commit('ON_LOADING');
 			const { data } = await fetchAptListBySearch(searchData);
+			commit('SET_APT_LIST', data);
+			commit('SET_SEARCH_DONG_NAME', searchData.dongName);
+			commit('OFF_LOADING');
+		},
+		async GET_APT_LIST_BY_GUGUN_WITH_AUTH({ commit }, dongData) {
+			commit('ON_LOADING');
+			const { data } = await fetchAptListByGugunWithAuth(dongData);
+			commit('SET_APT_LIST', data);
+			commit('OFF_LOADING');
+		},
+		async GET_APT_LIST_BY_DONG_WITH_AUTH({ commit }, dongData) {
+			commit('ON_LOADING');
+			const { data } = await fetchAptListByDongWithAuth(dongData);
+			commit('SET_APT_LIST', data);
+			commit('OFF_LOADING');
+		},
+		async GET_APT_LIST_BY_SEARCH_WITH_AUTH({ commit }, searchData) {
+			commit('ON_LOADING');
+			const { data } = await fetchAptListBySearchWithAuth(searchData);
 			commit('SET_APT_LIST', data);
 			commit('SET_SEARCH_DONG_NAME', searchData.dongName);
 			commit('OFF_LOADING');

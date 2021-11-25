@@ -110,6 +110,9 @@ export default {
 			'GET_APT_LIST_BY_GUGUN',
 			'GET_APT_LIST_BY_DONG',
 			'GET_APT_LIST_BY_SEARCH',
+			'GET_APT_LIST_BY_GUGUN_WITH_AUTH',
+			'GET_APT_LIST_BY_DONG_WITH_AUTH',
+			'GET_APT_LIST_BY_SEARCH_WITH_AUTH',
 		]),
 		async getSidoList() {
 			try {
@@ -141,36 +144,65 @@ export default {
 			}
 		},
 		async getAptListByGugun(gugunCode) {
-			const gugunData = {
-				gugun: gugunCode,
-			};
-
 			try {
+				if (this.isLogin) {
+					const gugunData = {
+						userId: this.getId,
+						gugun: gugunCode,
+					};
+
+					await this.GET_APT_LIST_BY_GUGUN_WITH_AUTH(gugunData);
+				} else {
+					const gugunData = {
+						gugun: gugunCode,
+					};
+
+					await this.GET_APT_LIST_BY_GUGUN(gugunData);
+				}
+
 				this.BACK_TO_ITEM_LIST();
-				await this.GET_APT_LIST_BY_GUGUN(gugunData);
 			} catch (error) {
 				console.log(error);
 			}
 		},
 		async getAptListByDong(dongCode) {
-			const dongData = {
-				dong: dongCode,
-			};
-
 			try {
+				if (this.isLogin) {
+					const dongData = {
+						userId: this.getId,
+						dong: dongCode,
+					};
+
+					await this.GET_APT_LIST_BY_DONG_WITH_AUTH(dongData);
+				} else {
+					const dongData = {
+						dong: dongCode,
+					};
+
+					await this.GET_APT_LIST_BY_DONG(dongData);
+				}
+
 				this.BACK_TO_ITEM_LIST();
-				await this.GET_APT_LIST_BY_DONG(dongData);
 			} catch (error) {
 				console.log(error);
 			}
 		},
 		async searchAptListByDong() {
-			const searchData = {
-				dongName: this.searchDong,
-			};
-
 			try {
-				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				if (this.isLogin) {
+					const searchData = {
+						userId: this.getId,
+						dongName: this.searchDong,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH_WITH_AUTH(searchData);
+				} else {
+					const searchData = {
+						dongName: this.searchDong,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH(searchData);
+				}
 
 				this.CLEAR_GUGUN_LIST();
 				this.CLEAR_DONG_LIST();
@@ -178,13 +210,12 @@ export default {
 				this.selectedGugunCode = '구를 선택하세요';
 				this.selectedDongCode = '동을 선택하세요';
 				EventBus.$emit('displayKakaoMapMarker');
-				EventBus.$emit('initLikedStatus');
 				this.BACK_TO_ITEM_LIST();
 
 				if (this.isLogin) {
 					const recentSearchData = {
 						id: this.getId,
-						dongName: this.searchDongName,
+						recentSearch: this.searchDongName,
 					};
 
 					putRecentSearch(recentSearchData);

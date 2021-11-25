@@ -2,19 +2,21 @@
 	<li class="list__item">
 		<div class="item__info">
 			<div class="info__image">
-				<AIcon
-					v-if="liked"
-					@click="removeLikedItem"
-					type="heart"
-					theme="filled"
-					style="color: #f6685e"
-				/>
-				<AIcon
-					v-else
-					@click="addLikedItem"
-					type="heart"
-					style="color: #f6685e"
-				/>
+				<template v-if="isLogin">
+					<AIcon
+						v-if="apt.likedStatus"
+						@click="removeLikedItem(index, apt.aptCode)"
+						type="heart"
+						theme="filled"
+						style="color: #f6685e"
+					/>
+					<AIcon
+						v-else
+						@click="addLikedItem(index, apt.aptCode)"
+						type="heart"
+						style="color: #f6685e"
+					/>
+				</template>
 				<img :src="apt.img" :alt="apt.aptName" />
 			</div>
 			<div class="info__desc" @click="SELECT_ITEM(apt)">
@@ -49,7 +51,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { postLikedItem, deleteLikedItem } from '@/api/user';
 
 export default {
 	props: {
@@ -61,27 +64,21 @@ export default {
 			typs: Boolean,
 			default: false,
 		},
+		index: {
+			type: Number,
+		},
 	},
 	data() {
-		return {
-			likedStatus: this.isLiked() || '',
-		};
+		return {};
 	},
 	computed: {
 		...mapState('userStore', ['likedAptCodes']),
-		// ...mapState('searchStore', ['isSelected', 'roadViewStatus', 'loading']),
 		...mapGetters('searchStore', [
 			'getLowestPrice',
 			'getHighestPrice',
 			'getSelectedItem',
 		]),
-		...mapGetters('userStore', ['getId']),
-		// isLiked(aptCode) {
-		// 	return
-		// }
-		// isLiked() {
-		// 	return this.likedAptCodes.includes(this.apt.aptCode.toString());
-		// },
+		...mapGetters('userStore', ['isLogin', 'getId']),
 	},
 	filters: {
 		convertAptPrice(price) {
@@ -105,22 +102,26 @@ export default {
 			return convertedPrice;
 		},
 	},
-	created() {
-		console.log(this.likedAptCodes);
-		console.log(this.apt.aptCode);
-	},
 	methods: {
-		...mapMutations('searchStore', ['SELECT_ITEM']),
-		addLikedItem() {
-			this.liked = true;
-			console.log('add', this.liked);
+		...mapMutations('searchStore', ['SELECT_ITEM', 'ON_LIKED', 'OFF_LIKED']),
+		...mapActions('userStore', ['ADD_LIKED_APT_CODES']),
+		async addLikedItem(index, aptCode) {
+			const aptData = {
+				userId: this.getId,
+				aptCode: aptCode,
+			};
+
+			this.ON_LIKED(index);
+			await postLikedItem(aptData);
 		},
-		removeLikedItem() {
-			this.liked = false;
-			console.log('remove', this.liked);
-		},
-		isLiked() {
-			return this.likedAptCodes.includes(this.apt.aptCode.toString());
+		async removeLikedItem(index, aptCode) {
+			const aptData = {
+				userId: this.getId,
+				aptCode: aptCode,
+			};
+
+			this.OFF_LIKED(index);
+			await deleteLikedItem(aptData);
 		},
 	},
 };

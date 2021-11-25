@@ -21,10 +21,10 @@
 							key="app-list"
 						>
 							<AptItem
-								v-for="apt in getAptList"
+								v-for="(apt, index) in getAptList"
 								:key="apt.aptCode"
 								:apt="apt"
-								:liked="false"
+								:index="index"
 							/>
 							<!-- <li
 								class="list__item"
@@ -89,7 +89,6 @@
 							<h1>검색된 결과가 없습니다.</h1>
 						</div>
 					</div>
-
 					<div v-else class="content__detail">
 						<div class="detail__image">
 							<img
@@ -146,7 +145,6 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import KakaoMap from '@/components/search/KakaoMap.vue';
 import Advertisement from '@/components/search/Advertisement.vue';
 import AptItem from '@/components/search/AptItem.vue';
-import EventBus from '@/utils/eventBus';
 
 export default {
 	components: {
@@ -173,9 +171,6 @@ export default {
 			'getSelectedItem',
 		]),
 		...mapGetters('userStore', ['getId']),
-		// isLiked(aptCode) {
-		// 	return
-		// }
 	},
 	filters: {
 		convertAptPrice(price) {
@@ -209,12 +204,6 @@ export default {
 			userId: this.getId,
 		};
 		this.GET_LIKED_APT_CODES(userData);
-
-		EventBus.$on('initLikedStatus', () => {
-			this.initLikedStatus();
-
-			console.log(this.likedStatus);
-		});
 	},
 	methods: {
 		...mapMutations('searchStore', [
@@ -256,40 +245,6 @@ export default {
 		OffRoadView() {
 			this.OFF_ROAD_VIEW();
 		},
-		addLikedItem(aptCode) {
-			console.log(aptCode);
-			this.status.aptStatus = true;
-			this.likedStatus[171] = true;
-			console.log(this.likedStatus[171]);
-			// try {
-			// 	const aptData = {
-			// 		userId: this.getId,
-			// 		aptCode,
-			// 	};
-			// 	this.likedStatus[aptCode] = true;
-			// 	this.status = true;
-			// 	this.ADD_LIKED_APT_CODES(aptData);
-			// } catch (error) {
-			// 	console.log(error);
-			// }
-		},
-		removeLikedItem(aptCode) {
-			try {
-				const aptData = {
-					userId: this.getId,
-					aptCode,
-				};
-
-				this.likedStatus[aptCode] = false;
-				this.REMOVE_LIKED_APT_CODES(aptData);
-			} catch (error) {
-				console.log(error);
-			}
-		},
-		isLiked(aptCode) {
-			return this.likedAptCodes.includes(aptCode.toString());
-		},
-		initLikedStatus() {},
 	},
 };
 </script>

@@ -33,8 +33,6 @@ export default {
 				};
 				const response = await getInquiryList(params);
 
-				console.log('[1대1 문의 리스트 조회]', response);
-
 				this.inquiryList = response.data;
 			} catch (error) {
 				const errorMessage = error.data;

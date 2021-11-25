@@ -1,5 +1,5 @@
 import { loginUser } from '@/api/auth';
-import { postLikedItem, fetchLikedAptCodes, deleteLikedItem } from '@/api/user';
+import { fetchLikedAptCodes } from '@/api/user';
 import {
 	getAuthFromCookie,
 	getUserFromCookie,
@@ -86,7 +86,7 @@ const userStore = {
 			state.id = '';
 			state.nickname = '';
 			state.recentSearch = '';
-			state.likedAptCodes = [];
+			// state.likedAptCodes = [];
 		},
 	},
 	actions: {
@@ -111,14 +111,14 @@ const userStore = {
 				commit('SET_LIKED_APT_CODES', likedAptCodes);
 			}
 		},
-		async ADD_LIKED_APT_CODES({ commit }, aptData) {
-			await postLikedItem(aptData);
-			commit('UPDATE_LIKED_APT_CODES', 'add', aptData.aptCode);
-		},
-		async REMOVE_LIKED_APT_CODES({ commit }, aptData) {
-			await deleteLikedItem(aptData);
-			commit('UPDATE_LIKED_APT_CODES', 'remove', aptData.aptCode);
-		},
+		// async ADD_LIKED_APT_CODES({ commit }, aptData) {
+		// 	await postLikedItem(aptData);
+		// 	// commit('UPDATE_LIKED_APT_CODES', 'add', aptData.aptCode);
+		// },
+		// async REMOVE_LIKED_APT_CODES({ commit }, aptData) {
+		// 	await deleteLikedItem(aptData);
+		// 	// commit('UPDATE_LIKED_APT_CODES', 'remove', aptData.aptCode);
+		// },
 		LOGOUT({ commit }) {
 			commit('CLEAR_ALL');
 		},

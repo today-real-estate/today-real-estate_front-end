@@ -37,25 +37,34 @@ export default {
 	},
 	methods: {
 		...mapMutations('userStore', ['SET_RECENT_SEARCH']),
-		...mapActions('searchStore', ['GET_APT_LIST_BY_SEARCH']),
+		...mapActions('searchStore', [
+			'GET_APT_LIST_BY_SEARCH',
+			'GET_APT_LIST_BY_SEARCH_WITH_AUTH',
+		]),
 		async searchAptListByDong() {
-			const searchData = {
-				dongName: this.searchDongName,
-			};
-
 			try {
-				await this.GET_APT_LIST_BY_SEARCH(searchData);
-				this.$router.push('/search');
-
 				if (this.isLogin) {
+					const searchData = {
+						userId: this.getId,
+						dongName: this.searchDongName,
+					};
 					const recentSearchData = {
 						id: this.getId,
+						recentSearch: this.searchDongName,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH_WITH_AUTH(searchData);
+					putRecentSearch(recentSearchData);
+					this.SET_RECENT_SEARCH(this.searchDongName);
+				} else {
+					const searchData = {
 						dongName: this.searchDongName,
 					};
 
-					putRecentSearch(recentSearchData);
-					this.SET_RECENT_SEARCH(this.searchDongName);
+					await this.GET_APT_LIST_BY_SEARCH(searchData);
 				}
+
+				this.$router.push('/search');
 			} catch (error) {
 				console.log(error);
 			}

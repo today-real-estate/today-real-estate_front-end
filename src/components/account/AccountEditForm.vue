@@ -67,16 +67,22 @@
 					</button>
 				</div>
 			</div>
+			<div class="edit-form__btn">
+				<button class="drop-btn" @click="dropAccount">회원 탈퇴</button>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { clearAllCookies } from '@/utils/cookies';
 import {
 	fetchUserData,
 	updateUserName,
 	updateNickname,
 } from '@/api/account/accountEdit';
+import { dropUser } from '@/api/auth';
 import Swal from 'sweetalert2';
 
 export default {
@@ -95,6 +101,9 @@ export default {
 			userNameEditStatus: false,
 			nicknameEditStatus: false,
 		};
+	},
+	computed: {
+		...mapGetters('userStore', ['getId']),
 	},
 	created() {
 		this.getUserData();
@@ -169,6 +178,18 @@ export default {
 			}
 
 			this.nicknameEditStatus = false;
+		},
+		async dropAccount() {
+			const userData = {
+				id: this.getId,
+			};
+
+			if (confirm('정말 탈퇴하시겠습니까?')) {
+				await dropUser(userData);
+				this.$store.dispatch('userStore/LOGOUT');
+				clearAllCookies();
+				this.$router.push('/');
+			}
 		},
 		onUserNameEditStatus() {
 			this.userNameEditStatus = true;

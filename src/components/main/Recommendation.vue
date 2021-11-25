@@ -139,7 +139,12 @@ export default {
 			'GET_APT_LIST_BY_SEARCH_WITH_AUTH',
 		]),
 		async getRecommendations() {
+			if (!this.getRecentSearch) {
+				return;
+			}
+
 			this.ON_LOADING();
+
 			const recentSearchData = {
 				dongName: this.getRecentSearch,
 			};

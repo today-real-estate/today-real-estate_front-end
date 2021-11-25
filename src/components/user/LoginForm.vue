@@ -79,13 +79,13 @@ export default {
 
 				this.$router.push('/');
 			} catch (error) {
-				const errorMessage = error.data;
+				console.log(error);
 
 				Swal.fire({
 					position: 'center',
-					icon: 'error',
+					icon: 'warning',
 					width: 350,
-					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">아이디 또는 비밀번호가 일치하지 않습니다.<div>`,
 					showConfirmButton: false,
 					timer: 1500,
 				});

@@ -162,7 +162,6 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('userStore', ['likedAptCodes']),
 		...mapState('searchStore', ['isSelected', 'roadViewStatus', 'loading']),
 		...mapGetters('searchStore', [
 			'getAptList',
@@ -203,6 +202,7 @@ export default {
 		const userData = {
 			userId: this.getId,
 		};
+
 		this.GET_LIKED_APT_CODES(userData);
 	},
 	methods: {
@@ -212,11 +212,7 @@ export default {
 			'ON_ROAD_VIEW',
 			'OFF_ROAD_VIEW',
 		]),
-		...mapActions('userStore', [
-			'GET_LIKED_APT_CODES',
-			'ADD_LIKED_APT_CODES',
-			'REMOVE_LIKED_APT_CODES',
-		]),
+		...mapActions('userStore', ['GET_LIKED_APT_CODES']),
 		initKakaoRoadview(latitude, longitude) {
 			const roadviewContainer = document.getElementById('roadview');
 			const roadview = new kakao.maps.Roadview(roadviewContainer);

@@ -1,7 +1,10 @@
 <template>
 	<li class="news-item">
 		<div class="news-item__image">
-			<img :src="news.imageUrl.replace('thumb100', 'thumb200')" alt="" />
+			<img
+				:src="news.imageUrl.replace('thumb100', 'thumb200')"
+				:alt="news.newsTitle"
+			/>
 		</div>
 		<div class="news-item__contents">
 			<a :href="news.newsLink" target="_blank" class="contents__title">

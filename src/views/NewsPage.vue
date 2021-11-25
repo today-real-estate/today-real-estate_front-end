@@ -53,6 +53,7 @@ export default {
 		async initNewsList() {
 			try {
 				const { data } = await fetchNewsList();
+				this.newsList = data;
 				const filteredNewsList = data.filter((news) => news.imageUrl);
 
 				this.newsList = this.division(filteredNewsList, 6);

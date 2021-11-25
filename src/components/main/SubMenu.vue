@@ -2,7 +2,7 @@
 	<div class="sub-menu-container">
 		<div class="sub-menu-container__inner">
 			<div class="sub-menu__item sub-menu__ad">
-				<div class="item__header ad__header">분양 안내</div>
+				<div class="item__header ad__header">분양 소개</div>
 				<div class="item__contents ad__contents">
 					<a href="https://www.i-park.com/cheongna/index" to="_blank">
 						<img src="@/images/apt-ad-banner.jpg" alt="청라국제도시 아이파크" />
@@ -11,8 +11,10 @@
 			</div>
 			<div class="sub-menu__item sub-menu__news">
 				<div class="item__header news__header">
-					<div>뉴스</div>
-					<div><RouterLink to="#">더보기</RouterLink></div>
+					<div>오늘의 부동산 뉴스</div>
+					<div>
+						<RouterLink to="/news">더보기</RouterLink>
+					</div>
 				</div>
 				<div class="item__contents news__contents">
 					<ul>
@@ -27,7 +29,9 @@
 			<div class="sub-menu__item sub-menu__notice">
 				<div class="item__header notice__header">
 					<div>공지사항</div>
-					<div><RouterLink to="#">더보기</RouterLink></div>
+					<div>
+						<RouterLink to="#">더보기</RouterLink>
+					</div>
 				</div>
 				<div class="item__contents notice__contents">
 					<ul>

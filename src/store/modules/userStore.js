@@ -4,11 +4,13 @@ import {
 	getAuthFromCookie,
 	getUserFromCookie,
 	getIdFromCookie,
-	getRecentSearchCookie,
+	getRecentSearchFromCookie,
+	getAuthorityFromCookie,
 	saveAuthToCookie,
 	saveUserToCookie,
 	saveIdToCookie,
 	saveRecentSearchToCookie,
+	saveAuthorityToCookie,
 } from '@/utils/cookies';
 
 const userStore = {
@@ -17,8 +19,9 @@ const userStore = {
 		token: getAuthFromCookie() || '',
 		id: getIdFromCookie() || '',
 		nickname: getUserFromCookie() || '',
-		recentSearch: getRecentSearchCookie() || '',
+		recentSearch: getRecentSearchFromCookie() || '',
 		likedAptCodes: [],
+		authority: getAuthorityFromCookie() || '',
 	},
 	getters: {
 		isLogin(state) {
@@ -35,6 +38,9 @@ const userStore = {
 		},
 		getRecentSearch(state) {
 			return state.recentSearch;
+		},
+		getAuthority(state) {
+			return state.authority;
 		},
 	},
 	mutations: {
@@ -53,6 +59,9 @@ const userStore = {
 		},
 		SET_LIKED_APT_CODES(state, likedAptCodes) {
 			state.likedAptCodes = likedAptCodes;
+		},
+		SET_AUTHORITY(state, authority) {
+			state.authority = authority;
 		},
 		UPDATE_LIKED_APT_CODES(state, action, aptCode) {
 			if (action === 'add') {
@@ -97,11 +106,13 @@ const userStore = {
 			commit('SET_ID', data.id);
 			commit('SET_NICKNAME', data.nickname);
 			commit('SET_RECENT_SEARCH', data.recentSearch);
+			commit('SET_AUTHORITY', data.authority);
 
 			saveAuthToCookie(data.token);
 			saveIdToCookie(data.id);
 			saveUserToCookie(data.nickname);
 			saveRecentSearchToCookie(data.recentSearch);
+			saveAuthorityToCookie(data.authority);
 		},
 		async GET_LIKED_APT_CODES({ commit }, userData) {
 			const { data } = await fetchLikedAptCodes(userData);
@@ -111,14 +122,6 @@ const userStore = {
 				commit('SET_LIKED_APT_CODES', likedAptCodes);
 			}
 		},
-		// async ADD_LIKED_APT_CODES({ commit }, aptData) {
-		// 	await postLikedItem(aptData);
-		// 	// commit('UPDATE_LIKED_APT_CODES', 'add', aptData.aptCode);
-		// },
-		// async REMOVE_LIKED_APT_CODES({ commit }, aptData) {
-		// 	await deleteLikedItem(aptData);
-		// 	// commit('UPDATE_LIKED_APT_CODES', 'remove', aptData.aptCode);
-		// },
 		LOGOUT({ commit }) {
 			commit('CLEAR_ALL');
 		},

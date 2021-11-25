@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import KakaoMap from '@/components/search/KakaoMap.vue';
 import Advertisement from '@/components/search/Advertisement.vue';
 import AptItem from '@/components/search/AptItem.vue';
@@ -198,13 +198,6 @@ export default {
 	// 		vm.BACK_TO_ITEM_LIST();
 	// 	});
 	// },
-	created() {
-		const userData = {
-			userId: this.getId,
-		};
-
-		this.GET_LIKED_APT_CODES(userData);
-	},
 	methods: {
 		...mapMutations('searchStore', [
 			'SELECT_ITEM',
@@ -212,7 +205,6 @@ export default {
 			'ON_ROAD_VIEW',
 			'OFF_ROAD_VIEW',
 		]),
-		...mapActions('userStore', ['GET_LIKED_APT_CODES']),
 		initKakaoRoadview(latitude, longitude) {
 			const roadviewContainer = document.getElementById('roadview');
 			const roadview = new kakao.maps.Roadview(roadviewContainer);

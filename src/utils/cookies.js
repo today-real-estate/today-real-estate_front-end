@@ -18,6 +18,10 @@ function saveRecentSearchToCookie(value) {
 	document.cookie = `recentSearch=${value}`;
 }
 
+function saveAuthorityToCookie(value) {
+	document.cookie = `authority=${value}`;
+}
+
 function getAuthFromCookie() {
 	return document.cookie.replace(
 		/(?:(?:^|.*;\s*)auth\s*=\s*([^;]*).*$)|^.*$/,
@@ -46,9 +50,16 @@ function getUserEmailFromCookie() {
 	);
 }
 
-function getRecentSearchCookie() {
+function getRecentSearchFromCookie() {
 	return document.cookie.replace(
 		/(?:(?:^|.*;\s*)recentSearch\s*=\s*([^;]*).*$)|^.*$/,
+		'$1',
+	);
+}
+
+function getAuthorityFromCookie() {
+	return document.cookie.replace(
+		/(?:(?:^|.*;\s*)authority\s*=\s*([^;]*).*$)|^.*$/,
 		'$1',
 	);
 }
@@ -62,6 +73,7 @@ function clearAllCookies() {
 	deleteCookie('id');
 	deleteCookie('nickname');
 	deleteCookie('recentSearch');
+	deleteCookie('authority');
 }
 
 export {
@@ -70,11 +82,13 @@ export {
 	saveIdToCookie,
 	saveUserEmailToCookie,
 	saveRecentSearchToCookie,
+	saveAuthorityToCookie,
 	getAuthFromCookie,
 	getUserFromCookie,
 	getIdFromCookie,
 	getUserEmailFromCookie,
-	getRecentSearchCookie,
+	getRecentSearchFromCookie,
+	getAuthorityFromCookie,
 	deleteCookie,
 	clearAllCookies,
 };

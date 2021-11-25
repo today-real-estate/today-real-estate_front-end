@@ -13,7 +13,7 @@ function fetchLikedAptCodes(userData) {
 }
 
 function deleteLikedItem(aptData) {
-	return instanceWithAuth.delete('/liked-apt-codes', aptData);
+	return instanceWithAuth.delete('/liked-apt-codes', { params: aptData });
 }
 
 function fetchLikedAptList(userData) {

@@ -101,7 +101,7 @@ export default {
 	},
 	computed: {
 		...mapState('searchStore', ['loading']),
-		...mapGetters('userStore', ['isLogin', 'getRecentSearch']),
+		...mapGetters('userStore', ['isLogin', 'getId', 'getRecentSearch']),
 	},
 	filters: {
 		convertAptPrice(price) {
@@ -134,7 +134,10 @@ export default {
 			'ON_LOADING',
 			'OFF_LOADING',
 		]),
-		...mapActions('searchStore', ['GET_APT_LIST_BY_SEARCH']),
+		...mapActions('searchStore', [
+			'GET_APT_LIST_BY_SEARCH',
+			'GET_APT_LIST_BY_SEARCH_WITH_AUTH',
+		]),
 		async getRecommendations() {
 			this.ON_LOADING();
 			const recentSearchData = {
@@ -145,33 +148,53 @@ export default {
 			this.recommendations = data;
 			this.OFF_LOADING();
 		},
-		moveSearchPage() {
-			this.$router.push('/search');
-		},
 		async moveSearchPageWithData() {
-			const recentSearchData = {
-				dongName: this.getRecentSearch,
-			};
-
 			try {
-				await this.GET_APT_LIST_BY_SEARCH(recentSearchData);
+				if (this.isLogin) {
+					const recentSearchData = {
+						userId: this.getId,
+						dongName: this.getRecentSearch,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH_WITH_AUTH(recentSearchData);
+				} else {
+					const recentSearchData = {
+						dongName: this.getRecentSearch,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH(recentSearchData);
+				}
+
 				this.$router.push('/search');
 			} catch (error) {
 				console.log(error);
 			}
 		},
 		async linkSearchPageWithData(apt) {
-			const searchData = {
-				dongName: apt.dongName,
-			};
-
 			try {
-				await this.GET_APT_LIST_BY_SEARCH(searchData);
+				if (this.isLogin) {
+					const recentSearchData = {
+						userId: this.getId,
+						dongName: apt.dongName,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH_WITH_AUTH(recentSearchData);
+				} else {
+					const recentSearchData = {
+						dongName: apt.dongName,
+					};
+
+					await this.GET_APT_LIST_BY_SEARCH(recentSearchData);
+				}
+
 				this.SELECT_ITEM(apt);
 				this.$router.push('/search');
 			} catch (error) {
 				console.log(error);
 			}
+		},
+		moveSearchPage() {
+			this.$router.push('/search');
 		},
 	},
 };

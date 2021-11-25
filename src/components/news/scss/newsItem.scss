@@ -1,0 +1,36 @@
+.news-item {
+	display: flex;
+	height: 130px;
+	margin-bottom: 12px;
+
+	.news-item__image {
+		margin-right: 18px;
+
+		img {
+			width: 200px;
+			height: 102px;
+			border-radius: 3px;
+		}
+	}
+	.news-item__contents {
+		.contents__title {
+			font-size: 18px;
+			font-weight: 500;
+			color: #019cdc;
+		}
+		.contents__text {
+			font-weight: 300;
+			margin-bottom: 8px;
+		}
+		.contents__date {
+			margin-right: 10px;
+			font-size: 13px;
+			font-weight: 300;
+		}
+		.contents__writing {
+			font-size: 13px;
+			font-weight: 400;
+			color: #ff9800;
+		}
+	}
+}

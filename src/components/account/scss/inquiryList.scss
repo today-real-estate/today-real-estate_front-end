@@ -1,13 +1,12 @@
 .inquiry-list {
 	max-width: 1100px;
-	margin: 0 auto 300px;
+	margin: 64px auto 300px;
 	padding: 0 20px;
 
 	.inquiry-list__info {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-		padding-top: 50px;
 
 		.info__desc {
 			margin-bottom: 0;

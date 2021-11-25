@@ -20,18 +20,30 @@
 							v-if="getAptList.length !== 0"
 							key="app-list"
 						>
-							<li
+							<AptItem
+								v-for="(apt, index) in getAptList"
+								:key="apt.aptCode"
+								:apt="apt"
+								:index="index"
+							/>
+							<!-- <li
 								class="list__item"
 								v-for="apt in getAptList"
 								:key="apt.aptCode"
 							>
 								<div class="item__info">
 									<div class="info__image">
-										<!-- <AIcon v-if="" type="heart" @click="addLiked" /> -->
 										<AIcon
+											v-if="likedStatus[171]"
+											type="heart"
+											@click="removeLikedItem(apt.aptCode)"
+											theme="filled"
+											style="color: #f44336"
+										/>
+										<AIcon
+											v-else
 											type="heart"
 											@click="addLikedItem(apt.aptCode)"
-											theme="filled"
 											style="color: #f44336"
 										/>
 										<img :src="apt.img" :alt="apt.aptName" />
@@ -70,14 +82,13 @@
 										</div>
 									</div>
 								</div>
-							</li>
+							</li> -->
 						</ul>
 						<div v-else key="app-list" class="content_no-list">
 							<AIcon type="home" />
 							<h1>검색된 결과가 없습니다.</h1>
 						</div>
 					</div>
-
 					<div v-else class="content__detail">
 						<div class="detail__image">
 							<img
@@ -133,18 +144,25 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import KakaoMap from '@/components/search/KakaoMap.vue';
 import Advertisement from '@/components/search/Advertisement.vue';
+import AptItem from '@/components/search/AptItem.vue';
 
 export default {
 	components: {
 		KakaoMap,
 		Advertisement,
+		AptItem,
 	},
 	data() {
 		return {
 			filled: false,
+			likedStatus: [],
+			status: {
+				aptStatus: false,
+			},
 		};
 	},
 	computed: {
+		...mapState('userStore', ['likedAptCodes']),
 		...mapState('searchStore', ['isSelected', 'roadViewStatus', 'loading']),
 		...mapGetters('searchStore', [
 			'getAptList',
@@ -153,9 +171,6 @@ export default {
 			'getSelectedItem',
 		]),
 		...mapGetters('userStore', ['getId']),
-		// isLiked(aptCode) {
-		// 	return
-		// }
 	},
 	filters: {
 		convertAptPrice(price) {
@@ -197,7 +212,11 @@ export default {
 			'ON_ROAD_VIEW',
 			'OFF_ROAD_VIEW',
 		]),
-		...mapActions('userStore', ['GET_LIKED_APT_CODES', 'ADD_LIKED_APT_CODES']),
+		...mapActions('userStore', [
+			'GET_LIKED_APT_CODES',
+			'ADD_LIKED_APT_CODES',
+			'REMOVE_LIKED_APT_CODES',
+		]),
 		initKakaoRoadview(latitude, longitude) {
 			const roadviewContainer = document.getElementById('roadview');
 			const roadview = new kakao.maps.Roadview(roadviewContainer);
@@ -225,17 +244,6 @@ export default {
 		},
 		OffRoadView() {
 			this.OFF_ROAD_VIEW();
-		},
-		addLikedItem(aptCode) {
-			try {
-				const aptData = {
-					userId: this.getId,
-					aptCode,
-				};
-				this.ADD_LIKED_APT_CODES(aptData);
-			} catch (error) {
-				console.log(error);
-			}
 		},
 	},
 };

@@ -1,21 +1,48 @@
 <template>
 	<div class="liked-list-container">
-		<div class="liked-list-container___inner"></div>
+		<div class="liked-list-container___inner">
+			<LikedItem v-for="(item, index) in likedList" :key="index" :apt="item" />
+		</div>
 	</div>
 </template>
 
 <script>
-export default {};
+import { fetchUserLikedList } from '@/api/account/accountLiked';
+import { mapGetters } from 'vuex';
+import LikedItem from '@/components/account/LikedItem.vue';
+
+export default {
+	components: {
+		LikedItem,
+	},
+	data() {
+		return {
+			likedList: [],
+		};
+	},
+	computed: {
+		...mapGetters('userStore', ['getId']),
+	},
+	created() {
+		this.initLiked();
+	},
+	methods: {
+		async initLiked() {
+			const userData = {
+				userId: this.getId,
+			};
+
+			try {
+				const { data } = await fetchUserLikedList(userData);
+				this.likedList = data;
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
-.liked-list-container {
-	max-width: 1100px;
-	margin: 0 auto 300px;
-	padding: 0 20px;
-
-	.liked-list-container___inner {
-		height: 200px;
-	}
-}
+@import './scss/likedList.scss';
 </style>

@@ -5,6 +5,11 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
 	mode: 'history',
+	scrollBehavior() {
+		return {
+			y: 0,
+		};
+	},
 	routes: [
 		{
 			path: '/',
@@ -21,6 +26,10 @@ export default new VueRouter({
 		{
 			path: '/search',
 			component: () => import('@/views/SearchPage.vue'),
+		},
+		{
+			path: '/news',
+			component: () => import('@/views/NewsPage.vue'),
 		},
 		{
 			path: '/service/inquiry',

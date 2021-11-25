@@ -62,19 +62,20 @@ $lignt-gray: #f5f5f5;
 				margin-right: 5px;
 			}
 
-			.user-email-auth-btn,
-			.duplication-check-btn {
-				background-color: #f3f3f3;
+			.user-email-auth-btn {
+				background-color: #f5f5f5;
 				border: 1.5px solid #ededed;
 				border-radius: 3px;
 				color: $light-dark;
 				cursor: pointer;
 			}
 			.user-email-auth-btn {
-				width: 65px;
-			}
-			.duplication-check-btn {
-				width: 100px;
+				width: 95px;
+				transition: all 0.2s;
+
+				&:hover {
+					background-color: #f1f1f1;
+				}
 			}
 		}
 

@@ -8,4 +8,8 @@ function loginUser(userData) {
 	return instance.post('/users/login', userData);
 }
 
-export { registerUser, loginUser };
+function checkDuplicate(emailData) {
+	return instance.get('/users/emails-check', { params: emailData });
+}
+
+export { registerUser, loginUser, checkDuplicate };

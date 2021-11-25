@@ -8,7 +8,8 @@
 <script>
 import AccountHeader from '@/components/account/AccountHeader.vue';
 import InquiryList from '@/components/account/InquiryList.vue';
-import { getInquiryList } from '@/api/inquiry';
+import { getAllInquiryList, getInquiryList } from '@/api/inquiry';
+import { mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
@@ -21,6 +22,9 @@ export default {
 			inquiryList: [],
 		};
 	},
+	computed: {
+		...mapGetters('userStore', ['getId', 'getAuthority']),
+	},
 	created() {
 		this.getInquiries();
 	},
@@ -31,7 +35,10 @@ export default {
 				const params = {
 					userId: userId,
 				};
-				const response = await getInquiryList(params);
+				const response =
+					this.getAuthority == 1
+						? await getAllInquiryList()
+						: await getInquiryList(params);
 
 				this.inquiryList = response.data;
 			} catch (error) {

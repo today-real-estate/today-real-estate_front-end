@@ -38,12 +38,44 @@
 				</button>
 			</li>
 		</ul>
+		<div class="inquiry-detail__comment-input" v-if="getAuthority == 1">
+			<ATextarea
+				class="comment-input__textarea"
+				v-model="commentText"
+				:rows="4"
+				placeholder="댓글을 입력하세요."
+			/>
+			<button class="comment-input__comment-submit-btn" @click="submitComment">
+				등록
+			</button>
+		</div>
+		<div class="inquiry-detail__comments">
+			<ul class="comments__comment-list">
+				<li
+					class="comments__comment"
+					v-for="comment in inquiry.inquiryAnswer"
+					:key="comment.id"
+				>
+					<div class="comment__main">
+						<div class="comment__writer">고객센터</div>
+						<div class="comment__content">{{ comment.answerContent }}</div>
+					</div>
+					<button
+						class="comment_delete-btn"
+						v-if="getAuthority == 1"
+						@click="removeComment(comment.id)"
+					>
+						<AIcon type="close" />
+					</button>
+				</li>
+			</ul>
+		</div>
 		<div class="inquiry-detail__footer">
 			<RouterLink to="/account/inquiry-list" class="footer__back-btn">
 				목록
 			</RouterLink>
 		</div>
-		<a-alert
+		<AAlert
 			v-if="errorMsg"
 			message="서버 에러"
 			:description="errorMsg"
@@ -54,7 +86,13 @@
 </template>
 
 <script>
-import { getInquiryItemDetail, deleteInquiry } from '@/api/inquiry';
+import {
+	getInquiryItemDetail,
+	deleteInquiry,
+	postInquiryComment,
+	deleteInquiryComment,
+} from '@/api/inquiry';
+import { mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
@@ -62,7 +100,11 @@ export default {
 		return {
 			inquiry: {},
 			errorMsg: '',
+			commentText: '',
 		};
+	},
+	computed: {
+		...mapGetters('userStore', ['getId', 'getAuthority']),
 	},
 	created() {
 		this.getInquiryDetail();
@@ -120,6 +162,52 @@ export default {
 					showConfirmButton: false,
 					timer: 1500,
 				});
+			}
+		},
+		async submitComment() {
+			try {
+				const inquiryCommentData = {
+					inquiryId: this.inquiry.id,
+					answerContent: this.commentText,
+				};
+
+				await postInquiryComment(inquiryCommentData);
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">답변 등록 완료<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				this.$router.push('/account/inquiry-list');
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async removeComment(commentId) {
+			try {
+				const inquiryCommentData = {
+					id: commentId,
+					inquiryId: this.inquiry.id,
+				};
+
+				await deleteInquiryComment(inquiryCommentData);
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">답변 삭제 완료<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				this.$router.push('/account/inquiry-list');
+			} catch (error) {
+				console.log(error);
 			}
 		},
 	},

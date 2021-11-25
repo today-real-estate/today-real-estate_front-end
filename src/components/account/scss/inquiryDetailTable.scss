@@ -138,6 +138,76 @@ $orange-color: #ff9800;
 		}
 	}
 
+	.inquiry-detail__comment-input {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin-top: 20px;
+		padding: 20px;
+    border: 1px solid #e3e7eb;
+    background-color: #fafbfc;
+
+		.comment-input__textarea {
+			margin-bottom: 12px;
+		}
+		.comment-input__comment-submit-btn {
+			width: 90px;
+			display: inline-block;
+			padding: 8px 32px;
+			border: none;
+			border-radius: 3px;
+			background-color: rgb(50, 108, 249);
+			font-size: 14px;
+			font-weight: 500;
+			color: #fff;
+			cursor: pointer;
+		}
+	}
+
+	.inquiry-detail__comments {
+		margin-top: 20px;
+
+		.comments__comment-list {
+			.comments__comment {
+				display: flex;
+				justify-content: space-between;
+				padding: 20px;
+    		border-bottom: 1px solid #e3e7eb;
+				
+				&:nth-child(1) {
+					border-top: 1px solid #e3e7eb;
+				}
+
+				.comment__main {
+					display: flex;
+
+					.comment__writer {
+						padding-right: 10px;
+						border-right: 1px solid #e3e7eb;
+						font-size: 16px;
+					}
+					.comment__content {
+						padding: 0 20px;
+						font-size: 16px;
+						font-weight: 300;
+					}
+				}
+				.comment_delete-btn {
+					border: 0;
+					background-color: transparent;
+					font-size: 16px;
+					cursor: pointer;
+					transition: all 0.2s;
+
+					&:hover {
+						color: rgb(50, 108, 249);
+						transform: scale(1.2);
+					}
+				}
+			}
+		}
+	}
+
 	.inquiry-detail__footer {
 		display: flex;
 		justify-content: center;

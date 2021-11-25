@@ -1,5 +1,9 @@
 import { instanceWithAuth } from '@/api/index';
 
+function getAllInquiryList() {
+	return instanceWithAuth.get('/inquiries/admin');
+}
+
 function registerInquiry(inquiryData) {
 	return instanceWithAuth.post('/inquiries/create', inquiryData);
 }
@@ -20,10 +24,28 @@ function deleteInquiry(inquiryId) {
 	return instanceWithAuth.delete(`/inquiries/delete/${inquiryId}`);
 }
 
+function postInquiryComment(inquiryCommentData) {
+	return instanceWithAuth.post('/inquiries/answer', inquiryCommentData);
+}
+
+function updateInquiryComment(inquiryCommentData) {
+	return instanceWithAuth.put('/inquiries/answer', inquiryCommentData);
+}
+
+function deleteInquiryComment(inquiryCommentData) {
+	return instanceWithAuth.delete('/inquiries/answer', {
+		params: inquiryCommentData,
+	});
+}
+
 export {
+	getAllInquiryList,
 	registerInquiry,
 	getInquiryList,
 	getInquiryItemDetail,
 	updateInquiry,
 	deleteInquiry,
+	postInquiryComment,
+	updateInquiryComment,
+	deleteInquiryComment,
 };

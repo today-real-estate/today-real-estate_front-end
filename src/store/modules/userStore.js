@@ -86,7 +86,7 @@ const userStore = {
 			state.id = '';
 			state.nickname = '';
 			state.recentSearch = '';
-			// state.likedAptCodes = [];
+			state.likedAptCodes = [];
 		},
 	},
 	actions: {

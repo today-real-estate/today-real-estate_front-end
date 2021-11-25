@@ -174,12 +174,7 @@ $light-grey-color: #979797;
 				right: 0;
 				z-index: 10;
 				font-size: 26px;
-				color: #fff;
 				transition: all 0.15s;
-
-				&:hover {
-					color: #f44336;
-				}
 			}
 			img {
 				width: 140px;

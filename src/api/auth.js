@@ -1,7 +1,11 @@
-import { instance } from '@/api/index';
+import { instance, instanceWithAuth } from '@/api/index';
 
 function registerUser(userData) {
 	return instance.post('/users/signup', userData);
+}
+
+function dropUser(userData) {
+	return instanceWithAuth.delete('/users/delete', { params: userData });
 }
 
 function loginUser(userData) {
@@ -12,4 +16,4 @@ function checkDuplicate(emailData) {
 	return instance.get('/users/emails-check', { params: emailData });
 }
 
-export { registerUser, loginUser, checkDuplicate };
+export { registerUser, dropUser, loginUser, checkDuplicate };

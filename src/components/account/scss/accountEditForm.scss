@@ -73,4 +73,21 @@ $blue-color: #326cf9;
 			margin-bottom: 10px;
 		}
 	}
+
+	.edit-form__btn {
+		display: flex;
+		justify-content: flex-end;
+
+		.drop-btn {
+			border: none;
+			background-color: transparent;
+			font-weight: 400;
+			transition: all 0.15s;
+			cursor: pointer;
+
+			&:hover {
+				color: red;
+			}
+		}
+	}
 }

@@ -26,19 +26,25 @@
 			</div>
 			<div class="sub-menu__item sub-menu__notice">
 				<div class="item__header notice__header">
-					<div>공지사항</div>
+					<div>부동산 지식</div>
 					<div>
-						<RouterLink to="#">더보기</RouterLink>
+						<a
+							href="https://www.youtube.com/results?search_query=+%EB%B6%80%EB%8F%99%EC%82%B0+"
+							target="_blank"
+							>더보기</a
+						>
 					</div>
 				</div>
 				<div class="item__contents notice__contents">
-					<ul>
-						<li>[공지] 오늘의 부동산 개인정보 처리방침</li>
-						<li>[공지] 오늘의 부동산 개인정보 처리방침</li>
-						<li>[공지] 오늘의 부동산 개인정보 처리방침</li>
-						<li>[공지] 오늘의 부동산 개인정보 처리방침</li>
-						<li>[공지] 오늘의 부동산 개인정보 처리방침</li>
-					</ul>
+					<iframe
+						width="300"
+						height="160"
+						src="https://www.youtube.com/embed/x9tYdmBQiSQ"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
 				</div>
 			</div>
 		</div>

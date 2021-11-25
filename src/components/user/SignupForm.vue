@@ -100,7 +100,7 @@ export default {
 			) {
 				Swal.fire({
 					position: 'center',
-					icon: 'error',
+					icon: 'warning',
 					width: 350,
 					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">회원가입 폼을 모두 입력하세요.<div>`,
 					showConfirmButton: false,
@@ -111,7 +111,7 @@ export default {
 			} else if (!this.checkDuplicateStatus) {
 				Swal.fire({
 					position: 'center',
-					icon: 'error',
+					icon: 'warning',
 					width: 350,
 					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">이메일 중복 확인을 진행하세요.<div>`,
 					showConfirmButton: false,
@@ -122,7 +122,7 @@ export default {
 			} else if (this.password !== this.passwordConfirm) {
 				Swal.fire({
 					position: 'center',
-					icon: 'error',
+					icon: 'warning',
 					width: 350,
 					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">비밀번호가 일치하지 않습니다.<div>`,
 					showConfirmButton: false,

@@ -98,6 +98,7 @@ import {
 	getInquiryItemDetail,
 	updateInquiry,
 } from '@/api/inquiry';
+import { mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 
 export default {
@@ -113,6 +114,9 @@ export default {
 			editInquiryId: '',
 		};
 	},
+	computed: {
+		...mapGetters('userStore', ['isLogin']),
+	},
 	created() {
 		if (!isNaN(this.$route.params.id)) {
 			this.initEditForm();
@@ -121,6 +125,20 @@ export default {
 	},
 	methods: {
 		async submitInquiry() {
+			if (!this.isLogin) {
+				Swal.fire({
+					position: 'center',
+					icon: 'info',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">로그인 후 이용해주세요.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				this.$router.push('/login');
+				return;
+			}
+
 			try {
 				const inquiryData = {
 					userId: this.$store.getters['userStore/getId'],
@@ -143,13 +161,13 @@ export default {
 
 				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				const errorMessage = error.data;
+				console.log(error);
 
 				Swal.fire({
 					position: 'center',
 					icon: 'error',
 					width: 350,
-					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${errorMessage}<div>`,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">필수 입력 사항을 모두 입력하세요.<div>`,
 					showConfirmButton: false,
 					timer: 1500,
 				});

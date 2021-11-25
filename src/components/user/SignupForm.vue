@@ -52,11 +52,14 @@
 				placeholder="비밀번호 확인"
 				v-model="passwordConfirm"
 			/>
+			<span v-if="comparePassword" class="warning">
+				비밀번호가 일치하지 않습니다.
+			</span>
 		</div>
 		<button
 			type="submit"
 			class="signup-form__submit-btn"
-			@submit.prevent="submitSignupForm"
+			@click.prevent="submitSignupForm"
 		>
 			확인
 		</button>
@@ -75,10 +78,60 @@ export default {
 			nickname: '',
 			password: '',
 			passwordConfirm: '',
+			checkDuplicateStatus: false,
 		};
+	},
+	computed: {
+		comparePassword() {
+			return (
+				this.passwordConfirm !== '' && this.password !== this.passwordConfirm
+			);
+		},
 	},
 	methods: {
 		async submitSignupForm() {
+			console.log('click');
+			if (
+				this.userEmail === '' ||
+				this.userName === '' ||
+				this.nickname === '' ||
+				this.password === '' ||
+				this.passwordConfirm === ''
+			) {
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">회원가입 폼을 모두 입력하세요.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				return;
+			} else if (!this.checkDuplicateStatus) {
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">이메일 중복 확인을 진행하세요.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				return;
+			} else if (this.password !== this.passwordConfirm) {
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">비밀번호가 일치하지 않습니다.<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+
+				return;
+			}
+
 			try {
 				const signupUserData = {
 					userEmail: this.userEmail,
@@ -119,6 +172,7 @@ export default {
 
 			try {
 				const { data } = await checkDuplicate(emailData);
+				this.checkDuplicateStatus = true;
 
 				if (data) {
 					Swal.fire({

@@ -122,6 +122,14 @@ const searchStore = {
 		OFF_LOADING(state) {
 			state.loading = false;
 		},
+		SET_LIKED_STATUS(state, aptList) {
+			state.likedStatus = {};
+			const aptCodeList = aptList.map((apt) => apt.aptCode);
+
+			aptCodeList.forEach((aptCode) => {
+				state.likedStatus[aptCode] = false;
+			});
+		},
 	},
 	actions: {
 		async GET_SIDO_LIST({ commit }) {

@@ -178,6 +178,7 @@ export default {
 				this.selectedGugunCode = '구를 선택하세요';
 				this.selectedDongCode = '동을 선택하세요';
 				EventBus.$emit('displayKakaoMapMarker');
+				EventBus.$emit('initLikedStatus');
 				this.BACK_TO_ITEM_LIST();
 
 				if (this.isLogin) {

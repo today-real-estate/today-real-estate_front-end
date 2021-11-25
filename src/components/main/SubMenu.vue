@@ -4,7 +4,7 @@
 			<div class="sub-menu__item sub-menu__ad">
 				<div class="item__header ad__header">분양 소개</div>
 				<div class="item__contents ad__contents">
-					<a href="https://www.i-park.com/cheongna/index" to="_blank">
+					<a href="https://www.i-park.com/cheongna/index" target="_blank">
 						<img src="@/images/apt-ad-banner.jpg" alt="청라국제도시 아이파크" />
 					</a>
 				</div>
@@ -18,11 +18,9 @@
 				</div>
 				<div class="item__contents news__contents">
 					<ul>
-						<li>들이 함께하는 홈트 노하우</li>
-						<li>들이 함께하는 홈트 노하우</li>
-						<li>들이 함께하는 홈트 노하우</li>
-						<li>들이 함께하는 홈트 노하우</li>
-						<li>들이 함께하는 홈트 노하우</li>
+						<li v-for="(news, index) in newsList" :key="index">
+							<a :href="news.newsLink" target="_blank">{{ news.newsTitle }}</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -47,8 +45,30 @@
 	</div>
 </template>
 <script>
-export default {};
+import { fetchNewsList } from '@/api/news';
+
+export default {
+	data() {
+		return {
+			newsList: [],
+		};
+	},
+	created() {
+		this.initNewsList();
+	},
+	methods: {
+		async initNewsList() {
+			try {
+				const { data } = await fetchNewsList();
+				this.newsList = data.splice(0, 5);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+};
 </script>
+
 <style lang="scss" scoped>
 @import './scss/subMenu.scss';
 </style>

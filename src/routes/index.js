@@ -23,6 +23,10 @@ export default new VueRouter({
 			component: () => import('@/views/SearchPage.vue'),
 		},
 		{
+			path: '/news',
+			component: () => import('@/views/NewsPage.vue'),
+		},
+		{
 			path: '/service/inquiry',
 			component: () => import('@/views/service/ServiceInquiryPage.vue'),
 		},

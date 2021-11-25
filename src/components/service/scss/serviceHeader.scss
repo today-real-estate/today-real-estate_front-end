@@ -1,0 +1,35 @@
+$light-dark: #3a3a3a;
+
+.service-header {
+	max-width: 1100px;
+	min-width: 900px;
+	margin: 0 auto;
+	padding: 0 20px;
+
+	.service-header__title {
+		padding: 10px 0;
+		font-size: 36px;
+		font-weight: 400;
+		text-align: center;
+	}
+	.service-header__nav {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		height: 48px;
+		margin-bottom: 0;
+		border-bottom: 1px solid #cacaca;
+		font-size: 18px;
+		text-align: center;
+
+		.nav__link {
+			width: 200px;
+			margin: 0 auto;
+		}
+
+		a {
+			color: $light-dark;
+			text-align: center;
+		}
+	}
+}

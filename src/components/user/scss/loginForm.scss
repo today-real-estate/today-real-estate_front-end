@@ -1,0 +1,120 @@
+$light-dark: #3a3a3a;
+$light-grey: #979797;
+$blue: #326cf9;
+
+.login-form {
+	max-width: 590px;
+	margin: 0 auto;
+	padding: 64px;
+	border: 3px solid #f5f5f5;
+	border-radius: 3px;
+
+	.login-form__title {
+		padding-bottom: 24px;
+		border-bottom: 1.5px solid #f5f5f5;
+		font-size: 30px;
+		color: $light-dark;
+		line-height: 48px;
+	}
+
+	.login-form__desc {
+		padding: 32px 0 48px;
+		font-size: 16px;
+		color: $light-dark;
+	}
+	.login-form__input {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 24px;
+
+		label {
+			margin-bottom: 8px;
+			font-size: 16px;
+			color: $light-dark;
+		}
+		input {
+			max-width: 460px;
+			height: 44px;
+			padding: 10px 16px;
+			border: 1px solid rgb(237, 237, 237);
+			border-radius: 3px;
+			background-color: rgb(255, 255, 255);
+			color: rgb(34, 34, 34);
+			font-size: 16px;
+			font-weight: 300;
+			line-height: 24px;
+			transition: all 150ms ease-out 0s;
+
+			&:hover {
+				outline: 1px solid rgba(50, 108, 249, 0.6);
+			}
+			&:focus {
+				outline: 1.5px solid rgba(50, 108, 249, 0.9);
+			}
+		}
+	}
+	.login-form__btn-group {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 32px;
+
+		.btn-group__save-id {
+			display: flex;
+			align-items: center;
+      
+			#save-id-check {
+				margin-right: 4px;
+				width: 16px;
+				height: 16px;
+				border: 1px solid $light-grey;
+				border-radius: 3px;
+			}
+
+			label {
+				color: $light-grey;
+				font-size: 16px;
+				font-weight: 300;
+			}
+		}
+		.btn-group__nav {
+			display: flex;
+			align-items: center;
+
+			a {
+				color: $light-dark;
+				transition: all 100ms ease-out 0s;
+
+				&:hover {
+					color: #000;
+				}
+			}
+			.bar {
+				margin-left: 8px;
+				margin-right: 8px;
+				width: 1px;
+				height: 12px;
+				background-color: rgb(223, 223, 223);
+			}
+		}
+	}
+
+	.login-form__submit-btn {
+		width: 100%;
+		min-width: 80px;
+		padding: 0px 16px;
+		height: 56px;
+		border: 1px solid rgb(50, 108, 249);
+		border-radius: 3px;
+		background-color: rgba(50, 108, 249, 0.9);
+		font-size: 16px;
+		font-weight: 700;
+		color: rgb(255, 255, 255);
+		transition: all 150ms ease-out 0s;
+		cursor: pointer;
+
+		&:hover {
+			border: 1px solid rgb(50, 108, 249);
+			background-color: rgb(50, 108, 249);
+		}
+	}
+}

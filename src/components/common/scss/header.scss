@@ -1,0 +1,26 @@
+#header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	// position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	min-width: 900px;
+	height: 80px;
+	padding: 0 20px;
+	border-bottom: 1px solid transparent;
+	background-image: linear-gradient(
+		134deg,
+		rgb(19, 183, 207) -5%,
+		rgb(54, 91, 180) 56%,
+		rgb(54, 91, 180) 56%
+	);
+
+	.header__title {
+		font-size: 26px;
+		font-weight: 600;
+		color: #fff;
+	}
+}

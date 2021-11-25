@@ -1,0 +1,93 @@
+$light-dark-color: #3a3a3a;
+$light-grey-color: #979797;
+$blue-color: #326cf9;
+
+.edit-form {
+	display: flex;
+	flex-direction: column;
+	max-width: 608px;
+	margin: 80px auto 0;
+	padding: 64px;
+	border: 2px solid #f5f5f5;
+
+	.edit-form__item {
+		display: flex;
+		flex-direction: column;
+
+		&.item--profile-image {
+			margin: 0 auto 64px;
+		}
+	}
+
+	.edit-form__input {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 24px;
+
+		label {
+			margin-bottom: 8px;
+			font-size: 16px;
+			color: $light-dark-color;
+		}
+		input {
+			height: 44px;
+			margin-right: 5px;
+			padding: 10px 16px;
+			border: 1px solid rgb(237, 237, 237);
+			border-radius: 3px;
+			color: rgb(34, 34, 34);
+			font-size: 16px;
+			font-weight: 300;
+			line-height: 24px;
+			transition: all 150ms ease-out 0s;
+
+			&:disabled {
+				background-color: #fcfcfc;
+				color: #cccccc;
+			}
+		}
+
+		
+		#edit-form__email-input {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		.edit-form__input__main {
+			display: flex;
+			justify-content: space-between;
+
+
+			.edit-form__edit-btn, 
+			.edit-form__confirm-btn {
+				width: 65px;
+				background-color: #fff;
+				border: 1.5px solid #ededed;
+				border-radius: 3px;
+				color: $light-dark-color;
+				cursor: pointer;
+			}
+		}
+
+		#signup-password-input {
+			margin-bottom: 10px;
+		}
+	}
+
+	.edit-form__btn {
+		display: flex;
+		justify-content: flex-end;
+
+		.drop-btn {
+			border: none;
+			background-color: transparent;
+			font-weight: 400;
+			transition: all 0.15s;
+			cursor: pointer;
+
+			&:hover {
+				color: red;
+			}
+		}
+	}
+}

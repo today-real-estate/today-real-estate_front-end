@@ -1,0 +1,249 @@
+$light-grey-color: #979797;
+
+.recommendation-container {
+	margin: 100px 0;
+
+	.recommendation-container__inner {
+		max-width: 1100px;
+		min-width: 900px;
+		margin: 0 auto;
+		padding: 0 10px;
+
+		.recommendation__header {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 24px;
+
+			.header__title {
+				display: flex;
+				align-items: center;
+				color: rgb(34, 34, 34);
+
+				h1 {
+					margin-bottom: 0;
+					font-size: 28px;
+					font-weight: 300;
+					line-height: 36px;
+
+					strong {
+						font-weight: 700;
+					}
+				}
+
+				span {
+					margin-left: 8px;
+					font-size: 13px;
+					font-weight: 300;
+					color: rgb(134, 134, 134);
+				}
+			}
+			.header__more-btn {
+				display: flex;
+				align-items: center;
+				margin-left: auto;
+				background-color: transparent;
+				border: none;
+				font-size: 15px;
+				font-weight: 300;
+				line-height: 22px;
+				color: rgb(101, 101, 101);
+				cursor: pointer;
+			}
+		}
+
+		.skeletons {
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+
+			.recommendation__loading-spin {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				width: 62.13px;
+				height: 58px;
+
+			}
+			
+			.skeletons__item {
+				.skeletons__images {
+					width: 260px;
+					height: 180px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__name {
+					width: 180px;
+					height: 19px;
+					margin-top: 20px;
+					margin-bottom: 4px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__price {
+					width: 240px;
+					height: 29px;
+					margin-bottom: 4px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+				.skeletons__desc {
+					width: 240px;
+					height: 14px;
+					border-radius: 3px;
+					background-color: #e8e8e8;
+				}
+			}
+		}
+
+		.recommendation__list {
+			display: flex;
+			justify-content: center;
+
+			.list__apt {
+				overflow: hidden;
+				width: 260px;
+				margin: 0 10px;
+				cursor: pointer;
+				
+				&:hover {
+					.apt__images {
+						img {
+							transform: scale(1.15);
+						}
+					}
+				}
+				
+				.apt__images {
+					width: 260px;
+					height: 180px;
+					overflow: hidden;
+					
+					img {
+						width: 260px;
+						height: 180px;
+						transition: all 150ms ease-out 0s;
+					}
+				}
+
+				.apt__apt-info {
+					margin-top: 20px;
+
+					.apt-info__name {
+						display: flex;
+						align-items: center;
+						margin-bottom: 4px;
+						font-size: 14px;
+						font-weight: 300;
+						line-height: 19px;
+						color: rgb(34, 34, 34);
+					}
+					.apt-info__price {
+						margin-bottom: 4px;
+						font-size: 20px;
+						line-height: 29px;
+						color: rgb(34, 34, 34);
+					}
+					.apt-info__build-year,
+					.apt-info__address {
+						overflow: hidden;
+						margin-bottom: 0;
+						font-size: 14px;
+						font-weight: 200;
+						line-height: 20px;
+						color: rgb(34, 34, 34);
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+		.recommendation__no-list {
+			padding: 80px 0;
+
+			i {
+				display: block;
+				margin: 0 auto 20px;
+				font-size: 50px;
+				color: $light-grey-color;
+			}
+			h1 {
+				margin-bottom: 0;
+				font-size: 26px;
+				font-weight: 400;
+				color: $light-grey-color;
+				text-align: center;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.recommendation-container {
+		.recommendation-container__inner {
+			.recommendation__list {
+				.list__apt {
+					width: 240px;
+
+					.apt__images {
+						width: 240px;
+					}
+				}
+			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
+						width: 240px;
+					}
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 1025px) {
+	.recommendation-container {
+		.recommendation-container__inner {
+			.recommendation__list {
+				.list__apt {
+					width: 220px;
+
+					.apt__images {
+						width: 220px;
+					}
+				}
+			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
+						width: 220px;
+					}
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 950px) {
+	.recommendation-container {
+		.recommendation-container__inner {
+			.recommendation__list {
+				.list__apt {
+					width: 200px;
+
+					.apt__images {
+						width: 200px;
+					}
+				}
+			}
+			.skeletons {
+				.skeletons__item {
+					.skeletons__images {
+						width: 200px;
+					}
+				}
+			}
+		}
+	}
+}

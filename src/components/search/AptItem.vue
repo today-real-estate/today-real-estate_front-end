@@ -68,9 +68,6 @@ export default {
 			type: Number,
 		},
 	},
-	data() {
-		return {};
-	},
 	computed: {
 		...mapState('userStore', ['likedAptCodes']),
 		...mapGetters('searchStore', [
@@ -79,28 +76,6 @@ export default {
 			'getSelectedItem',
 		]),
 		...mapGetters('userStore', ['isLogin', 'getId']),
-	},
-	filters: {
-		convertAptPrice(price) {
-			const _price = price.trim();
-
-			if (_price.length <= 5) {
-				const thousand = price.replace(',', '');
-
-				return thousand;
-			}
-
-			const hundredMillion = _price.substring(0, _price.length - 5);
-			const thousand = parseInt(
-				_price.substring(_price.length - 5).replace(',', ''),
-			);
-			const convertedPrice =
-				thousand === 0
-					? `${hundredMillion}억`
-					: `${hundredMillion}억 ${thousand}`;
-
-			return convertedPrice;
-		},
 	},
 	methods: {
 		...mapMutations('searchStore', ['SELECT_ITEM', 'ON_LIKED', 'OFF_LIKED']),

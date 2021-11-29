@@ -103,28 +103,6 @@ export default {
 		...mapState('searchStore', ['loading']),
 		...mapGetters('userStore', ['isLogin', 'getId', 'getRecentSearch']),
 	},
-	filters: {
-		convertAptPrice(price) {
-			const _price = price.trim();
-
-			if (_price.length <= 5) {
-				const thousand = price.replace(',', '');
-
-				return thousand;
-			}
-
-			const hundredMillion = _price.substring(0, _price.length - 5);
-			const thousand = parseInt(
-				_price.substring(_price.length - 5).replace(',', ''),
-			);
-			const convertedPrice =
-				thousand === 0
-					? `${hundredMillion}억`
-					: `${hundredMillion}억 ${thousand}`;
-
-			return convertedPrice;
-		},
-	},
 	created() {
 		this.getRecommendations();
 	},

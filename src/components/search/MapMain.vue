@@ -26,63 +26,6 @@
 								:apt="apt"
 								:index="index"
 							/>
-							<!-- <li
-								class="list__item"
-								v-for="apt in getAptList"
-								:key="apt.aptCode"
-							>
-								<div class="item__info">
-									<div class="info__image">
-										<AIcon
-											v-if="likedStatus[171]"
-											type="heart"
-											@click="removeLikedItem(apt.aptCode)"
-											theme="filled"
-											style="color: #f44336"
-										/>
-										<AIcon
-											v-else
-											type="heart"
-											@click="addLikedItem(apt.aptCode)"
-											style="color: #f44336"
-										/>
-										<img :src="apt.img" :alt="apt.aptName" />
-									</div>
-									<div class="info__desc" @click="SELECT_ITEM(apt)">
-										<p class="desc__price">
-											매매 {{ apt.recentPrice | convertAptPrice }}
-										</p>
-										<h1 class="desc__title">아파트 · {{ apt.aptName }}</h1>
-										<p class="desc__sub-desc">
-											건축연도: {{ apt.buildYear }}년
-										</p>
-										<p class="desc__sub-desc">
-											{{ apt.gugunName }} {{ apt.dongName }}
-										</p>
-										<div class="desc__badges">
-											<p class="badges__confirm-status">확인매물 21.11.09.</p>
-											<p
-												class="badges__lowest-price"
-												v-if="
-													getLowestPrice !== getHighestPrice &&
-													apt.recentPrice === getLowestPrice
-												"
-											>
-												최저가 검색 매물
-											</p>
-											<p
-												class="badges__highest-price"
-												v-if="
-													getLowestPrice !== getHighestPrice &&
-													apt.recentPrice === getHighestPrice
-												"
-											>
-												최고가 검색 매물
-											</p>
-										</div>
-									</div>
-								</div>
-							</li> -->
 						</ul>
 						<div v-else key="app-list" class="content_no-list">
 							<AIcon type="home" />
@@ -193,11 +136,6 @@ export default {
 			return convertedPrice;
 		},
 	},
-	// beforeRouteLeave(to, from, next) {
-	// 	next((vm) => {
-	// 		vm.BACK_TO_ITEM_LIST();
-	// 	});
-	// },
 	methods: {
 		...mapMutations('searchStore', [
 			'SELECT_ITEM',

@@ -1,36 +1,36 @@
 .not-found-container {
+	overflow: hidden;
 	width: 100vw;
 	height: 100vh;
-	overflow: hidden;
 	background: #019cdc;
 }
 section.tv-404-animation {
+	position: relative;
 	max-width: 1100px;
 	min-width: 900px;
 	height: 100vh;
-	background: #019cdc;
-	background: linear-gradient(to right, #019cdc 0, #219be6 100%);
-	position: relative;
 	margin: 0 auto;
 	padding: 100px 0;
+	background: #019cdc;
+	background: linear-gradient(to right, #019cdc 0, #219be6 100%);
 }
 h2.tv-title-404-tm {
-	font-size: 72px;
-	color: #fff;
-	font-weight: 600;
 	margin-bottom: 50px;
+	font-size: 72px;
+	font-weight: 600;
+	color: #fff;
 }
 h3.tv-subtitle-404-tm {
-	font-size: 42px;
-	color: #fff;
-	font-weight: 300;
 	margin-bottom: 30px;
+	font-size: 42px;
+	font-weight: 300;
+	color: #fff;
 }
 p.tv-text-404-tm {
+	margin-bottom: 30px;
 	font-size: 22px;
 	font-weight: 500;
 	color: #e8e8e8;
-	margin-bottom: 30px;
 }
 .tv-404-animation a {
 	font-size: 18px;
@@ -44,11 +44,11 @@ p.tv-text-404-tm {
 	}
 }
 svg {
+	display: block;
 	width: 100%;
 	max-width: 720px;
 	height: auto;
 	margin: 0 auto;
-	display: block;
 	transform-origin: 50% 100%;
 	-moz-transform-origin: 50% 100%;
 	animation: appear 1s 1;

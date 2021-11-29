@@ -1,0 +1,142 @@
+$blue-color: #326cf9;
+$light-blue-color: #adc4fc;
+$orange-color: #ff9800;
+$light-orange-color: #ffd599;
+$light-dark-color: #3a3a3a;
+$light-grey-color: #979797;
+
+.list__item {
+	display: flex;
+	border-bottom: 1px solid rgb(231, 231, 231);
+	cursor: pointer;
+
+	.item__info {
+		display: flex;
+		flex-grow: 1;
+		align-items: flex-start;
+		padding: 16px 15px;
+		background-color: rgb(255, 255, 255);
+		user-select: none;
+		transition: all 150ms ease-out 0s;
+
+		&:hover {
+			background-color: #fff8e6;
+
+			.info__image {
+				img {
+					transform: scale(1.15);
+				}
+			}
+		}
+
+		.info__image {
+      flex: 0 0 auto;
+			overflow: hidden;
+			position: relative;
+			width: 140px;
+			height: 140px;
+			min-height: 140px;
+			border-radius: 3px;
+
+			i {
+				position: absolute;
+				right: 0;
+				z-index: 10;
+				margin: 8px;
+				font-size: 26px;
+				transition: all 0.15s;
+			}
+			img {
+				width: 140px;
+				height: 140px;
+				min-height: 140px;
+				border-radius: 3px;
+				transition: all 150ms ease-out 0s;
+			}
+		}
+
+		.info__desc {
+			display: flex;
+			flex-grow: 1;
+			flex-direction: column;
+			width: 0px;
+			height: 140px;
+			padding-left: 20px;
+			text-overflow: ellipsis;
+
+			.desc__price {
+				height: 27px;
+				margin-bottom: 4px;
+				font-size: 20px;
+				font-weight: 600;
+				line-height: 27px;
+				color: rgb(34, 34, 34);
+				text-overflow: ellipsis;
+			}
+			.desc__title {
+				overflow: hidden;
+				margin-bottom: 8px;
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 19px;
+				color: rgb(34, 34, 34);
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.desc__sub-desc {
+				overflow: hidden;
+				margin-bottom: 0;
+				font-size: 14px;
+				font-weight: 200;
+				line-height: 20px;
+				color: rgb(34, 34, 34);
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.desc__badges {
+				display: flex;
+				flex: 0 0 auto;
+				align-items: center;
+				margin-top: auto;
+
+				.badges__confirm-status {
+					width: 100px;
+					height: 20px;
+					margin-right: 5px;
+					margin-bottom: 0;
+					padding: 0px 5px;
+					border: 1px solid $light-orange-color;
+					border-radius: 3px;
+					background-color: rgb(255, 255, 255);
+					font-size: 11px;
+					font-weight: 300;
+					line-height: 18px;
+					color: $orange-color;
+					text-align: center;
+					letter-spacing: -0.2px;
+				}
+				.badges__lowest-price,
+				.badges__highest-price {
+					height: 20px;
+					margin-bottom: 0;
+					padding: 0px 5px;
+					border-radius: 2px;
+					background-color: rgb(255, 255, 255);
+					font-size: 11px;
+					font-weight: 400;
+					line-height: 18px;
+					text-align: center;
+					letter-spacing: -0.2px;
+				}
+				.badges__lowest-price {
+					border: 1px solid $light-blue-color;
+					color: $blue-color;
+				}
+				.badges__highest-price {
+					border: 1px solid rgb(255, 202, 199);
+					color: rgb(244, 98, 91);
+				}
+			}
+		}
+	}
+}

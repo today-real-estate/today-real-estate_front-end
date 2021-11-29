@@ -41,8 +41,8 @@ $light-grey-color: #979797;
 				display: flex;
 				align-items: center;
 				margin-left: auto;
-				background-color: transparent;
 				border: none;
+				background-color: transparent;
 				font-size: 15px;
 				font-weight: 300;
 				line-height: 22px;
@@ -62,12 +62,11 @@ $light-grey-color: #979797;
 				left: 0;
 				right: 0;
 				bottom: 0;
-				margin: auto;
 				width: 62.13px;
 				height: 58px;
-
+				margin: auto;
 			}
-			
+
 			.skeletons__item {
 				.skeletons__images {
 					width: 260px;
@@ -108,7 +107,7 @@ $light-grey-color: #979797;
 				width: 260px;
 				margin: 0 10px;
 				cursor: pointer;
-				
+
 				&:hover {
 					.apt__images {
 						img {
@@ -116,12 +115,12 @@ $light-grey-color: #979797;
 						}
 					}
 				}
-				
+
 				.apt__images {
+					overflow: hidden;
 					width: 260px;
 					height: 180px;
-					overflow: hidden;
-					
+
 					img {
 						width: 260px;
 						height: 180px;

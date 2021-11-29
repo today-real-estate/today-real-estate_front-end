@@ -13,8 +13,8 @@ $blue: #326cf9;
 		padding-bottom: 24px;
 		border-bottom: 1.5px solid #f5f5f5;
 		font-size: 30px;
-		color: $light-dark;
 		line-height: 48px;
+		color: $light-dark;
 	}
 
 	.login-form__desc {
@@ -39,10 +39,10 @@ $blue: #326cf9;
 			border: 1px solid rgb(237, 237, 237);
 			border-radius: 3px;
 			background-color: rgb(255, 255, 255);
-			color: rgb(34, 34, 34);
 			font-size: 16px;
 			font-weight: 300;
 			line-height: 24px;
+			color: rgb(34, 34, 34);
 			transition: all 150ms ease-out 0s;
 
 			&:hover {
@@ -71,9 +71,9 @@ $blue: #326cf9;
 			}
 
 			label {
-				color: $light-grey;
 				font-size: 16px;
 				font-weight: 300;
+				color: $light-grey;
 			}
 		}
 		.btn-group__nav {
@@ -101,8 +101,8 @@ $blue: #326cf9;
 	.login-form__submit-btn {
 		width: 100%;
 		min-width: 80px;
-		padding: 0px 16px;
 		height: 56px;
+		padding: 0px 16px;
 		border: 1px solid rgb(50, 108, 249);
 		border-radius: 3px;
 		background-color: rgba(50, 108, 249, 0.9);

@@ -27,10 +27,10 @@ $blue-color: #326cf9;
 			justify-content: center;
 
 			.links__title {
-				font-size: 20px;
-				font-weight: 500;
 				margin-bottom: 40px;
 				margin-left: 4px;
+				font-size: 20px;
+				font-weight: 500;
 
 				strong {
 					color: $blue-color;
@@ -38,6 +38,7 @@ $blue-color: #326cf9;
 			}
 			.links__links-group {
 				display: flex;
+
 				.links-group__link-btn {
 					img {
 						width: 190px;

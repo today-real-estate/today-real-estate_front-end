@@ -23,7 +23,7 @@
 
 ## 💁 웹 서비스 소개
 
-[공공 데이터 포탈](https://www.data.go.kr/data/15057511/openapi.do)에서 제공하는 아파트 실거래가 데이터를 활용하여 사용자가 이사를 하고자 하는 동네에서의 아파트 매매가 정보 및 주변 편의 시설 정보를 제공하는 **부동산 서비스**
+[공공 데이터 포탈](https://www.data.go.kr/data/15057511/openapi.do)에서 제공하는 아파트 실거래가 데이터를 활용하여 사용자가 이사를 하고자 하는 동네에서의 아파트 매매 정보 및 주변 편의 시설 정보를 제공하는 **부동산 서비스**
 
 <br />
 
@@ -112,12 +112,12 @@
   <tr>
     <td align="center">
       <a href="https://github.com/JeongHwan-dev">
-        <img src="https://avatars.githubusercontent.com/u/68452755?v=4" alt="박정환 프로필" width="100px" />
+        <img src="https://avatars.githubusercontent.com/u/68452755?v=4" alt="박정환 프로필" width="150px" />
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/jhj960918">
-        <img src="https://avatars.githubusercontent.com/u/65895403?v=4" alt="진형준 프로필" width="100px" />
+        <img src="https://avatars.githubusercontent.com/u/65895403?v=4" alt="진형준 프로필" width="150px" />
       </a>
     </td>
   </tr>

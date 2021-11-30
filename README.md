@@ -116,7 +116,7 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/alveloper">
+      <a href="https://github.com/jhj960918">
         <img src="https://avatars.githubusercontent.com/u/65895403?v=4" alt="진형준 프로필" width="100px" />
       </a>
     </td>
@@ -128,7 +128,7 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/alveloper">
+      <a href="https://github.com/jhj960918">
         진형준<br />(Back-end)
       </a>
     </td>

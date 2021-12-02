@@ -92,6 +92,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import { fetchRecommendations } from '@/api/search';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -146,7 +147,14 @@ export default {
 
 				this.$router.push('/search');
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async linkSearchPageWithData(apt) {
@@ -169,7 +177,14 @@ export default {
 				this.SELECT_ITEM(apt);
 				this.$router.push('/search');
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		moveSearchPage() {

@@ -23,6 +23,7 @@
 <script>
 import { fetchNewsList } from '@/api/news';
 import NewsItem from '@/components/news/NewsItem.vue';
+import Swal from 'sweetalert2';
 
 export default {
 	components: {
@@ -58,7 +59,14 @@ export default {
 
 				this.newsList = this.division(filteredNewsList, 6);
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

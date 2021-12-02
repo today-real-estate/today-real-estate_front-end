@@ -79,8 +79,6 @@ export default {
 
 				this.$router.push('/');
 			} catch (error) {
-				console.log(error);
-
 				Swal.fire({
 					position: 'center',
 					icon: 'warning',

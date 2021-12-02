@@ -161,8 +161,6 @@ export default {
 
 				this.$router.push('/account/inquiry-list');
 			} catch (error) {
-				console.log(error);
-
 				Swal.fire({
 					position: 'center',
 					icon: 'error',

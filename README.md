@@ -27,7 +27,7 @@
 
 <br />
 
-[**🔗 '오늘의 부동산' Back-end 저장소로 바로가기 Click !**](https://github.com/today-real-estate/today-real-estate_back-end.git) 👈
+[**🔗 '오늘의 부동산' Back-end 저장소로 바로가기 Click !**](https://github.com/today-real-estate/today-real-estate_back-end) 👈
 
 > 새 창 열기 방법 : CTRL+click (on Windows and Linux) | CMD+click (on MacOS)
 

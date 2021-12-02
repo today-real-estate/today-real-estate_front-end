@@ -15,6 +15,7 @@
 import { fetchUserLikedList } from '@/api/account/accountLiked';
 import { mapGetters, mapMutations } from 'vuex';
 import LikedItem from '@/components/account/LikedItem.vue';
+import Swal from 'sweetalert2';
 
 export default {
 	components: {
@@ -39,7 +40,14 @@ export default {
 
 				this.SET_APT_LIST(data);
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

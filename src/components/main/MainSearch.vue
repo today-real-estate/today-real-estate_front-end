@@ -25,6 +25,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { putRecentSearch } from '@/api/user';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -66,7 +67,14 @@ export default {
 
 				this.$router.push('/search');
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

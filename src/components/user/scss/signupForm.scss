@@ -13,8 +13,8 @@ $lignt-gray: #f5f5f5;
 		padding-bottom: 24px;
 		border-bottom: 1.5px solid $lignt-gray;
 		font-size: 30px;
-		color: $light-dark;
 		line-height: 48px;
+		color: $light-dark;
 	}
 	.signup-form__desc {
 		padding: 32px 0 48px;
@@ -38,10 +38,10 @@ $lignt-gray: #f5f5f5;
 			border: 1px solid rgb(237, 237, 237);
 			border-radius: 3px;
 			background-color: rgb(255, 255, 255);
-			color: rgb(34, 34, 34);
 			font-size: 16px;
 			font-weight: 300;
 			line-height: 24px;
+			color: rgb(34, 34, 34);
 			transition: all 150ms ease-out 0s;
 
 			&:hover {
@@ -70,9 +70,9 @@ $lignt-gray: #f5f5f5;
 			}
 
 			.user-email-auth-btn {
-				background-color: #f5f5f5;
 				border: 1.5px solid #ededed;
 				border-radius: 3px;
+				background-color: #f5f5f5;
 				color: $light-dark;
 				cursor: pointer;
 			}
@@ -94,9 +94,9 @@ $lignt-gray: #f5f5f5;
 	.signup-form__submit-btn {
 		width: 100%;
 		min-width: 80px;
+		height: 56px;
 		margin-top: 32px;
 		padding: 0px 16px;
-		height: 56px;
 		border: 1px solid rgb(50, 108, 249);
 		border-radius: 3px;
 		background-color: rgba(50, 108, 249, 0.9);

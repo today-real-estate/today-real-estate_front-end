@@ -13,14 +13,14 @@ $light-grey-color: #979797;
   height: 84.5vh;
 
   .main__side-bar {
-    flex: 0 0 auto;
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
+    overflow: hidden;
+    position: relative;
     width: 400px;
     height: 100%;
     border-right: 1px solid rgb(231, 231, 231);
-    position: relative;
-    overflow: hidden;
 
     .side-bar__header {
       display: flex;
@@ -31,15 +31,15 @@ $light-grey-color: #979797;
 
       span {
         padding: 0px 14px;
-        color: rgb(34, 34, 34);
         font-size: 16px;
         font-weight: 400;
+        color: rgb(34, 34, 34);
       }
 
       .header__back-btn {
         padding: 0px 10px;
-        background-color: transparent;
         border: none;
+        background-color: transparent;
         font-size: 18px;
         font-weight: 500;
         color: $light-dark-color;
@@ -87,10 +87,10 @@ $light-grey-color: #979797;
 
       .content__list {
         flex-grow: 1;
-        width: 100%;
-        height: 77vh;
         overflow-y: auto;
         overflow-x: hidden;
+        width: 100%;
+        height: 77vh;
 
         .list__item {
           display: flex;
@@ -110,7 +110,6 @@ $light-grey-color: #979797;
               background-color: #fff8e6;
 
               .info__image {
-
                 img {
                   transform: scale(1.15);
                 }
@@ -128,9 +127,9 @@ $light-grey-color: #979797;
 
               i {
                 position: absolute;
-                margin: 8px;
                 right: 0;
                 z-index: 10;
+                margin: 8px;
                 font-size: 26px;
                 color: #fff;
                 transition: all 0.15s;
@@ -146,13 +145,11 @@ $light-grey-color: #979797;
                 border-radius: 3px;
                 transition: all 150ms ease-out 0s;
               }
-
-
             }
 
             .info__desc {
-              flex-grow: 1;
               display: flex;
+              flex-grow: 1;
               flex-direction: column;
               width: 0px;
               height: 140px;
@@ -189,8 +186,8 @@ $light-grey-color: #979797;
                 white-space: nowrap;
               }
               .desc__badges {
-                flex: 0 0 auto;
                 display: flex;
+                flex: 0 0 auto;
                 align-items: center;
                 margin-top: auto;
 
@@ -239,8 +236,8 @@ $light-grey-color: #979797;
 
       .content__detail {
         .detail__image {
-          height: 300px;
           overflow: hidden;
+          height: 300px;
 
           img {
             width: 100%;
@@ -248,9 +245,9 @@ $light-grey-color: #979797;
           }
 
           #roadview {
+            position: relative;
             width: 100%;
             height: 250px;
-            position: relative;
           }
 
           .image__road-view-btn {
@@ -327,7 +324,5 @@ $light-grey-color: #979797;
     position: relative;
     z-index: 10;
   }
-
-
 }
 

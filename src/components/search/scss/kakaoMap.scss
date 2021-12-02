@@ -26,15 +26,15 @@ $light-grey-color: #979797;
 
 
 #category {
+	overflow: hidden;
 	position: absolute;
 	top: 10px;
 	left: 10px;
+	z-index: 2;
 	border-radius: 5px;
 	border: none;
 	box-shadow: rgb(0 0 0 / 15%) 0px 2px 2px 0px;
 	background: #fff;
-	overflow: hidden;
-	z-index: 2;
 }
 #category li {
 	float: left;
@@ -115,13 +115,13 @@ $light-grey-color: #979797;
 	box-shadow: 0px 1px 2px #888;
 }
 .placeinfo_wrap .after {
-	content: '';
 	position: relative;
-	margin-left: -12px;
 	left: 50%;
 	width: 22px;
 	height: 12px;
+	margin-left: -12px;
 	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+	content: '';
 }
 .placeinfo a,
 .placeinfo a:hover,
@@ -132,29 +132,29 @@ $light-grey-color: #979797;
 .placeinfo a,
 .placeinfo span {
 	display: block;
-	text-overflow: ellipsis;
 	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 .placeinfo span {
-	cursor: default;
 	font-size: 13px;
 	padding: 10px 20px 0 20px;
+	cursor: default;
 }
 .placeinfo .title {
-	font-weight: bold;
-	font-size: 14px;
-	border-radius: 5px 5px 0 0;
 	margin: -1px -1px 0 -1px;
 	padding: 10px 15px;
-	color: #fff;
+	border-radius: 5px 5px 0 0;
 	background: $blue-color
 		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
 		no-repeat right 14px center;
+	font-weight: bold;
+	font-size: 14px;
+	color: #fff;
 }
 .placeinfo .tel {
-	color: $light-blue-color;
 	padding-bottom: 10px;
+	color: $light-blue-color;
 }
 .placeinfo .jibun {
 	margin-top: 0;
@@ -165,29 +165,27 @@ $light-grey-color: #979797;
 }
 
 .wrap {
+	overflow: hidden;
 	position: absolute;
 	left: 0;
+	z-index: 50;
 	bottom: 40px;
 	width: 288px;
-	// height: 132px;
 	margin-left: -144px;
-	text-align: left;
-	overflow: hidden;
 	font-size: 12px;
 	line-height: 1.5;
-	z-index: 50;
+	text-align: left;
 }
 .wrap * {
 	padding: 0;
 	margin: 0;
 }
 .wrap .info {
+	overflow: hidden;
 	width: 286px;
-	// height: 120px;
 	border-radius: 5px;
 	border-bottom: 2px solid #ccc;
 	border-right: 1px solid #ccc;
-	overflow: hidden;
 	background: #fff;
 }
 .wrap .info:nth-child(1) {
@@ -206,31 +204,29 @@ $light-grey-color: #979797;
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	color: #888;
 	width: 17px;
 	height: 17px;
+	color: #888;
 }
 .info .close:hover {
 	cursor: pointer;
 }
 .info .body {
-	position: relative;
-	overflow: hidden;
-	padding: 10px 20px;
 	display: flex;
+	overflow: hidden;
+	position: relative;
+	padding: 10px 20px;
 }
 .info .desc {
 	display: flex;
-	flex-direction: column;
 	justify-content: space-between;
+	flex-direction: column;
 	position: relative;
-	// margin: 13px 0 0 90px;
-	// height: 75px;
 }
 .desc .price {
 	font-size: 20px;
-	color: $light-yellow-color;
 	font-weight: 500;
+	color: $light-yellow-color;
 }
 .desc .address {
 	display: flex;
@@ -261,13 +257,13 @@ $light-grey-color: #979797;
 	}
 }
 .info:after {
-	content: '';
 	position: absolute;
-	margin-left: -12px;
 	left: 50%;
 	bottom: 0;
 	width: 22px;
 	height: 12px;
-	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+	margin-left: -12px;
+	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+	content: '';
 }
 

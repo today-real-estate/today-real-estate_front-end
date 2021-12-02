@@ -13,28 +13,11 @@
 		</div>
 	</div>
 </template>
+
 <script>
 export default {};
 </script>
+
 <style lang="scss" scoped>
-.event-banner-container {
-	background-color: #d9f1fd;
-
-	.event-banner-container__inner {
-		max-width: 1100px;
-		min-width: 900px;
-		margin: 0 auto;
-
-		a {
-			cursor: pointer;
-
-			img {
-				max-width: 1100px;
-				min-width: 900px;
-				margin: 0 auto;
-				text-align: center;
-			}
-		}
-	}
-}
+@import './scss/eventBanner.scss';
 </style>

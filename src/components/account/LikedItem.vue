@@ -33,6 +33,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { postLikedItem, deleteLikedItem } from '@/api/user';
+import Swal from 'sweetalert2';
 
 export default {
 	props: {
@@ -46,28 +47,6 @@ export default {
 	},
 	computed: {
 		...mapGetters('userStore', ['isLogin', 'getId']),
-	},
-	filters: {
-		convertAptPrice(price) {
-			const _price = price.trim();
-
-			if (_price.length <= 5) {
-				const thousand = price.replace(',', '');
-
-				return `${thousand}천만`;
-			}
-
-			const hundredMillion = _price.substring(0, _price.length - 5);
-			const thousand = parseInt(
-				_price.substring(_price.length - 5).replace(',', ''),
-			);
-			const convertedPrice =
-				thousand === 0
-					? `${hundredMillion}억`
-					: `${hundredMillion}억 ${thousand}`;
-
-			return convertedPrice;
-		},
 	},
 	created() {
 		const userData = {
@@ -109,7 +88,14 @@ export default {
 				this.SELECT_ITEM(apt);
 				this.$router.push('/search');
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},

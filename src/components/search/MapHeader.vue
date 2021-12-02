@@ -74,6 +74,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import { putRecentSearch } from '@/api/user';
 import EventBus from '@/utils/eventBus';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -118,7 +119,14 @@ export default {
 			try {
 				await this.GET_SIDO_LIST();
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async getGugunList(sidoCode) {
@@ -129,7 +137,14 @@ export default {
 			try {
 				await this.GET_GUGUN_LIST(sidoData);
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async getDongList(gugunCode) {
@@ -140,7 +155,14 @@ export default {
 			try {
 				await this.GET_DONG_LIST(gugunData);
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async getAptListByGugun(gugunCode) {
@@ -162,7 +184,14 @@ export default {
 
 				this.BACK_TO_ITEM_LIST();
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async getAptListByDong(dongCode) {
@@ -184,7 +213,14 @@ export default {
 
 				this.BACK_TO_ITEM_LIST();
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		async searchAptListByDong() {
@@ -222,7 +258,14 @@ export default {
 					this.SET_RECENT_SEARCH(this.searchDongName);
 				}
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 		selectSido() {

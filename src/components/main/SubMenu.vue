@@ -52,6 +52,7 @@
 </template>
 <script>
 import { fetchNewsList } from '@/api/news';
+import Swal from 'sweetalert2';
 
 export default {
 	data() {
@@ -68,7 +69,14 @@ export default {
 				const { data } = await fetchNewsList();
 				this.newsList = data.splice(0, 5);
 			} catch (error) {
-				console.log(error);
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					width: 350,
+					title: `<div style="font-size: 18px; font-family: "Spoqa Han Sans Neo", "sans-serif"; ">${error}<div>`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
 			}
 		},
 	},
